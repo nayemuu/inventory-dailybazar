@@ -1,16 +1,18 @@
+import TestSection from '../../components/pages/Test/TestSection';
 import Navbar from '../../components/reuseable/Navbar/Navbar';
+import SectionTitle from '../../components/reuseable/Section/SectionTitle/SectionTitle';
 import SidebarContainer from '../../components/reuseable/Sidebar/SidebarContainer';
 
-const Home = () => {
+const Test = () => {
   return (
     <div>
       <SidebarContainer>
         <Navbar />
+
         <div className="main-content">
           <div className="container">
-            <h1 className="text-3xl font-bold underline text-green-600">
-              Home
-            </h1>
+            <SectionTitle>Demo</SectionTitle>
+            <TestSection />
           </div>
         </div>
       </SidebarContainer>
@@ -18,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Test;

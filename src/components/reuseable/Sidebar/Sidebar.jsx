@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SidebarAccordianHeader from './SidebarAccordian/SidebarAccordianHeader/SidebarAccordianHeader';
 import { IoCloseOutline } from 'react-icons/io5';
 import { RxDashboard } from 'react-icons/rx';
 import { useSelector } from 'react-redux';
+import { FaQuestion } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
   const { status: sidebarStatus } = useSelector((state) => state.sidebar);
   const [activeIndex, setActiveIndex] = useState(null);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [transition, setTransition] = useState(false);
+
+  const location = useLocation();
+  const { pathname } = location;
 
   const handleActiveIndex = (index) => {
     if (!activeIndex || activeIndex !== index) {
@@ -19,6 +24,16 @@ const Sidebar = () => {
       setActiveIndex(null);
     }
   };
+
+  useEffect(() => {
+    if (pathname === '/') {
+      setActiveIndex(1);
+    }
+
+    if (pathname === '/test') {
+      setActiveIndex(21);
+    }
+  }, []);
 
   return (
     <div
@@ -47,6 +62,20 @@ const Sidebar = () => {
           >
             <RxDashboard />
             Dashboard
+          </SidebarAccordianHeader>
+        </div>
+
+        <div>
+          <SidebarAccordianHeader
+            activeIndex={activeIndex}
+            index={21}
+            handleClick={() => handleActiveIndex(21)}
+            dropdown={false}
+            link="/test"
+            transition={transition}
+          >
+            <FaQuestion />
+            Test
           </SidebarAccordianHeader>
         </div>
       </div>
