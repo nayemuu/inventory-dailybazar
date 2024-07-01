@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
+
 *,
 *:after,
 *:before {
@@ -15,7 +16,7 @@
   --text-color: #637381;
   --white-color: #fff;
   --black-color: #000;
-  --primary-font: 'Figtree', sans-serif;
+  --primary-font: 'Rubik', sans-serif;
 }
 
 html {
@@ -40,4 +41,9 @@ body {
 .main-content {
   min-height: 100vh;
   margin-top: 3vh;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
 }

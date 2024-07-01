@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 
 const SidebarContainer = ({ children }) => {
   const { status: sidebarStatus } = useSelector((state) => state.sidebar);
-  console.log('sidebarStatus = ', sidebarStatus);
+  // console.log('sidebarStatus = ', sidebarStatus);
   return (
     <div>
       <Sidebar />

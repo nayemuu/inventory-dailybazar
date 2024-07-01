@@ -1,7 +1,7 @@
 import Navbar from '../../components/reuseable/Navbar/Navbar';
 import SidebarContainer from '../../components/reuseable/Sidebar/SidebarContainer';
 
-const Home = () => {
+const Orders = () => {
   return (
     <div>
       <SidebarContainer>
@@ -9,7 +9,7 @@ const Home = () => {
         <div className="main-content">
           <div className="container">
             <h1 className="text-3xl font-bold underline text-green-600">
-              Dashboard
+              Orders
             </h1>
           </div>
         </div>
@@ -18,4 +18,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Orders;

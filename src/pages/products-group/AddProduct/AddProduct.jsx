@@ -1,7 +1,8 @@
-import Navbar from '../../components/reuseable/Navbar/Navbar';
-import SidebarContainer from '../../components/reuseable/Sidebar/SidebarContainer';
+import React from 'react';
+import SidebarContainer from '../../../components/reuseable/Sidebar/SidebarContainer';
+import Navbar from '../../../components/reuseable/Navbar/Navbar';
 
-const Home = () => {
+const AddProduct = () => {
   return (
     <div>
       <SidebarContainer>
@@ -9,7 +10,7 @@ const Home = () => {
         <div className="main-content">
           <div className="container">
             <h1 className="text-3xl font-bold underline text-green-600">
-              Dashboard
+              AddProduct
             </h1>
           </div>
         </div>
@@ -18,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AddProduct;
