@@ -5,6 +5,7 @@ import './Navbar.css';
 import User from './mini-components/account/User/User';
 import { useDispatch } from 'react-redux';
 import { changeSidebarStatus } from '../../../redux/features/sidebar/sidebarSlice';
+import LoggedInUser from './mini-components/account/LoggedInUser/LoggedInUser';
 
 const Navbar = () => {
   const [fullScreen, setFullScreen] = useState(false);
@@ -60,7 +61,8 @@ const Navbar = () => {
               <BsFullscreen />
             </div>
 
-            <User />
+            {/* <User /> */}
+            <LoggedInUser />
           </div>
         </div>
       </div>
