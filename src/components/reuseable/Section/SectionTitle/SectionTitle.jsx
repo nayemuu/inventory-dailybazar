@@ -1,8 +1,8 @@
-import React from 'react';
-
-const SectionTitle = ({ children }) => {
+const SectionTitle = ({ children, additionalClass }) => {
   return (
-    <div className="text-[26px] leading-[28px] font-bold text-[#13264D] mb-5">
+    <div
+      className={`text-[24px] leading-[26px] font-bold text-[#13264D] ${additionalClass}`}
+    >
       {children}
     </div>
   );

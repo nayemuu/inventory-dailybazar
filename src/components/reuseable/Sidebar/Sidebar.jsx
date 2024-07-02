@@ -12,6 +12,7 @@ import SidebarAccordianItem from './SidebarAccordian/SidebarAccordianItem/Sideba
 import { isAnyPathMatches } from '../../../utils/sidebar-utils';
 import SidebarAccordianHeaderForSvg from './SidebarAccordian/SidebarAccordianHeaderForSvg/SidebarAccordianHeaderForSvg';
 import { changeSidebarStatus } from '../../../redux/features/sidebar/sidebarSlice';
+import './Sidebar.css';
 
 const Sidebar = () => {
   const { status: sidebarStatus } = useSelector((state) => state.sidebar);
@@ -41,11 +42,11 @@ const Sidebar = () => {
 
     if (
       isAnyPathMatches(pathname, [
-        '/productList',
-        'add-product',
-        'category',
-        'sub-category',
-        'location',
+        '/product-list',
+        '/add-product',
+        '/category',
+        '/sub-category',
+        '/location',
       ])
     ) {
       setActiveIndex(3);
@@ -60,7 +61,7 @@ const Sidebar = () => {
     <div
       className={`${
         sidebarStatus ? 'translate-x-0' : '-translate-x-full'
-      } fixed m-0 p-[8px] w-[250px] h-full border-r border-[#dce0e4] border-solid z-[2] transition-all duration-200 ease-linear bg-primary-light`}
+      } fixed m-0 p-[8px] w-[250px] h-full border-r border-[#dce0e4] border-solid z-[2] transition-all duration-200 ease-linear bg-primary-light overflow-y-auto sidebar-scrollbar`}
     >
       <div className="flex justify-end text-3xl hover:text-red-500 cursor-pointer md:hidden">
         <div onClick={() => dispatch(changeSidebarStatus())}>

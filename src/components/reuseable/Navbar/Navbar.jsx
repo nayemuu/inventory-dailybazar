@@ -47,7 +47,7 @@ const Navbar = () => {
       <div>
         <div className="flex items-center justify-between gap-5 relative">
           <div
-            className="text-xl font-bold cursor-pointer hover:text-primary bg-[#eeecec] p-2 rounded-md hover:bg-[#1B2850]/10"
+            className="w-[44px] h-[44px] flex justify-center items-center text-2xl font-bold text-[#637381] cursor-pointer hover:text-primary bg-[#eeecec] rounded-md hover:bg-[#1B2850]/10"
             onClick={sidebarHandler}
           >
             <FiMenu />
@@ -55,7 +55,8 @@ const Navbar = () => {
 
           <div className="flex items-center gap-5">
             <div
-              className="text-xl font-bold cursor-pointer hover:text-primary bg-[#eeecec] p-2 rounded-md hover:bg-[#1B2850]/10"
+              // className="text-xl font-bold cursor-pointer hover:text-primary bg-[#eeecec] p-2 rounded-md hover:bg-[#1B2850]/10"
+              className="w-[44px] h-[44px] flex justify-center items-center text-2xl font-bold text-[#637381] cursor-pointer hover:text-primary bg-[#eeecec] rounded-md hover:bg-[#1B2850]/10"
               onClick={handleScreenSize}
             >
               <BsFullscreen />

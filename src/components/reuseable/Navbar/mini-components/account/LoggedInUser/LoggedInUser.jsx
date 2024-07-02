@@ -48,7 +48,7 @@ const LoggedInUser = () => {
   return (
     <div className="relative" ref={UserDropdownContainerRef}>
       <div
-        className="w-[40px] h-[40px] rounded-full bg-primary flex justify-center items-center text-[24px] font-bold text-white hover:bg-primary-deep cursor-pointer"
+        className="w-[44px] h-[44px] rounded-full bg-primary flex justify-center items-center text-[28px] font-bold text-white hover:bg-primary-deep cursor-pointer"
         onClick={() => {
           userDropdownHandler();
         }}

@@ -1,4 +1,5 @@
 import Navbar from '../../components/reuseable/Navbar/Navbar';
+import SectionTitle from '../../components/reuseable/Section/SectionTitle/SectionTitle';
 import SidebarContainer from '../../components/reuseable/Sidebar/SidebarContainer';
 
 const Orders = () => {
@@ -8,9 +9,7 @@ const Orders = () => {
         <Navbar />
         <div className="main-content">
           <div className="container">
-            <h1 className="text-3xl font-bold underline text-green-600">
-              Orders
-            </h1>
+            <SectionTitle additionalClass="mb-5">Orders</SectionTitle>
           </div>
         </div>
       </SidebarContainer>

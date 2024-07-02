@@ -11,7 +11,7 @@ const Test = () => {
 
         <div className="main-content">
           <div className="container">
-            <SectionTitle>Demo</SectionTitle>
+            <SectionTitle additionalClass="mb-5">Demo</SectionTitle>
             <TestSection />
           </div>
         </div>
