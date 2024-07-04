@@ -1,31 +1,31 @@
-import { useState } from 'react';
-import SectionHeaderActions from '../../reuseable/Section/SectionHeaderActions/SectionHeaderActions';
-import TestTable from './TestTable/TestTable';
-import TestForm from './TestForm/TestForm';
+import { useState } from "react";
+import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
+import TestTable from "./TestTable/TestTable";
+import TestForm from "./TestForm/TestForm";
 
 const TestSection = () => {
-  const [searchText, setSearchText] = useState('');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
+  const [searchText, setSearchText] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   let data = [
-    { id: 1, category: 'Baby food', location: 'Foodbox', status: 'pending' },
-    { id: 2, category: 'Skin Care', location: 'bodycare' },
-    { id: 3, category: 'Medicine', location: 'medicare' },
+    { id: 1, category: "Baby food", location: "Foodbox", status: "pending" },
+    { id: 2, category: "Skin Care", location: "bodycare" },
+    { id: 3, category: "Medicine", location: "medicare" },
   ];
 
   const handlePdf = () => {
-    console.log('inside handlePdf');
+    console.log("inside handlePdf");
   };
 
   const handleExcel = () => {
-    console.log('inside handleExcel');
+    console.log("inside handleExcel");
   };
 
   const handlePrint = () => {
-    console.log('inside handlePrint');
+    console.log("inside handlePrint");
   };
 
   const fileExportsOptions = {
@@ -67,6 +67,15 @@ const TestSection = () => {
           <TestForm />
         </div>
       </div>
+
+      {/* <div className="flex flex-col lg:flex-row gap-[40px] mt-6">
+        <div className="w-full basis-8/12">
+          <TestTable data={data} />
+        </div>
+        <div className="w-full basis-4/12">
+          <TestForm />
+        </div>
+      </div> */}
     </div>
   );
 };
