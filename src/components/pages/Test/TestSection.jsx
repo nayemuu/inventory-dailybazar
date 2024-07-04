@@ -59,7 +59,7 @@ const TestSection = () => {
         setToDate={setToDate}
       />
 
-      <div className="grid grid-cols-12 mt-6 gap-[40px]">
+      <div className="grid grid-cols-12 mt-6 gap-[40px] bg-green-500">
         <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
           <TestTable data={data} />
         </div>
