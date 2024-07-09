@@ -5,6 +5,7 @@ import Test from './pages/Test/Test';
 import Login from './pages/Login/Login';
 import Orders from './pages/Orders/Orders';
 import AddProduct from './pages/products-group/AddProduct/AddProduct';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (

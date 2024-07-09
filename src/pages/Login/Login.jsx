@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import emailLogo from '../../assets/pages/Login/emailLogo.svg';
 import loginLogo from '../../assets/pages/Login/loginLogo.svg';
 import passwordLogo from '../../assets/pages/Login/passwordLogo.svg';
 import InputForPassword from '../../components/reuseable/auth/Inputs/InputForPassword/InputForPassword';
 import InputForText from '../../components/reuseable/auth/Inputs/InputForText/InputForText';
 import SubmitButton from '../../components/reuseable/buttons/SubmitButton/SubmitButton';
+import { useLoginMutation } from '../../redux/features/auth/authApi';
+import { errorToastMessage } from '../../utils/toastifyUtils';
+import { ToastContainer } from 'react-toastify';
 
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [login, { isLoading, isError, isSuccess, data, error }] =
+    useLoginMutation();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,7 +27,26 @@ function Login(props) {
     if (!password.trim()) {
       return alert('password is required');
     }
+
+    login({ email, password });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('data ', data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.log('error ', error);
+      if (error?.data?.message) {
+        errorToastMessage(error.data.message);
+      } else {
+        errorToastMessage('SomeThing Went Wrong');
+      }
+    }
+  }, [isError, error]);
 
   return (
     <div>
@@ -53,7 +77,7 @@ function Login(props) {
 
               <InputForPassword
                 logo={passwordLogo}
-                placeholder="Email Address"
+                placeholder="Password"
                 value={password}
                 setValue={setPassword}
                 required={true}
@@ -69,6 +93,8 @@ function Login(props) {
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </div>
   );
 }
