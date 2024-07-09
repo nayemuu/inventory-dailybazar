@@ -10,6 +10,7 @@ import useLocalPropertiesCheck from './hooks/useLocalPropertiesCheck';
 import Loader from './components/reuseable/Loader/Loader';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
+import Location from './pages/products-group/Location/Location';
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -38,7 +39,14 @@ const App = () => {
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/category" element={<AddProduct />} />
         <Route path="/sub-category" element={<AddProduct />} />
-        <Route path="/location" element={<AddProduct />} />
+        <Route
+          path="/location"
+          element={
+            <PrivateRoute>
+              <Location />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/login"
           element={
