@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   accessToken: undefined,
-  refreshToken: undefined,
+  // refreshToken: undefined,
 };
 
 const authSlice = createSlice({
@@ -13,12 +13,12 @@ const authSlice = createSlice({
     userLoggedIn: (state, action) => {
       // console.log('authSlice.reducer, userLoggedIn action.payload = ', action.payload)
       state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+      // state.refreshToken = action.payload.refreshToken;
     },
 
     userLoggedOut: (state) => {
       state.accessToken = undefined;
-      state.refreshToken = undefined;
+      // state.refreshToken = undefined;
     },
   },
 });
