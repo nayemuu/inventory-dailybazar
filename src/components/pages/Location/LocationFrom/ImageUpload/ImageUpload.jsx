@@ -40,7 +40,7 @@ const ImageUpload = ({ image, setImage }) => {
         {image && URL.createObjectURL(image) ? (
           <>
             <div
-              className="h-[150px] w-full flex justify-center items-center overflow-hidden"
+              className="h-[300px] w-full flex justify-center items-center overflow-hidden"
               style={imageLoading ? { display: 'none' } : {}}
               onLoad={() => {
                 setImageLoading(false);

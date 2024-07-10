@@ -1,28 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from '../../../reuseable/Inputs/Input/Input';
 import ImageUpload from './ImageUpload/ImageUpload';
 import SubmitButton from '../../../reuseable/buttons/SubmitButton/SubmitButton';
+import { useAddLocationMutation } from '../../../../redux/features/location/locationApi';
 
 const LocationFrom = () => {
-  const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
   const [locationIcon, setLocationIcon] = useState('');
-  const [error, setError] = useState('');
   const [isHovered, setIsHovered] = useState(false);
 
+  const [addLocation, { isLoading, isError, isSuccess, data, error }] =
+    useAddLocationMutation();
+
   const resetForm = () => {
-    setCategory('');
     setLocation('');
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    console.log('category = ', category);
     console.log('location = ', location);
+    console.log('locationIcon = ', locationIcon);
+    const formData = new FormData();
+    formData.append('name', location);
+    formData.append('logo', locationIcon);
+    addLocation(formData);
 
     //resetForm();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('data = ', data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.log('error = ', error);
+    }
+  }, [isError, error]);
 
   return (
     <div>
@@ -34,8 +50,8 @@ const LocationFrom = () => {
             <Input
               inputType="text"
               label="Location Name"
-              value={category}
-              setValue={setCategory}
+              value={location}
+              setValue={setLocation}
               required={true}
               // labelBackgroundColor="#f3f6fa"
             />
