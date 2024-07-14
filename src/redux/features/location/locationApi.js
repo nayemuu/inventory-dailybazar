@@ -24,7 +24,14 @@ export const locationApi = apiWithTag.injectEndpoints({
         }
       },
     }),
+
+    getLocation: builder.query({
+      query: () => ({
+        url: `/api/location/`,
+      }),
+      providesTags: (result, error, arg) => [{ type: 'location-list' }],
+    }),
   }),
 });
 
-export const { useAddLocationMutation } = locationApi;
+export const { useAddLocationMutation, useGetLocationQuery } = locationApi;

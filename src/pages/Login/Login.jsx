@@ -17,8 +17,8 @@ function Login(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('email = ', email);
-    console.log('password = ', password);
+    // console.log('email = ', email);
+    // console.log('password = ', password);
 
     if (!email?.trim()) {
       return alert('email is required');

@@ -22,7 +22,7 @@ const LocationFrom = () => {
     console.log('locationIcon = ', locationIcon);
     const formData = new FormData();
     formData.append('name', location);
-    formData.append('logo', locationIcon);
+    formData.append('icon', locationIcon);
     addLocation(formData);
 
     //resetForm();
