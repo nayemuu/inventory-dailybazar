@@ -3,7 +3,6 @@ import LocationTableRow from './LocationTableRow';
 
 const LocationTable = ({ data }) => {
   const [selectedIds, setSelectedIds] = useState([]);
-
   // console.log('selectedIds = ', selectedIds);
 
   let headers = ['Location Id', 'Location Name', 'Icon'];
