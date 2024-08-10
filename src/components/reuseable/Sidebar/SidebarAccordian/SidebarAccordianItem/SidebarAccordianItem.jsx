@@ -1,28 +1,43 @@
 import { IoEllipse, IoEllipseOutline } from 'react-icons/io5';
 import { Link, useLocation } from 'react-router-dom';
 
-const SidebarAccordianItem = ({ children, link, logo }) => {
+const SidebarAccordianItem = ({ child }) => {
+  const { title, path, icon, haveIcon, isIconSVG } = child;
   const location = useLocation();
   const { pathname } = location;
 
   let content = null;
 
-  if (logo) {
-    content = children;
+  if (haveIcon) {
+    if (isIconSVG) {
+      content = (
+        <>
+          {icon} {title}
+        </>
+      );
+    } else {
+      let Icon = icon;
+      content = (
+        <>
+          <Icon />
+          {title}
+        </>
+      );
+    }
   } else {
     content = (
       <>
-        {pathname === link ? <IoEllipse /> : <IoEllipseOutline />}
-        {children}
+        {pathname === path ? <IoEllipse /> : <IoEllipseOutline />}
+        {title}
       </>
     );
   }
 
   return (
-    <Link to={link}>
+    <Link to={path}>
       <div
         className={`block text-left border-t py-3 border-gray-200 text-base px-2 cursor-pointer hover:text-primary-deep ${
-          pathname === link && 'text-primary font-medium'
+          pathname === path && 'text-primary font-medium'
         }`}
       >
         <div className="flex items-center gap-x-2">{content}</div>

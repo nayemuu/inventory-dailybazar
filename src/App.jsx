@@ -27,6 +27,15 @@ const App = () => {
     <Router>
       <Routes>
         <Route
+          path="/login"
+          element={
+            <AuthRoute>
+              <Login />
+            </AuthRoute>
+          }
+        />
+
+        <Route
           path="/"
           element={
             <PrivateRoute>
@@ -47,14 +56,9 @@ const App = () => {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/login"
-          element={
-            <AuthRoute>
-              <Login />
-            </AuthRoute>
-          }
-        />
+
+        <Route path="/supplier-list" element={<AddProduct />} />
+        <Route path="/add-supplier" element={<AddProduct />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </Router>

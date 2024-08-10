@@ -2,18 +2,11 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 const SidebarAccordianHeader = (props) => {
-  const {
-    activeIndex,
-    index,
-    children,
-    handleClick,
-    dropdown = true,
-    link,
-  } = props;
+  const { activeIndex, index, children, handleClick, childs, path } = props;
 
   let content;
 
-  if (dropdown) {
+  if (childs?.length) {
     content = (
       <div
         className={`flex items-center justify-between gap-4 rounded-sm py-[11px] px-[15px] font-medium text-lg text-[#1B2850] duration-300 ease-in-out cursor-pointer hover:bg-primary-deep hover:text-white ${
@@ -34,7 +27,7 @@ const SidebarAccordianHeader = (props) => {
     );
   } else {
     content = (
-      <Link to={link}>
+      <Link to={path}>
         <div
           className={`flex items-center gap-4 rounded-sm py-[11px] px-[15px] font-medium text-lg text-[#1B2850] duration-300 ease-in-out cursor-pointer hover:bg-primary-deep hover:text-white ${
             activeIndex === index && 'bg-primary text-white'
