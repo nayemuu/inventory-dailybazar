@@ -1,16 +1,17 @@
 import React from 'react';
 
-const SubmitButton = ({ children, isLoading, disable, height }) => {
+function Button1({ children, isLoading, disable, height, handleClick }) {
   return (
     <button
-      type="submit"
+      type="button"
       disabled={isLoading || disable}
       className={`w-full flex justify-center items-center gap-2 border border-transparent text-[20px] leading-[22px] font-medium rounded-[5px] text-white hover:bg-primary-deep transition duration-150 ease-in-out ${
         isLoading || disable
           ? 'bg-primary-deep cursor-not-allowed'
           : `bg-primary cursor-pointer`
       }`}
-      style={{ height: height ? height : '40px' }}
+      style={{ height: height ? height : '43px' }}
+      onClick={handleClick}
     >
       {children}
 
@@ -26,6 +27,6 @@ const SubmitButton = ({ children, isLoading, disable, height }) => {
       )}
     </button>
   );
-};
+}
 
-export default SubmitButton;
+export default Button1;
