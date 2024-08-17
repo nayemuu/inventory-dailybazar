@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ImageUpload = ({ image, setImage }) => {
+const ImageUpload = ({ image, setImage, matchedItem }) => {
   const [imageLoading, setImageLoading] = useState(true);
   // console.log('locationIcon = ', image);
 
@@ -49,6 +49,7 @@ const ImageUpload = ({ image, setImage }) => {
               <img
                 src={URL.createObjectURL(image)}
                 className="object-contain h-full w-auto rounded-[5px]"
+                alt="location icon"
               />
             </div>
 
@@ -58,6 +59,20 @@ const ImageUpload = ({ image, setImage }) => {
               </div>
             )}
           </>
+        ) : !image && matchedItem?.icon ? (
+          <div
+            className="h-[300px] w-full flex justify-center items-center overflow-hidden bg-[#F5F5F5]"
+            style={imageLoading ? { display: 'none' } : {}}
+            onLoad={() => {
+              setImageLoading(false);
+            }}
+          >
+            <img
+              src={matchedItem.icon}
+              className="object-contain h-full w-auto rounded-[5px]"
+              alt="location icon"
+            />
+          </div>
         ) : (
           <div
             className={`bg-transparent flex justify-center items-center w-full rounded-lg cursor-pointer border-dashed border border-[#DCE0E4]`}

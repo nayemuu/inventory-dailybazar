@@ -10,6 +10,7 @@ const LocationTableRow = (props) => {
     handleView,
     handleEdit,
     handleDelete,
+    editId,
   } = props;
 
   const [isSelected, setIsSelected] = useState(false);
@@ -22,10 +23,15 @@ const LocationTableRow = (props) => {
     }
   }, [selectedIds]);
 
-  //   console.log('item = ', item);
-
   return (
-    <tr className="hover:bg-[#eee]" key={index}>
+    <tr
+      className={`${
+        editId === item.id
+          ? 'bg-primary/30 hover:bg-primary/50'
+          : 'hover:bg-[#eee]'
+      }`}
+      key={index}
+    >
       <td className="py-3 ps-4" key={item.id}>
         <div className="flex items-center h-5">
           <input

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LocationTableRow from './LocationTableRow';
 
-const LocationTable = ({ data }) => {
+const LocationTable = ({ data, editId, setEditId }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   // console.log('selectedIds = ', selectedIds);
 
@@ -42,6 +42,7 @@ const LocationTable = ({ data }) => {
 
   const handleEdit = (id) => {
     console.log('id = ', id);
+    setEditId(id);
   };
 
   const handleDelete = (id) => {
@@ -64,6 +65,7 @@ const LocationTable = ({ data }) => {
             handleView={handleView}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
+            editId={editId}
           />
         ))}
       </tbody>

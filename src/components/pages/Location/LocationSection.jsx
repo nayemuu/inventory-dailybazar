@@ -3,6 +3,7 @@ import SectionHeaderActions from '../../reuseable/Section/SectionHeaderActions/S
 import LocationTable from './LocationTable/LocationTable';
 import LocationFrom from './LocationFrom/LocationFrom';
 import { useGetLocationQuery } from '../../../redux/features/location/locationApi';
+import EditLocationFrom from './LocationFrom/EditLocationFrom/EditLocationFrom';
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState('');
@@ -10,6 +11,9 @@ const LocationSection = () => {
   const [toDate, setToDate] = useState('');
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [editId, setEditId] = useState(null);
+
+  console.log('editId = ', editId);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
     useGetLocationQuery();
@@ -65,10 +69,23 @@ const LocationSection = () => {
 
       <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
         <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
-          <LocationTable isLoading={isLoading} data={data} />
+          <LocationTable
+            isLoading={isLoading}
+            data={data}
+            editId={editId}
+            setEditId={setEditId}
+          />
         </div>
         <div className="col-span-12 xl:col-span-4 order-1 xl:order-2">
-          <LocationFrom />
+          {editId ? (
+            <EditLocationFrom
+              data={data}
+              editId={editId}
+              setEditId={setEditId}
+            />
+          ) : (
+            <LocationFrom />
+          )}
         </div>
       </div>
     </div>

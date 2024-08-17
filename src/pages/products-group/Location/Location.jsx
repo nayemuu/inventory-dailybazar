@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import LocationSection from '../../../components/pages/Location/LocationSection';
 import Navbar from '../../../components/reuseable/Navbar/Navbar';
 import SectionTitle from '../../../components/reuseable/Section/SectionTitle/SectionTitle';
@@ -14,6 +15,7 @@ const Location = () => {
             <SectionTitle additionalClass="mb-5">Location</SectionTitle>
             <LocationSection />
           </div>
+          <ToastContainer />
         </div>
       </SidebarContainer>
     </div>

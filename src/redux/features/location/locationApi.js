@@ -1,7 +1,7 @@
 import { apiSlice } from '../api/apiSlice';
 
 const apiWithTag = apiSlice.enhanceEndpoints({
-  addTagTypes: ['locationList'],
+  addTagTypes: ['location-list'],
 });
 
 export const locationApi = apiWithTag.injectEndpoints({
@@ -13,7 +13,7 @@ export const locationApi = apiWithTag.injectEndpoints({
         body: data,
         formData: true,
       }),
-      invalidatesTags: ['locationList'],
+      invalidatesTags: ['location-list'],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // console.log('inside createArticleApi arg = ', arg);
