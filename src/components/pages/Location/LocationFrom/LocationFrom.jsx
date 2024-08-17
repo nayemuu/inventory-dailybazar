@@ -11,7 +11,6 @@ import {
 const LocationFrom = () => {
   const [location, setLocation] = useState('');
   const [locationIcon, setLocationIcon] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const [addLocation, { isLoading, isError, isSuccess, data, error }] =
     useAddLocationMutation();
