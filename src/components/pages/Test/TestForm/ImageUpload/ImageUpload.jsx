@@ -53,7 +53,7 @@ const ImageUpload = ({ image, setImage }) => {
             </div>
 
             {imageLoading && (
-              <div className={`h-[300px] w-full animate-pulse p-1 z-[20] `}>
+              <div className={`h-[300px] w-full animate-pulse p-1 z-[20]`}>
                 <div className="h-full w-full rounded bg-gray-400"></div>
               </div>
             )}

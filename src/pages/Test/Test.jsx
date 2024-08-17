@@ -14,9 +14,13 @@ const Test = () => {
           <div className="container">
             <div className="flex justify-between gap-5 mb-[30px]">
               <SectionTitle additionalClass="mb-0">Demo</SectionTitle>
-              <div className="">
-                <Button1 handleClick={() => console.log('import')}>
-                  <div className="flex gap-1 items-center py-1 px-3">
+              <div className="w-[200px]">
+                <Button1
+                  handleClick={() => console.log('import')}
+                  height="43px"
+                  // isLoading={true}
+                >
+                  <div className="flex gap-1 items-center">
                     <svg
                       width="30"
                       height="30"

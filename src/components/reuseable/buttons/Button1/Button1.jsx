@@ -1,6 +1,12 @@
 import React from 'react';
 
-function Button1({ children, isLoading, disable, height, handleClick }) {
+function Button1({
+  children,
+  isLoading,
+  disable,
+  height = '43px',
+  handleClick,
+}) {
   return (
     <button
       type="button"
@@ -10,7 +16,7 @@ function Button1({ children, isLoading, disable, height, handleClick }) {
           ? 'bg-primary-deep cursor-not-allowed'
           : `bg-primary cursor-pointer`
       }`}
-      style={{ height: height ? height : '43px' }}
+      style={{ height: height }}
       onClick={handleClick}
     >
       {children}

@@ -40,7 +40,7 @@ const ImageUpload = ({ image, setImage }) => {
         {image && URL.createObjectURL(image) ? (
           <>
             <div
-              className="max-h-[300px] h-auto w-full flex justify-center items-center overflow-hidden"
+              className="h-[300px] w-full flex justify-center items-center overflow-hidden bg-[#F5F5F5]"
               style={imageLoading ? { display: 'none' } : {}}
               onLoad={() => {
                 setImageLoading(false);
@@ -53,7 +53,7 @@ const ImageUpload = ({ image, setImage }) => {
             </div>
 
             {imageLoading && (
-              <div className={`h-[150px] w-full animate-pulse p-1 z-[20] `}>
+              <div className={`h-[300px] w-full animate-pulse p-1 z-[20]`}>
                 <div className="h-full w-full rounded bg-gray-400"></div>
               </div>
             )}
