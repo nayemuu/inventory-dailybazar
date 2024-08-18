@@ -9,11 +9,11 @@ const LocationSection = () => {
   const [searchText, setSearchText] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
-  const [searchBarStatus, setSearchBarStatus] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [editId, setEditId] = useState(null);
 
   console.log('editId = ', editId);
+  console.log('searchText = ', searchText);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
     useGetLocationQuery();
@@ -53,19 +53,17 @@ const LocationSection = () => {
 
   return (
     <div className="section-card">
-      {/* <SectionHeaderActions
+      <SectionHeaderActions
         fileExportsOptions={fileExportsOptions}
         searchText={searchText}
         setSearchText={setSearchText}
-        searchBarStatus={searchBarStatus}
-        setSearchBarStatus={setSearchBarStatus}
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         fromDate={fromDate}
         setFromDate={setFromDate}
         toDate={toDate}
         setToDate={setToDate}
-      /> */}
+      />
 
       <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
         <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">

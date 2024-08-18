@@ -1,0 +1,5 @@
+.table-searchbar::-webkit-search-cancel-button {
+  position: relative;
+  right: 10px;
+  cursor: pointer;
+}
