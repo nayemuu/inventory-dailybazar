@@ -74,6 +74,20 @@ const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
     );
   }
 
+  if (!isLoading && isSuccess && data?.results && data.results.length === 0) {
+    content = (
+      <tbody>
+        <tr>
+          <td colSpan={5}>
+            <div className="flex justify-center w-full py-3">
+              No Result Found
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    );
+  }
+
   if (isLoading) {
     content = (
       <tbody>

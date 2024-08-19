@@ -1,18 +1,19 @@
-import './SectionHeaderActions.css';
-import pdf from '../../../../assets/reusable/utils/pdf.svg';
-import excel from '../../../../assets/reusable/utils/excel.svg';
-import print from '../../../../assets/reusable/utils/print.svg';
-import { IoFilter } from 'react-icons/io5';
-import { MdOutlineFilterListOff } from 'react-icons/md';
-import FromDate from '../../calendar/FromDate/FromDate';
-import ToDate from '../../calendar/ToDate/ToDate';
-import SubmitButton from '../../buttons/SubmitButton/SubmitButton';
+import "./SectionHeaderActions.css";
+import pdf from "../../../../assets/reusable/utils/pdf.svg";
+import excel from "../../../../assets/reusable/utils/excel.svg";
+import print from "../../../../assets/reusable/utils/print.svg";
+import { IoFilter } from "react-icons/io5";
+import { MdOutlineFilterListOff } from "react-icons/md";
+import FromDate from "../../calendar/FromDate/FromDate";
+import ToDate from "../../calendar/ToDate/ToDate";
+import SubmitButton from "../../buttons/SubmitButton/SubmitButton";
 
 const SectionHeaderActions = (props) => {
   const {
     fileExportsOptions,
     searchText,
     setSearchText,
+    filterOption,
     isFilterOpen,
     setIsFilterOpen,
     fromDate,
@@ -45,20 +46,22 @@ const SectionHeaderActions = (props) => {
       <div className="flex justify-between items-center gap-5 flex-wrap mb-3">
         <div className="grow">
           <div className="flex justify-start items-center gap-5">
-            <div
-              className="text-lg font-bold cursor-pointer hover:text-primary"
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-            >
-              {isFilterOpen ? (
-                <div className="text-[24px]">
-                  <MdOutlineFilterListOff />
-                </div>
-              ) : (
-                <div className="text-[24px]">
-                  <IoFilter />
-                </div>
-              )}
-            </div>
+            {filterOption && (
+              <div
+                className="text-lg font-bold cursor-pointer hover:text-primary"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+              >
+                {isFilterOpen ? (
+                  <div className="text-[24px]">
+                    <MdOutlineFilterListOff />
+                  </div>
+                ) : (
+                  <div className="text-[24px]">
+                    <IoFilter />
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="relative h-[43px] w-full max-w-[500px] flex justify-start items-center">
               <div className="h-full w-[50px] flex justify-center items-center absolute left-[0px]">

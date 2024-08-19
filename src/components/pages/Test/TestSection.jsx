@@ -7,7 +7,6 @@ const TestSection = () => {
   const [searchText, setSearchText] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [searchBarStatus, setSearchBarStatus] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   let data = [
@@ -49,8 +48,7 @@ const TestSection = () => {
         fileExportsOptions={fileExportsOptions}
         searchText={searchText}
         setSearchText={setSearchText}
-        searchBarStatus={searchBarStatus}
-        setSearchBarStatus={setSearchBarStatus}
+        filterOption={true}
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         fromDate={fromDate}

@@ -1,16 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const SubmitButton = ({ children, isLoading, disable, height }) => {
+const SubmitButton = ({ children, isLoading, disable }) => {
   return (
     <button
       type="submit"
       disabled={isLoading || disable}
-      className={`w-full flex justify-center items-center gap-2 border border-transparent text-[20px] leading-[22px] font-medium rounded-[5px] text-white hover:bg-primary-deep transition duration-150 ease-in-out ${
+      className={`w-full h-[40px] flex justify-center items-center gap-2 border border-transparent text-[18px] leading-[20px] font-medium rounded-[5px] text-white hover:bg-primary-deep transition duration-150 ease-in-out ${
         isLoading || disable
-          ? 'bg-primary-deep cursor-not-allowed'
+          ? "bg-primary-deep cursor-not-allowed"
           : `bg-primary cursor-pointer`
       }`}
-      style={{ height: height ? height : '40px' }}
     >
       {children}
 

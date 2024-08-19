@@ -1,19 +1,19 @@
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from "../api/apiSlice";
 
 const apiWithTag = apiSlice.enhanceEndpoints({
-  addTagTypes: ['location-list'],
+  addTagTypes: ["location-list"],
 });
 
 export const locationApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     addLocation: builder.mutation({
       query: (data) => ({
-        url: 'api/location/',
-        method: 'POST',
+        url: "api/location/",
+        method: "POST",
         body: data,
         formData: true,
       }),
-      invalidatesTags: ['location-list'],
+      invalidatesTags: ["location-list"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // console.log('inside createArticleApi arg = ', arg);
@@ -26,10 +26,10 @@ export const locationApi = apiWithTag.injectEndpoints({
     }),
 
     getLocation: builder.query({
-      query: () => ({
-        url: `/api/location/`,
+      query: ({ keyword, limit, offset }) => ({
+        url: `/api/location/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
       }),
-      providesTags: (result, error, arg) => [{ type: 'location-list' }],
+      providesTags: (result, error, arg) => [{ type: "location-list" }],
     }),
   }),
 });

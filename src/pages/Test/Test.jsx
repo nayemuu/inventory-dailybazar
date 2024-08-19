@@ -1,8 +1,8 @@
-import TestSection from '../../components/pages/Test/TestSection';
-import Button1 from '../../components/reuseable/buttons/Button1/Button1';
-import Navbar from '../../components/reuseable/Navbar/Navbar';
-import SectionTitle from '../../components/reuseable/Section/SectionTitle/SectionTitle';
-import SidebarContainer from '../../components/reuseable/Sidebar/SidebarContainer';
+import TestSection from "../../components/pages/Test/TestSection";
+import Button1 from "../../components/reuseable/buttons/Button1/Button1";
+import Navbar from "../../components/reuseable/Navbar/Navbar";
+import SectionTitle from "../../components/reuseable/Section/SectionTitle/SectionTitle";
+import SidebarContainer from "../../components/reuseable/Sidebar/SidebarContainer";
 
 const Test = () => {
   return (
@@ -16,7 +16,7 @@ const Test = () => {
               <SectionTitle additionalClass="mb-0">Demo</SectionTitle>
               <div className="w-[200px]">
                 <Button1
-                  handleClick={() => console.log('import')}
+                  handleClick={() => console.log("import")}
                   height="43px"
                   // isLoading={true}
                 >

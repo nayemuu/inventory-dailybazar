@@ -11,12 +11,14 @@ const LocationSection = () => {
   const [toDate, setToDate] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [editId, setEditId] = useState(null);
+  const limit = 2;
+  const offset = 0;
 
   console.log("editId = ", editId);
   console.log("searchText = ", searchText);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
-    useGetLocationQuery();
+    useGetLocationQuery({ limit, offset, keyword: searchText });
 
   // useEffect(() => {
   //   if (isSuccess) {
