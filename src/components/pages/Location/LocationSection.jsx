@@ -76,12 +76,15 @@ const LocationSection = () => {
           />
         </div>
         <div className="col-span-12 xl:col-span-4 order-1 xl:order-2">
-          {editId ? (
+          {editId &&
+          !isLoading &&
+          isSuccess &&
+          data &&
+          data?.results?.length ? (
             <EditLocationFrom
               data={data}
               editId={editId}
               setEditId={setEditId}
-              isSuccess={isSuccess}
             />
           ) : (
             <LocationFrom />

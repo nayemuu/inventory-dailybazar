@@ -4,12 +4,12 @@ import Input from "../../../../reuseable/Inputs/Input/Input";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
 
-function EditLocationFrom({ data, editId, setEditId, isSuccess }) {
+function EditLocationFrom({ data, editId, setEditId }) {
   const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
   useEffect(() => {
-    if (isSuccess && data && data?.results?.length) {
+    if (data && data?.results?.length) {
       const matchedItem = data.results.find((item) => item.id === editId);
       console.log("matchedItem = ", matchedItem);
       setLocation(matchedItem.name);
@@ -17,11 +17,11 @@ function EditLocationFrom({ data, editId, setEditId, isSuccess }) {
         setLocationIcon(null);
       }
     }
-  }, [editId, isSuccess, data]);
+  }, [editId, data]);
 
   let matchedItem;
 
-  if (isSuccess && data && data?.results?.length) {
+  if (data && data?.results?.length) {
     matchedItem = data.results.find((item) => item.id === editId);
   }
 

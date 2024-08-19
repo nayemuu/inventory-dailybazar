@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LocationTableRow from "./LocationTableRow";
 
-const LocationTable = ({ data, editId, setEditId, isSuccess }) => {
+const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   // console.log('selectedIds = ', selectedIds);
 
@@ -53,7 +53,7 @@ const LocationTable = ({ data, editId, setEditId, isSuccess }) => {
 
   let content = <></>;
 
-  if (isSuccess && data?.results?.length) {
+  if (!isLoading && isSuccess && data?.results?.length) {
     content = (
       <tbody className="divide-y divide-[#DCE0E4] dark:divide-gray-700">
         {data.results.map((item, index) => (
@@ -70,6 +70,27 @@ const LocationTable = ({ data, editId, setEditId, isSuccess }) => {
             editId={editId}
           />
         ))}
+      </tbody>
+    );
+  }
+
+  if (isLoading) {
+    content = (
+      <tbody>
+        <tr>
+          <td colSpan={5}>
+            <div className="flex justify-center w-full py-3">
+              <div
+                className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status"
+              >
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  Loading...
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
       </tbody>
     );
   }
