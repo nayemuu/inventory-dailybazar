@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import SectionHeaderActions from '../../reuseable/Section/SectionHeaderActions/SectionHeaderActions';
-import LocationTable from './LocationTable/LocationTable';
-import LocationFrom from './LocationFrom/LocationFrom';
-import { useGetLocationQuery } from '../../../redux/features/location/locationApi';
-import EditLocationFrom from './LocationFrom/EditLocationFrom/EditLocationFrom';
+import { useEffect, useState } from "react";
+import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
+import LocationTable from "./LocationTable/LocationTable";
+import LocationFrom from "./LocationFrom/LocationFrom";
+import { useGetLocationQuery } from "../../../redux/features/location/locationApi";
+import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
 
 const LocationSection = () => {
-  const [searchText, setSearchText] = useState('');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
+  const [searchText, setSearchText] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  console.log('editId = ', editId);
-  console.log('searchText = ', searchText);
+  console.log("editId = ", editId);
+  console.log("searchText = ", searchText);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
     useGetLocationQuery();
@@ -25,15 +25,15 @@ const LocationSection = () => {
   // }, [isSuccess, data]);
 
   const handlePdf = () => {
-    console.log('inside handlePdf');
+    console.log("inside handlePdf");
   };
 
   const handleExcel = () => {
-    console.log('inside handleExcel');
+    console.log("inside handleExcel");
   };
 
   const handlePrint = () => {
-    console.log('inside handlePrint');
+    console.log("inside handlePrint");
   };
 
   const fileExportsOptions = {
@@ -69,6 +69,7 @@ const LocationSection = () => {
         <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
           <LocationTable
             isLoading={isLoading}
+            isSuccess={isSuccess}
             data={data}
             editId={editId}
             setEditId={setEditId}
@@ -80,6 +81,7 @@ const LocationSection = () => {
               data={data}
               editId={editId}
               setEditId={setEditId}
+              isSuccess={isSuccess}
             />
           ) : (
             <LocationFrom />

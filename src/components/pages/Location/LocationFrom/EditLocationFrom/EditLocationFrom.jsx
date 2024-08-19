@@ -1,34 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import SubmitButton from '../../../../reuseable/buttons/SubmitButton/SubmitButton';
-import Input from '../../../../reuseable/Inputs/Input/Input';
-import ImageUpload from '../ImageUpload/ImageUpload';
-import ClearButton from '../../../../reuseable/buttons/ClearButton/ClearButton';
+import React, { useEffect, useState } from "react";
+import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
+import Input from "../../../../reuseable/Inputs/Input/Input";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
 
-function EditLocationFrom({ data, editId, setEditId }) {
-  const [location, setLocation] = useState('');
+function EditLocationFrom({ data, editId, setEditId, isSuccess }) {
+  const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
-  const matchedItem = data.find((item) => item.id === editId);
-
   useEffect(() => {
-    const matchedItem = data.find((item) => item.id === editId);
-    console.log('matchedItem = ', matchedItem);
-    setLocation(matchedItem.name);
-    if (!matchedItem?.icon) {
-      setLocationIcon(null);
+    if (isSuccess && data && data?.results?.length) {
+      const matchedItem = data.results.find((item) => item.id === editId);
+      console.log("matchedItem = ", matchedItem);
+      setLocation(matchedItem.name);
+      if (!matchedItem?.icon) {
+        setLocationIcon(null);
+      }
     }
-  }, [editId]);
+  }, [editId, isSuccess, data]);
+
+  let matchedItem;
+
+  if (isSuccess && data && data?.results?.length) {
+    matchedItem = data.results.find((item) => item.id === editId);
+  }
 
   const clearHandler = () => {
     setEditId(null);
-    setLocation('');
+    setLocation("");
     setLocationIcon(null);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('location = ', location);
-    console.log('locationIcon = ', locationIcon);
+    console.log("location = ", location);
+    console.log("locationIcon = ", locationIcon);
   };
 
   return (

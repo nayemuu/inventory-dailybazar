@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import LocationTableRow from './LocationTableRow';
+import React, { useState } from "react";
+import LocationTableRow from "./LocationTableRow";
 
-const LocationTable = ({ data, editId, setEditId }) => {
+const LocationTable = ({ data, editId, setEditId, isSuccess }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   // console.log('selectedIds = ', selectedIds);
 
-  let headers = ['Location Id', 'Location Name', 'Icon'];
+  let headers = ["Location Id", "Location Name", "Icon"];
 
   let actionButtons = {
     view: true,
@@ -23,38 +23,40 @@ const LocationTable = ({ data, editId, setEditId }) => {
   };
 
   const handleAllCheckBox = () => {
-    if (data.length !== selectedIds.length) {
-      let allIds = [];
+    if (isSuccess && data?.results?.length) {
+      if (data.results.length !== selectedIds.length) {
+        let allIds = [];
 
-      data.map((item) => {
-        allIds.push(item.id);
-      });
+        data.results.map((item) => {
+          allIds.push(item.id);
+        });
 
-      setSelectedIds(allIds);
-    } else {
-      setSelectedIds([]);
+        setSelectedIds(allIds);
+      } else {
+        setSelectedIds([]);
+      }
     }
   };
 
   const handleView = (id) => {
-    console.log('id = ', id);
+    console.log("id = ", id);
   };
 
   const handleEdit = (id) => {
-    console.log('id = ', id);
+    console.log("id = ", id);
     setEditId(id);
   };
 
   const handleDelete = (id) => {
-    console.log('id = ', id);
+    console.log("id = ", id);
   };
 
   let content = <></>;
 
-  if (data?.length) {
+  if (isSuccess && data?.results?.length) {
     content = (
       <tbody className="divide-y divide-[#DCE0E4] dark:divide-gray-700">
-        {data.map((item, index) => (
+        {data.results.map((item, index) => (
           <LocationTableRow
             key={index}
             item={item}
