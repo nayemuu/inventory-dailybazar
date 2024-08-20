@@ -6,6 +6,8 @@ import { useGetLocationQuery } from "../../../redux/features/location/locationAp
 import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
 import JumpToPageButton from "../../reuseable/buttons/JumpToPageButton/JumpToPageButton";
 import ReactPaginate from "react-paginate";
+import { errorToastMessage } from "../../../utils/toastifyUtils";
+import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSection";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -16,8 +18,10 @@ const LocationSection = () => {
   const [offset, setOffset] = useState(0);
   const [initialPage, setInitialPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [jumpToPage, setJumpToPage] = useState(0);
+  const [jumpToPage, setJumpToPage] = useState(undefined);
   const limit = 2;
+
+  console.log("jumpToPage = ", jumpToPage);
 
   // console.log("editId = ", editId);
   // console.log("searchText = ", searchText);
@@ -90,10 +94,15 @@ const LocationSection = () => {
   };
 
   const handlePageJump = () => {
-    if (jumpToPage - 1 <= pageCount) {
-      const newOffset = ((jumpToPage - 1) * limit) % data.count;
+    if (parseInt(jumpToPage) && parseInt(jumpToPage) <= pageCount) {
+      let targetPage = parseInt(jumpToPage);
+
+      const newOffset = ((targetPage - 1) * limit) % data.count;
       setOffset(newOffset);
-      setInitialPage(jumpToPage - 1);
+      setInitialPage(targetPage - 1);
+      setJumpToPage("");
+    } else {
+      errorToastMessage("Provide a valid page number");
     }
   };
 
@@ -116,6 +125,7 @@ const LocationSection = () => {
           <LocationTable
             isLoading={isLoading}
             isSuccess={isSuccess}
+            isFetching={isFetching}
             data={data}
             editId={editId}
             setEditId={setEditId}
@@ -125,6 +135,7 @@ const LocationSection = () => {
             <div className="pt-[50px] flex justify-between items-center gap-5">
               <div>
                 <ReactPaginate
+                  key={initialPage} // Force re-render on initialPage change
                   breakLabel="..."
                   nextLabel=""
                   onClick={handlePageClick}
@@ -142,30 +153,14 @@ const LocationSection = () => {
                 />
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="text-[16px] leading-[18px] font-semibold text-primary">
-                  Jump to page
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    value={jumpToPage}
-                    onChange={(e) => setJumpToPage(e.target.value)}
-                    placeholder="page no."
-                    className={`w-[80px] h-[34px] rounded-[3px] flex justify-center items-center border border-primary text-center px-1 ${
-                      jumpToPage > pageCount ? "text-red-400" : ""
-                    }`}
-                  />
-                </div>
-                <div className="w-[150px]">
-                  <JumpToPageButton
-                    isLoading={false}
-                    handleClick={handlePageJump}
-                  >
-                    Jump
-                  </JumpToPageButton>
-                </div>
-              </div>
+              <JumpToPageSection
+                pageCount={pageCount}
+                jumpToPage={jumpToPage}
+                setJumpToPage={setJumpToPage}
+                handlePageJump={handlePageJump}
+                isLoading={isLoading}
+                isFetching={isFetching}
+              />
             </div>
           )}
         </div>

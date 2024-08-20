@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import LocationTableRow from "./LocationTableRow";
 
-const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
+const LocationTable = ({
+  data,
+  editId,
+  setEditId,
+  isLoading,
+  isFetching,
+  isSuccess,
+}) => {
   const [selectedIds, setSelectedIds] = useState([]);
   // console.log('selectedIds = ', selectedIds);
 
@@ -53,7 +60,7 @@ const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
 
   let content = <></>;
 
-  if (!isLoading && isSuccess && data?.results?.length) {
+  if (!isLoading && !isFetching && isSuccess && data?.results?.length) {
     content = (
       <tbody className="divide-y divide-[#DCE0E4] dark:divide-gray-700">
         {data.results.map((item, index) => (
@@ -74,7 +81,13 @@ const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
     );
   }
 
-  if (!isLoading && isSuccess && data?.results && data.results.length === 0) {
+  if (
+    !isLoading &&
+    !isFetching &&
+    isSuccess &&
+    data?.results &&
+    data.results.length === 0
+  ) {
     content = (
       <tbody>
         <tr>
@@ -88,7 +101,7 @@ const LocationTable = ({ data, editId, setEditId, isLoading, isSuccess }) => {
     );
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     content = (
       <tbody>
         <tr>
