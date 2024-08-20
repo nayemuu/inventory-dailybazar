@@ -68,8 +68,8 @@ function TestTable({ data }) {
         handleDelete={handleDelete}
       />
 
-      <div className="pt-[50px] flex justify-between items-center gap-5">
-        <div>
+      <div className="pt-[50px] flex flex-wrap justify-between items-center gap-6">
+        <div className="shrink-0">
           <ReactPaginate
             breakLabel="..."
             nextLabel=""

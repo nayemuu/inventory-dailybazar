@@ -132,8 +132,8 @@ const LocationSection = () => {
           />
 
           {pageCount > 1 && (
-            <div className="pt-[50px] flex justify-between items-center gap-5">
-              <div>
+            <div className="pt-[50px] flex justify-between items-center gap-6 flex-wrap">
+              <div className="shrink-0">
                 <ReactPaginate
                   key={initialPage} // Force re-render on initialPage change
                   breakLabel="..."
