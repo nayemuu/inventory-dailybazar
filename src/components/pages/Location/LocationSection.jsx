@@ -47,26 +47,6 @@ const LocationSection = () => {
   //   }
   // }, [isSuccess, data]);
 
-  const fatchData = async () => {
-    const {
-      status,
-      data: loadMoreData,
-      error: loadMoreError,
-      refetch,
-    } = await dispatch(
-      locationApi.endpoints.getLocations.initiate(
-        {
-          limit: 3,
-          offset: 0,
-          keyword: "",
-        },
-        { forceRefetch: true }
-      )
-    );
-
-    console.log("loadMoreData = ", loadMoreData);
-  };
-
   const handlePdf = async () => {
     if (selectedIds.length) {
       // console.log("selectedIds = ", selectedIds);
