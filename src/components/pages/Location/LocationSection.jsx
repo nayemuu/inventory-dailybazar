@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
 import LocationTable from "./LocationTable/LocationTable";
 import LocationFrom from "./LocationFrom/LocationFrom";
-import { useGetLocationQuery } from "../../../redux/features/location/locationApi";
+import {
+  locationApi,
+  useGetLocationsQuery,
+} from "../../../redux/features/location/locationApi";
 import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
 import JumpToPageButton from "../../reuseable/buttons/JumpToPageButton/JumpToPageButton";
 import ReactPaginate from "react-paginate";
 import { errorToastMessage } from "../../../utils/toastifyUtils";
 import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSection";
+import exportPdf from "../../../utils/PdfGenerator/PdfGenerator";
+import { useDispatch } from "react-redux";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -19,28 +24,108 @@ const LocationSection = () => {
   const [initialPage, setInitialPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [jumpToPage, setJumpToPage] = useState(undefined);
-  const limit = 2;
+  const [selectedIds, setSelectedIds] = useState([]);
+  const limit = 5;
 
-  console.log("jumpToPage = ", jumpToPage);
+  const dispatch = useDispatch();
+
+  // console.log("jumpToPage = ", jumpToPage);
 
   // console.log("editId = ", editId);
   // console.log("searchText = ", searchText);
   // console.log("offset = ", offset);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
-    useGetLocationQuery(
+    useGetLocationsQuery(
       { limit, offset, keyword: searchText },
       { refetchOnMountOrArgChange: true }
     );
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("data = ", data);
-    }
-  }, [isSuccess, data]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     console.log("data = ", data);
+  //   }
+  // }, [isSuccess, data]);
 
-  const handlePdf = () => {
-    console.log("inside handlePdf");
+  const fatchData = async () => {
+    const {
+      status,
+      data: loadMoreData,
+      error: loadMoreError,
+      refetch,
+    } = await dispatch(
+      locationApi.endpoints.getLocations.initiate(
+        {
+          limit: 3,
+          offset: 0,
+          keyword: "",
+        },
+        { forceRefetch: true }
+      )
+    );
+
+    console.log("loadMoreData = ", loadMoreData);
+  };
+
+  const handlePdf = async () => {
+    if (selectedIds.length) {
+      // console.log("selectedIds = ", selectedIds);
+      // console.log("data = ", data.results);
+      const dataForPdf = data.results.filter((item) =>
+        selectedIds.includes(item.id)
+      );
+
+      let head = [["Id", "Location Name"]];
+
+      let fieldToShow = ["id", "name"]; // data column kyes
+
+      // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+      exportPdf("Location List", head, dataForPdf, fieldToShow, true);
+    } else {
+      let dataForPdf = [];
+      let doFatchOperationForPdf = true;
+
+      do {
+        const {
+          status,
+          data: loadMoreData,
+          error: loadMoreError,
+          refetch,
+        } = await dispatch(
+          locationApi.endpoints.getLocations.initiate({
+            limit: 2,
+            offset: dataForPdf.length,
+            keyword: searchText,
+          })
+        );
+        // console.log("loadMoreData = ", loadMoreData);
+        // console.log("loadMoreData.count = ", loadMoreData.count);
+        // console.log("dataForPdf.length = ", dataForPdf.length);
+
+        if (loadMoreData) {
+          doFatchOperationForPdf = loadMoreData.count !== dataForPdf.length;
+
+          dataForPdf = [...dataForPdf, ...loadMoreData.results];
+
+          // console.log("dataForPdf = ", dataForPdf);
+          // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
+        } else {
+          doFatchOperationForPdf = false;
+        }
+
+        // await fatchData();
+      } while (doFatchOperationForPdf);
+
+      console.log("dataForPdf = ", dataForPdf);
+      if (dataForPdf.length) {
+        let head = [["Id", "Location Name"]];
+
+        let fieldToShow = ["id", "name"]; // data column kyes
+
+        // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+        exportPdf("Location List", head, dataForPdf, fieldToShow);
+      }
+    }
   };
 
   const handleExcel = () => {
@@ -129,6 +214,8 @@ const LocationSection = () => {
             data={data}
             editId={editId}
             setEditId={setEditId}
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
           />
 
           {pageCount > 1 && (

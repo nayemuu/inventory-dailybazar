@@ -8,8 +8,9 @@ const LocationTable = ({
   isLoading,
   isFetching,
   isSuccess,
+  selectedIds,
+  setSelectedIds,
 }) => {
-  const [selectedIds, setSelectedIds] = useState([]);
   // console.log('selectedIds = ', selectedIds);
 
   let headers = ["Location Id", "Location Name", "Icon"];

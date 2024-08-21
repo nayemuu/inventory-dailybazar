@@ -25,13 +25,22 @@ export const locationApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    getLocation: builder.query({
+    getLocations: builder.query({
       query: ({ keyword, limit, offset }) => ({
         url: `/api/location/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
       }),
       providesTags: (result, error, arg) => [{ type: "location-list" }],
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          // console.log("inside getLocations arg = ", arg);
+          // const result = await queryFulfilled;
+          // console.log("inside getLocations result = ", result);
+        } catch (error) {
+          // console.log('inside createArticleApi  result = ', error);
+        }
+      },
     }),
   }),
 });
 
-export const { useAddLocationMutation, useGetLocationQuery } = locationApi;
+export const { useAddLocationMutation, useGetLocationsQuery } = locationApi;
