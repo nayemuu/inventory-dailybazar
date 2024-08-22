@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const LocationTableRow = (props) => {
   const {
@@ -27,8 +27,8 @@ const LocationTableRow = (props) => {
     <tr
       className={`${
         editId === item.id
-          ? 'bg-primary/30 hover:bg-primary/50'
-          : 'hover:bg-[#eee]'
+          ? "bg-primary/30 hover:bg-primary/50"
+          : "hover:bg-[#eee]"
       }`}
       key={index}
     >
@@ -80,7 +80,7 @@ const LocationTableRow = (props) => {
         </td>
       ) : (
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
-          missing
+          N/A
         </td>
       )}
 
