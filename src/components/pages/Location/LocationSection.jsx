@@ -83,9 +83,8 @@ const LocationSection = () => {
         // console.log("dataForPdf.length = ", dataForPdf.length);
 
         if (loadMoreData) {
-          doFatchOperationForPdf = dataForPdf.length < loadMoreData.count;
-
           dataForPdf = [...dataForPdf, ...loadMoreData.results];
+          doFatchOperationForPdf = dataForPdf.length < loadMoreData.count;
 
           // console.log("dataForPdf = ", dataForPdf);
           // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
