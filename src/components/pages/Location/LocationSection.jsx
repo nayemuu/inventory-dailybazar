@@ -13,6 +13,7 @@ import { errorToastMessage } from "../../../utils/toastifyUtils";
 import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSection";
 import exportPdf from "../../../utils/PdfGenerator/PdfGenerator";
 import { useDispatch } from "react-redux";
+import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -47,68 +48,187 @@ const LocationSection = () => {
   //   }
   // }, [isSuccess, data]);
 
-  const handlePdf = async () => {
+  // const handlePdf = async () => {
+  //   if (selectedIds.length) {
+  //     // console.log("selectedIds = ", selectedIds);
+  //     // console.log("data = ", data.results);
+  //     const dataForPdf = data.results.filter((item) =>
+  //       selectedIds.includes(item.id)
+  //     );
+
+  //     let head = [["Id", "Location Name"]];
+  //     let fieldToShow = ["id", "name"]; // data column kyes
+
+  //     // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+  //     exportPdf("Location List", head, dataForPdf, fieldToShow, true);
+  //   } else {
+  //     let dataForPdf = [];
+  //     let doFatchOperationForPdf = true;
+
+  //     console.log(data.results);
+
+  //     console.log("data.count = ", data.count);
+
+  //     if (data.results.length === data.count) {
+  //       dataForPdf = [...data.results];
+  //     } else {
+  //       // number of iteration for your loop
+  //       // const limitForApiCall = 2;
+  //       // const totalCall = Math.ceil(data.count / limitForApiCall);
+  //       // console.log("totalCall = ", totalCall);
+  //       // end number of iteration for your loop
+
+  //       do {
+  //         const {
+  //           status,
+  //           data: loadMoreData,
+  //           error: loadMoreError,
+  //           refetch,
+  //         } = await dispatch(
+  //           locationApi.endpoints.getLocations.initiate({
+  //             limit: 2,
+  //             offset: dataForPdf.length,
+  //             keyword: searchText,
+  //           })
+  //         );
+  //         // console.log("loadMoreData = ", loadMoreData);
+  //         // console.log("loadMoreData.count = ", loadMoreData.count);
+  //         // console.log("dataForPdf.length = ", dataForPdf.length);
+  //         if (loadMoreData) {
+  //           dataForPdf = [...dataForPdf, ...loadMoreData.results];
+  //           doFatchOperationForPdf = dataForPdf.length < loadMoreData.count;
+  //           // console.log("dataForPdf = ", dataForPdf);
+  //           // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
+  //         } else {
+  //           doFatchOperationForPdf = false;
+  //         }
+  //         // await fatchData();
+  //       } while (doFatchOperationForPdf);
+  //     }
+
+  //     console.log("dataForPdf = ", dataForPdf);
+  //     if (dataForPdf.length) {
+  //       let head = [["Id", "Location Name"]];
+
+  //       let fieldToShow = ["id", "name"]; // data column kyes
+
+  //       // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+  //       exportPdf("Location List", head, dataForPdf, fieldToShow);
+  //     }
+  //   }
+  // };
+
+  const exportDocument = async (type) => {
     if (selectedIds.length) {
       // console.log("selectedIds = ", selectedIds);
       // console.log("data = ", data.results);
-      const dataForPdf = data.results.filter((item) =>
+      const dataForExportDocument = data.results.filter((item) =>
         selectedIds.includes(item.id)
       );
 
-      let head = [["Id", "Location Name"]];
-
-      let fieldToShow = ["id", "name"]; // data column kyes
-
-      // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-      exportPdf("Location List", head, dataForPdf, fieldToShow, true);
-    } else {
-      let dataForPdf = [];
-      let doFatchOperationForPdf = true;
-
-      do {
-        const {
-          status,
-          data: loadMoreData,
-          error: loadMoreError,
-          refetch,
-        } = await dispatch(
-          locationApi.endpoints.getLocations.initiate({
-            limit: 2,
-            offset: dataForPdf.length,
-            keyword: searchText,
-          })
-        );
-        // console.log("loadMoreData = ", loadMoreData);
-        // console.log("loadMoreData.count = ", loadMoreData.count);
-        // console.log("dataForPdf.length = ", dataForPdf.length);
-
-        if (loadMoreData) {
-          dataForPdf = [...dataForPdf, ...loadMoreData.results];
-          doFatchOperationForPdf = dataForPdf.length < loadMoreData.count;
-
-          // console.log("dataForPdf = ", dataForPdf);
-          // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
-        } else {
-          doFatchOperationForPdf = false;
-        }
-
-        // await fatchData();
-      } while (doFatchOperationForPdf);
-
-      console.log("dataForPdf = ", dataForPdf);
-      if (dataForPdf.length) {
+      if (type === "pdf") {
         let head = [["Id", "Location Name"]];
-
         let fieldToShow = ["id", "name"]; // data column kyes
 
         // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-        exportPdf("Location List", head, dataForPdf, fieldToShow);
+        exportPdf(
+          "Location List",
+          head,
+          dataForExportDocument,
+          fieldToShow,
+          true
+        );
+      } else {
+        const dataForExcell = [];
+        dataForExportDocument.map((item) => {
+          let obj = {};
+          obj["id"] = item.id;
+          obj["Location Name"] = item.name;
+
+          dataForExcell.push(obj);
+        });
+
+        // exportExcel(data, pdfTitle, isSelected) perametrs
+        exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
+      }
+    } else {
+      let dataForExportDocument = [];
+      let doFatchOperationForPdf = true;
+
+      if (data.results.length === data.count) {
+        dataForExportDocument = [...data.results];
+      } else {
+        // number of iteration for your loop
+        // const limitForApiCall = 2;
+        // const totalCall = Math.ceil(data.count / limitForApiCall);
+        // console.log("totalCall = ", totalCall);
+        // end number of iteration for your loop
+
+        do {
+          const {
+            status,
+            data: loadMoreData,
+            error: loadMoreError,
+            refetch,
+          } = await dispatch(
+            locationApi.endpoints.getLocations.initiate({
+              limit: 2,
+              offset: dataForExportDocument.length,
+              keyword: searchText,
+            })
+          );
+          // console.log("loadMoreData = ", loadMoreData);
+          // console.log("loadMoreData.count = ", loadMoreData.count);
+          // console.log("dataForPdf.length = ", dataForPdf.length);
+          if (loadMoreData) {
+            dataForExportDocument = [
+              ...dataForExportDocument,
+              ...loadMoreData.results,
+            ];
+            doFatchOperationForPdf =
+              dataForExportDocument.length < loadMoreData.count;
+            // console.log("dataForPdf = ", dataForPdf);
+            // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
+          } else {
+            doFatchOperationForPdf = false;
+          }
+          // await fatchData();
+        } while (doFatchOperationForPdf);
+      }
+
+      if (dataForExportDocument.length) {
+        const dataForExcell = [];
+        if (type === "pdf") {
+          let head = [["Id", "Location Name"]];
+
+          let fieldToShow = ["id", "name"]; // data column kyes
+
+          // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+          exportPdf("Location List", head, dataForExportDocument, fieldToShow);
+        } else {
+          dataForExportDocument.map((item) => {
+            let obj = {};
+            obj["id"] = item.id;
+            obj["Location Name"] = item.name;
+
+            dataForExcell.push(obj);
+          });
+
+          // exportExcel(data, pdfTitle, isSelected) perametrs
+          exportExcel(dataForExcell, "Location List.xlsx", true);
+        }
       }
     }
   };
 
+  const handlePdf = () => {
+    console.log("inside handlePdf");
+    exportDocument("pdf");
+  };
+
   const handleExcel = () => {
     console.log("inside handleExcel");
+    exportDocument("excel");
   };
 
   const handlePrint = () => {
