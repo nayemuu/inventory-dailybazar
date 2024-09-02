@@ -14,6 +14,8 @@ import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSecti
 import exportPdf from "../../../utils/PdfGenerator/PdfGenerator";
 import { useDispatch } from "react-redux";
 import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
+import Portal from "../../reuseable/Portal/Portal";
+import Modal from "../../reuseable/Modal/Modal";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -26,6 +28,7 @@ const LocationSection = () => {
   const [pageCount, setPageCount] = useState(0);
   const [jumpToPage, setJumpToPage] = useState(undefined);
   const [selectedIds, setSelectedIds] = useState([]);
+  const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
   const limit = 5;
 
   const dispatch = useDispatch();
@@ -86,6 +89,8 @@ const LocationSection = () => {
         // console.log("totalCall = ", totalCall);
         // end number of iteration for your loop
 
+        setApiCallWhileExporting(true);
+
         for (let i = 0; i < totalCall; i++) {
           const {
             status,
@@ -110,6 +115,8 @@ const LocationSection = () => {
             ];
           }
         }
+
+        setApiCallWhileExporting(false);
       }
 
       if (dataForExportDocument.length) {
@@ -207,83 +214,110 @@ const LocationSection = () => {
   };
 
   return (
-    <div className="section-card">
-      <SectionHeaderActions
-        fileExportsOptions={fileExportsOptions}
-        searchText={searchText}
-        setSearchText={setSearchText}
-        isFilterOpen={isFilterOpen}
-        setIsFilterOpen={setIsFilterOpen}
-        fromDate={fromDate}
-        setFromDate={setFromDate}
-        toDate={toDate}
-        setToDate={setToDate}
-      />
+    <>
+      <div className="section-card">
+        <SectionHeaderActions
+          fileExportsOptions={fileExportsOptions}
+          searchText={searchText}
+          setSearchText={setSearchText}
+          isFilterOpen={isFilterOpen}
+          setIsFilterOpen={setIsFilterOpen}
+          fromDate={fromDate}
+          setFromDate={setFromDate}
+          toDate={toDate}
+          setToDate={setToDate}
+        />
 
-      <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
-        <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
-          <LocationTable
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-            isFetching={isFetching}
-            data={data}
-            editId={editId}
-            setEditId={setEditId}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
-
-          {pageCount > 1 && (
-            <div className="pt-[50px] flex justify-between items-center gap-6 flex-wrap">
-              <div className="shrink-0">
-                <ReactPaginate
-                  key={initialPage} // Force re-render on initialPage change
-                  breakLabel="..."
-                  nextLabel=""
-                  onClick={handlePageClick}
-                  pageRangeDisplayed={3}
-                  marginPagesDisplayed={1}
-                  pageCount={pageCount} // total number of page
-                  initialPage={initialPage} // Pass the initialPage state
-                  previousLabel=""
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex flex-wrap gap-x-[10px] justify-center"
-                  pageLinkClassName="unselected-page"
-                  activeLinkClassName="active-page"
-                  previousClassName="hide"
-                  nextClassName="hide"
-                />
-              </div>
-
-              <JumpToPageSection
-                pageCount={pageCount}
-                jumpToPage={jumpToPage}
-                setJumpToPage={setJumpToPage}
-                handlePageJump={handlePageJump}
-                isLoading={isLoading}
-                isFetching={isFetching}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="col-span-12 xl:col-span-4 order-1 xl:order-2">
-          {editId &&
-          !isLoading &&
-          isSuccess &&
-          data &&
-          data?.results?.length ? (
-            <EditLocationFrom
+        <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
+          <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
+            <LocationTable
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              isFetching={isFetching}
               data={data}
               editId={editId}
               setEditId={setEditId}
+              selectedIds={selectedIds}
+              setSelectedIds={setSelectedIds}
             />
-          ) : (
-            <LocationFrom />
-          )}
+
+            {pageCount > 1 && (
+              <div className="pt-[50px] flex justify-between items-center gap-6 flex-wrap">
+                <div className="shrink-0">
+                  <ReactPaginate
+                    key={initialPage} // Force re-render on initialPage change
+                    breakLabel="..."
+                    nextLabel=""
+                    onClick={handlePageClick}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={1}
+                    pageCount={pageCount} // total number of page
+                    initialPage={initialPage} // Pass the initialPage state
+                    previousLabel=""
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex flex-wrap gap-x-[10px] justify-center"
+                    pageLinkClassName="unselected-page"
+                    activeLinkClassName="active-page"
+                    previousClassName="hide"
+                    nextClassName="hide"
+                  />
+                </div>
+
+                <JumpToPageSection
+                  pageCount={pageCount}
+                  jumpToPage={jumpToPage}
+                  setJumpToPage={setJumpToPage}
+                  handlePageJump={handlePageJump}
+                  isLoading={isLoading}
+                  isFetching={isFetching}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="col-span-12 xl:col-span-4 order-1 xl:order-2">
+            {editId &&
+            !isLoading &&
+            isSuccess &&
+            data &&
+            data?.results?.length ? (
+              <EditLocationFrom
+                data={data}
+                editId={editId}
+                setEditId={setEditId}
+              />
+            ) : (
+              <LocationFrom />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      <Portal>
+        <Modal showModal={apiCallWhileExporting}>
+          <div className="">
+            <div className="w-[70vw] max-w-[840px] bg-white rounded-[12px] relative mt-[5vh] mx-auto p-5">
+              <div>
+                <div className="flex justify-center w-full py-3">
+                  <div
+                    className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  >
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                      Loading...
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-center font-semibold">
+                  Data is Downloading. Please wait for a moment...
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      </Portal>
+    </>
   );
 };
 
