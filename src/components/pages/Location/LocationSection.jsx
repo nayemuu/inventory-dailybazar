@@ -42,82 +42,6 @@ const LocationSection = () => {
       { refetchOnMountOrArgChange: true }
     );
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     console.log("data = ", data);
-  //   }
-  // }, [isSuccess, data]);
-
-  // const handlePdf = async () => {
-  //   if (selectedIds.length) {
-  //     // console.log("selectedIds = ", selectedIds);
-  //     // console.log("data = ", data.results);
-  //     const dataForPdf = data.results.filter((item) =>
-  //       selectedIds.includes(item.id)
-  //     );
-
-  //     let head = [["Id", "Location Name"]];
-  //     let fieldToShow = ["id", "name"]; // data column kyes
-
-  //     // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-  //     exportPdf("Location List", head, dataForPdf, fieldToShow, true);
-  //   } else {
-  //     let dataForPdf = [];
-  //     let doFatchOperationForPdf = true;
-
-  //     console.log(data.results);
-
-  //     console.log("data.count = ", data.count);
-
-  //     if (data.results.length === data.count) {
-  //       dataForPdf = [...data.results];
-  //     } else {
-  //       // number of iteration for your loop
-  //       // const limitForApiCall = 2;
-  //       // const totalCall = Math.ceil(data.count / limitForApiCall);
-  //       // console.log("totalCall = ", totalCall);
-  //       // end number of iteration for your loop
-
-  //       do {
-  //         const {
-  //           status,
-  //           data: loadMoreData,
-  //           error: loadMoreError,
-  //           refetch,
-  //         } = await dispatch(
-  //           locationApi.endpoints.getLocations.initiate({
-  //             limit: 2,
-  //             offset: dataForPdf.length,
-  //             keyword: searchText,
-  //           })
-  //         );
-  //         // console.log("loadMoreData = ", loadMoreData);
-  //         // console.log("loadMoreData.count = ", loadMoreData.count);
-  //         // console.log("dataForPdf.length = ", dataForPdf.length);
-  //         if (loadMoreData) {
-  //           dataForPdf = [...dataForPdf, ...loadMoreData.results];
-  //           doFatchOperationForPdf = dataForPdf.length < loadMoreData.count;
-  //           // console.log("dataForPdf = ", dataForPdf);
-  //           // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
-  //         } else {
-  //           doFatchOperationForPdf = false;
-  //         }
-  //         // await fatchData();
-  //       } while (doFatchOperationForPdf);
-  //     }
-
-  //     console.log("dataForPdf = ", dataForPdf);
-  //     if (dataForPdf.length) {
-  //       let head = [["Id", "Location Name"]];
-
-  //       let fieldToShow = ["id", "name"]; // data column kyes
-
-  //       // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-  //       exportPdf("Location List", head, dataForPdf, fieldToShow);
-  //     }
-  //   }
-  // };
-
   const exportDocument = async (type) => {
     if (selectedIds.length) {
       // console.log("selectedIds = ", selectedIds);
@@ -153,47 +77,39 @@ const LocationSection = () => {
       }
     } else {
       let dataForExportDocument = [];
-      let doFatchOperationForPdf = true;
-
       if (data.results.length === data.count) {
         dataForExportDocument = [...data.results];
       } else {
         // number of iteration for your loop
-        // const limitForApiCall = 2;
-        // const totalCall = Math.ceil(data.count / limitForApiCall);
+        const limitForApiCall = 2;
+        const totalCall = Math.ceil(data.count / limitForApiCall);
         // console.log("totalCall = ", totalCall);
         // end number of iteration for your loop
 
-        do {
+        for (let i = 0; i < totalCall; i++) {
           const {
             status,
             data: loadMoreData,
             error: loadMoreError,
             refetch,
           } = await dispatch(
-            locationApi.endpoints.getLocations.initiate({
-              limit: 2,
-              offset: dataForExportDocument.length,
-              keyword: searchText,
-            })
+            locationApi.endpoints.getLocations.initiate(
+              {
+                limit: 2,
+                offset: dataForExportDocument.length,
+                keyword: searchText,
+              },
+              { forceRefetch: true }
+            )
           );
           // console.log("loadMoreData = ", loadMoreData);
-          // console.log("loadMoreData.count = ", loadMoreData.count);
-          // console.log("dataForPdf.length = ", dataForPdf.length);
           if (loadMoreData) {
             dataForExportDocument = [
               ...dataForExportDocument,
               ...loadMoreData.results,
             ];
-            doFatchOperationForPdf =
-              dataForExportDocument.length < loadMoreData.count;
-            // console.log("dataForPdf = ", dataForPdf);
-            // console.log("doFatchOperationForPdf = ", doFatchOperationForPdf);
-          } else {
-            doFatchOperationForPdf = false;
           }
-          // await fatchData();
-        } while (doFatchOperationForPdf);
+        }
       }
 
       if (dataForExportDocument.length) {
