@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LocationTableRow from "./LocationTableRow";
+import { useDeleteLocationMutation } from "../../../../redux/features/location/locationApi";
 
 const LocationTable = ({
   data,
@@ -12,6 +13,15 @@ const LocationTable = ({
   setSelectedIds,
 }) => {
   // console.log('selectedIds = ', selectedIds);
+
+  const [
+    deleteLocation,
+    {
+      isLoading: deleteLocationIsLoading,
+      isSuccess: deleteLocationIsSuccess,
+      isError: deleteLocationIsError,
+    },
+  ] = useDeleteLocationMutation();
 
   let headers = ["Location Id", "Location Name", "Icon"];
 
@@ -57,6 +67,7 @@ const LocationTable = ({
 
   const handleDelete = (id) => {
     console.log("id = ", id);
+    deleteLocation(id);
   };
 
   let content = <></>;

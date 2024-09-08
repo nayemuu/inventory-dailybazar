@@ -40,7 +40,19 @@ export const locationApi = apiWithTag.injectEndpoints({
         }
       },
     }),
+
+    deleteLocation: builder.mutation({
+      query: (id) => ({
+        url: `api/location/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["location-list"],
+    }),
   }),
 });
 
-export const { useAddLocationMutation, useGetLocationsQuery } = locationApi;
+export const {
+  useAddLocationMutation,
+  useGetLocationsQuery,
+  useDeleteLocationMutation,
+} = locationApi;
