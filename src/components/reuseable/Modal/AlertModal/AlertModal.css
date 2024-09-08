@@ -1,0 +1,20 @@
+.DeleteModalContainer {
+  box-shadow: 3px 3px 10px 0px #00000026;
+}
+
+.alertModalLogoContainer {
+  height: 74px !important;
+  width: 74px !important;
+  min-height: 74px !important;
+  min-width: 74px !important;
+  border-radius: 50% !important;
+  background-color: rgba(209, 63, 151, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alertModalLogo {
+  height: 50px !important;
+  width: 50px !important;
+}

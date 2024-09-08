@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LocationTableRow from "./LocationTableRow";
 import { useDeleteLocationMutation } from "../../../../redux/features/location/locationApi";
+import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
+import Portal from "../../../reuseable/Portal/Portal";
+import Modal from "../../../reuseable/Modal/Modal";
 
 const LocationTable = ({
   data,
@@ -13,6 +16,8 @@ const LocationTable = ({
   setSelectedIds,
 }) => {
   // console.log('selectedIds = ', selectedIds);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedModal, setSelectedModal] = useState("");
 
   const [
     deleteLocation,
@@ -22,6 +27,12 @@ const LocationTable = ({
       isError: deleteLocationIsError,
     },
   ] = useDeleteLocationMutation();
+
+  const handleModal = (modalName) => {
+    // console.log('modalName = ', modalName);
+    setSelectedModal(modalName);
+    setShowModal(true);
+  };
 
   let headers = ["Location Id", "Location Name", "Icon"];
 
@@ -66,8 +77,9 @@ const LocationTable = ({
   };
 
   const handleDelete = (id) => {
-    console.log("id = ", id);
-    deleteLocation(id);
+    // console.log("id = ", id);
+    // deleteLocation(id);
+    handleModal("delete-location-alert");
   };
 
   let content = <></>;
@@ -135,52 +147,67 @@ const LocationTable = ({
   }
 
   return (
-    <div>
-      <div className="section-title">Location Table</div>
+    <>
+      <div>
+        <div className="section-title">Location Table</div>
 
-      <div className="flex flex-col mt-5">
-        <div className="-m-1.5 overflow-x-auto">
-          <div className="p-1.5 min-w-full inline-block align-middle">
-            <div className="border rounded-lg overflow-hidden">
-              <table className="min-w-full divide-y divide-[#DCE0E4]">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="py-3 ps-4">
-                      <div className="flex items-center h-5">
-                        <input
-                          type="checkbox"
-                          className="border-gray-200 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
-                          onClick={handleAllCheckBox}
-                        />
-                      </div>
-                    </th>
+        <div className="flex flex-col mt-5">
+          <div className="-m-1.5 overflow-x-auto">
+            <div className="p-1.5 min-w-full inline-block align-middle">
+              <div className="border rounded-lg overflow-hidden">
+                <table className="min-w-full divide-y divide-[#DCE0E4]">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th scope="col" className="py-3 ps-4">
+                        <div className="flex items-center h-5">
+                          <input
+                            type="checkbox"
+                            className="border-gray-200 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                            onClick={handleAllCheckBox}
+                          />
+                        </div>
+                      </th>
 
-                    {headers.map((header, index) => (
+                      {headers.map((header, index) => (
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-start text-sm font-medium text-gray-500"
+                          key={index}
+                        >
+                          {header}
+                        </th>
+                      ))}
+
                       <th
                         scope="col"
                         className="px-6 py-3 text-start text-sm font-medium text-gray-500"
-                        key={index}
                       >
-                        {header}
+                        Action
                       </th>
-                    ))}
+                    </tr>
+                  </thead>
 
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-start text-sm font-medium text-gray-500"
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-
-                {content}
-              </table>
+                  {content}
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <Portal>
+        <Modal showModal={showModal}>
+          {selectedModal === "delete-location-alert" && (
+            <AlertModal
+              title="Delete Location?"
+              message="Are you sure you want to delete this Location?"
+              setShow={setShowModal}
+              handler={() => console.log("delete")}
+            />
+          )}
+        </Modal>
+      </Portal>
+    </>
   );
 };
 

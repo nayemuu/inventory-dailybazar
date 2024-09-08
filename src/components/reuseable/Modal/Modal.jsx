@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const Modal = ({ children, showModal }) => {
+const Modal = ({
+  children,
+  showModal,
+  handleClick = () => {
+    console.log("yoo");
+  },
+}) => {
   const [shouldRender, setShouldRender] = useState(showModal);
 
   useEffect(() => {
