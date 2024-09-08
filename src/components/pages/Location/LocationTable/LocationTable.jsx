@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LocationTableRow from "./LocationTableRow";
 import { useDeleteLocationMutation } from "../../../../redux/features/location/locationApi";
 import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
+import { successToastMessage } from "../../../../utils/toastifyUtils";
 
 const LocationTable = ({
   data,
@@ -18,15 +19,26 @@ const LocationTable = ({
   // console.log('selectedIds = ', selectedIds);
   const [showModal, setShowModal] = useState(false);
   const [selectedModal, setSelectedModal] = useState("");
+  const [deleteId, setDeleteId] = useState(null); // State to hold the id of the item to be deleted
 
   const [
     deleteLocation,
     {
       isLoading: deleteLocationIsLoading,
       isSuccess: deleteLocationIsSuccess,
+      data: deleteLocationData,
       isError: deleteLocationIsError,
     },
   ] = useDeleteLocationMutation();
+
+  useEffect(() => {
+    if (deleteLocationIsSuccess) {
+      // console.log("deleteLocationData = ", deleteLocationData);
+      if (deleteLocationData.message) {
+        successToastMessage(deleteLocationData.message);
+      }
+    }
+  }, [deleteLocationIsSuccess]);
 
   const handleModal = (modalName) => {
     // console.log('modalName = ', modalName);
@@ -80,6 +92,16 @@ const LocationTable = ({
     // console.log("id = ", id);
     // deleteLocation(id);
     handleModal("delete-location-alert");
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) {
+      deleteLocation(deleteId); // Call deleteLocation with the stored ID
+      setDeleteId(null); // Clear the ID after deletion
+    }
+
+    setShowModal(false);
   };
 
   let content = <></>;
@@ -202,7 +224,7 @@ const LocationTable = ({
               title="Delete Location?"
               message="Are you sure you want to delete this Location?"
               setShow={setShowModal}
-              handler={() => console.log("delete")}
+              handler={confirmDelete}
             />
           )}
         </Modal>
