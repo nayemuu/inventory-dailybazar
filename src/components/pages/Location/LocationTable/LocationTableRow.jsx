@@ -14,6 +14,7 @@ const LocationTableRow = (props) => {
   } = props;
 
   const [isSelected, setIsSelected] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     if (selectedIds.includes(item.id)) {
@@ -43,24 +44,6 @@ const LocationTableRow = (props) => {
         </div>
       </td>
 
-      {/* {fieldToShow.map((targetField, i) =>
-        item[targetField] ? (
-          <td
-            className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-            key={i}
-          >
-            {item[targetField]}
-          </td>
-        ) : (
-          <td
-            className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600"
-            key={i}
-          >
-            {handleAlert(index, targetField)}
-          </td>
-        )
-      )} */}
-
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
         {item.id}
       </td>
@@ -71,12 +54,24 @@ const LocationTableRow = (props) => {
 
       {item?.icon ? (
         <td>
-          <div className="flex items-center">
+          <div
+            className="flex items-center"
+            style={imageLoading ? { display: "none" } : {}}
+            onLoad={() => {
+              setImageLoading(false);
+            }}
+          >
             <img
               src={item.icon}
               className="object-contain h-[55px] w-[55px] m-1"
             />
           </div>
+
+          {imageLoading && (
+            <div className={`h-[50px] w-[40px] animate-pulse p-1 z-[20]`}>
+              <div className="h-full w-full rounded bg-gray-400"></div>
+            </div>
+          )}
         </td>
       ) : (
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
