@@ -3,15 +3,25 @@ import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButto
 import Input from "../../../../reuseable/Inputs/Input/Input";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
+import { useEditLocationMutation } from "../../../../../redux/features/location/locationApi";
+import {
+  errorToastMessage,
+  successToastMessage,
+} from "../../../../../utils/toastifyUtils";
 
 function EditLocationFrom({ data, editId, setEditId }) {
   const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
+  const [
+    editLocation,
+    { isLoading, isError, isSuccess, data: editLocationData, error },
+  ] = useEditLocationMutation();
+
   useEffect(() => {
     if (data && data?.results?.length) {
       const matchedItem = data.results.find((item) => item.id === editId);
-      console.log("matchedItem = ", matchedItem);
+      // console.log("matchedItem = ", matchedItem);
       setLocation(matchedItem.name);
       if (!matchedItem?.icon) {
         setLocationIcon(null);
@@ -35,7 +45,32 @@ function EditLocationFrom({ data, editId, setEditId }) {
     e.preventDefault();
     console.log("location = ", location);
     console.log("locationIcon = ", locationIcon);
+
+    const formData = new FormData();
+    formData.append("id", editId);
+    formData.append("name", location);
+    if (locationIcon) {
+      formData.append("icon", locationIcon);
+    }
+    // successToastMessage('Location Created Successfully');
+    editLocation(formData);
   };
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      clearHandler();
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError && error) {
+      if (error?.data?.message) {
+        errorToastMessage(error.data.message);
+      } else {
+        errorToastMessage("Something went wrong");
+      }
+    }
+  }, [isError, error]);
 
   return (
     <div>
@@ -63,8 +98,8 @@ function EditLocationFrom({ data, editId, setEditId }) {
           <div className="mt-5">
             <div className="flex gap-5 flex-wrap">
               <div className="max-w-[200px] w-full">
-                <SubmitButton isLoading={false} disable={false}>
-                  Edit Location
+                <SubmitButton isLoading={isLoading}>
+                  Update Location
                 </SubmitButton>
               </div>
 

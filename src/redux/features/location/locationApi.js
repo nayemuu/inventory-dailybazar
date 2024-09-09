@@ -1,3 +1,4 @@
+import { successToastMessage } from "../../../utils/toastifyUtils";
 import { apiSlice } from "../api/apiSlice";
 
 const apiWithTag = apiSlice.enhanceEndpoints({
@@ -41,6 +42,35 @@ export const locationApi = apiWithTag.injectEndpoints({
       },
     }),
 
+    editLocation: builder.mutation({
+      query: (data) => {
+        const object = Object.fromEntries(data.entries());
+        console.log(object);
+
+        return {
+          url: `api/location/${object.id}`,
+          method: "PATCH",
+          body: data,
+          formData: true,
+        };
+      },
+
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          // console.log("inside editLocation result = ", result);
+          // console.log("result.data.message = ", result.data.message);
+          if (result?.data?.message) {
+            // console.log("result.data.message = ", result.data.message);
+            successToastMessage(result.data.message);
+          }
+        } catch (error) {
+          //
+        }
+      },
+      invalidatesTags: ["location-list"],
+    }),
+
     deleteLocation: builder.mutation({
       query: (id) => ({
         url: `api/location/${id}`,
@@ -54,5 +84,6 @@ export const locationApi = apiWithTag.injectEndpoints({
 export const {
   useAddLocationMutation,
   useGetLocationsQuery,
+  useEditLocationMutation,
   useDeleteLocationMutation,
 } = locationApi;

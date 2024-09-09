@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const Modal = ({
-  children,
-  showModal,
-  handleClick = () => {
-    console.log("yoo");
-  },
-}) => {
+const Modal = ({ children, showModal }) => {
   const [shouldRender, setShouldRender] = useState(showModal);
 
   useEffect(() => {
     if (showModal) {
       setShouldRender(true);
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      // Remove overflow-x hidden when the modal is closed
+      document.documentElement.style.overflow = "";
     }
+
+    // Cleanup function to reset the overflow when the component unmounts
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
   }, [showModal]);
 
   const handleAnimationEnd = () => {

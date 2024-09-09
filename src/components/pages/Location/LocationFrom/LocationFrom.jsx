@@ -1,33 +1,33 @@
-import { useEffect, useState } from 'react';
-import Input from '../../../reuseable/Inputs/Input/Input';
-import ImageUpload from './ImageUpload/ImageUpload';
-import SubmitButton from '../../../reuseable/buttons/SubmitButton/SubmitButton';
-import { useAddLocationMutation } from '../../../../redux/features/location/locationApi';
+import { useEffect, useState } from "react";
+import Input from "../../../reuseable/Inputs/Input/Input";
+import ImageUpload from "./ImageUpload/ImageUpload";
+import SubmitButton from "../../../reuseable/buttons/SubmitButton/SubmitButton";
+import { useAddLocationMutation } from "../../../../redux/features/location/locationApi";
 import {
   errorToastMessage,
   successToastMessage,
-} from '../../../../utils/toastifyUtils';
+} from "../../../../utils/toastifyUtils";
 
 const LocationFrom = () => {
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
   const [addLocation, { isLoading, isError, isSuccess, data, error }] =
     useAddLocationMutation();
 
   const resetForm = () => {
-    setLocation('');
+    setLocation("");
     setLocationIcon(null);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('location = ', location);
-    console.log('locationIcon = ', locationIcon);
+    console.log("location = ", location);
+    console.log("locationIcon = ", locationIcon);
     const formData = new FormData();
-    formData.append('name', location);
+    formData.append("name", location);
     if (locationIcon) {
-      formData.append('icon', locationIcon);
+      formData.append("icon", locationIcon);
     }
     // successToastMessage('Location Created Successfully');
     addLocation(formData);
@@ -45,7 +45,7 @@ const LocationFrom = () => {
       if (error?.data?.message) {
         errorToastMessage(error.data.message);
       } else {
-        errorToastMessage('Something went wrong');
+        errorToastMessage("Something went wrong");
       }
     }
   }, [isError, error]);
@@ -72,7 +72,7 @@ const LocationFrom = () => {
           <div className="mt-5">
             <div className="flex gap-5 flex-wrap">
               <div className="max-w-[200px] w-full">
-                <SubmitButton isLoading={false} disable={false}>
+                <SubmitButton isLoading={isLoading}>
                   Create Location
                 </SubmitButton>
               </div>

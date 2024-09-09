@@ -4,7 +4,10 @@ import { useDeleteLocationMutation } from "../../../../redux/features/location/l
 import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
-import { successToastMessage } from "../../../../utils/toastifyUtils";
+import {
+  errorToastMessage,
+  successToastMessage,
+} from "../../../../utils/toastifyUtils";
 
 const LocationTable = ({
   data,
@@ -28,6 +31,7 @@ const LocationTable = ({
       isSuccess: deleteLocationIsSuccess,
       data: deleteLocationData,
       isError: deleteLocationIsError,
+      error: deleteLocationError,
     },
   ] = useDeleteLocationMutation();
 
@@ -39,6 +43,17 @@ const LocationTable = ({
       }
     }
   }, [deleteLocationIsSuccess]);
+
+  useEffect(() => {
+    if (deleteLocationIsError) {
+      // console.log("deleteLocationData = ", deleteLocationData);
+      if (deleteLocationError.message) {
+        errorToastMessage(deleteLocationError.message);
+      } else {
+        errorToastMessage("Something went wrong");
+      }
+    }
+  }, [deleteLocationIsError]);
 
   const handleModal = (modalName) => {
     // console.log('modalName = ', modalName);
