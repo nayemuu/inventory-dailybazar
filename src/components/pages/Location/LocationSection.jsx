@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
 import LocationTable from "./LocationTable/LocationTable";
-import LocationFrom from "./LocationFrom/LocationFrom";
 import {
   locationApi,
   useGetLocationsQuery,
@@ -16,6 +15,7 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../reuseable/Portal/Portal";
 import Modal from "../../reuseable/Modal/Modal";
+import AddLocationFrom from "./LocationFrom/AddLocationFrom/AddLocationFrom";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -287,7 +287,7 @@ const LocationSection = () => {
                 setEditId={setEditId}
               />
             ) : (
-              <LocationFrom />
+              <AddLocationFrom />
             )}
           </div>
         </div>

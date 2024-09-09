@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import Input from "../../../reuseable/Inputs/Input/Input";
-import ImageUpload from "./ImageUpload/ImageUpload";
-import SubmitButton from "../../../reuseable/buttons/SubmitButton/SubmitButton";
-import { useAddLocationMutation } from "../../../../redux/features/location/locationApi";
+import Input from "../../../../reuseable/Inputs/Input/Input";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
+import { useAddLocationMutation } from "../../../../../redux/features/location/locationApi";
 import {
   errorToastMessage,
   successToastMessage,
-} from "../../../../utils/toastifyUtils";
+} from "../../../../../utils/toastifyUtils";
 
-const LocationFrom = () => {
+const AddLocationFrom = () => {
   const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
@@ -84,4 +84,4 @@ const LocationFrom = () => {
   );
 };
 
-export default LocationFrom;
+export default AddLocationFrom;

@@ -28,8 +28,10 @@ function AlertModal({ setShow, handler, title, message }) {
           </div>
 
           <div className="flex flex-col max-w-[450px]">
-            <div className="text-xl md:text-2xl font-semibold">{title}</div>
-            <div className="text-base md:text-xl font-normal text-[#757575]">
+            <div className="text-xl md:text-[22px] xxl:text-2xl font-semibold">
+              {title}
+            </div>
+            <div className="text-base md:text-xl xxl:text-xl font-normal text-[#757575]">
               {message}
             </div>
           </div>
