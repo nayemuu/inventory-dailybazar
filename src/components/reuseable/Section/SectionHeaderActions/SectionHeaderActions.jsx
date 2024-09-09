@@ -52,11 +52,11 @@ const SectionHeaderActions = (props) => {
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
               >
                 {isFilterOpen ? (
-                  <div className="text-[24px]">
+                  <div className="text-[24px]" title="Close filter">
                     <MdOutlineFilterListOff />
                   </div>
                 ) : (
-                  <div className="text-[24px]">
+                  <div className="text-[24px]" title="filter">
                     <IoFilter />
                   </div>
                 )}
@@ -98,6 +98,7 @@ const SectionHeaderActions = (props) => {
             <div
               onClick={fileExportsOptions.pdf.handlePdf}
               className="cursor-pointer"
+              title="Export as a PDF"
             >
               <img src={pdf} className="w-[43px] h-[43px] aspect-square" />
             </div>
@@ -107,6 +108,7 @@ const SectionHeaderActions = (props) => {
             <div
               onClick={fileExportsOptions.excel.handleExcel}
               className="cursor-pointer"
+              title="Export as a Excel"
             >
               <img src={excel} className="w-[43px] h-[43px] aspect-square" />
             </div>
@@ -116,6 +118,7 @@ const SectionHeaderActions = (props) => {
             <div
               onClick={fileExportsOptions.print.handlePrint}
               className="cursor-pointer"
+              title="Print"
             >
               <img src={print} className="w-[43px] h-[43px] aspect-square" />
             </div>

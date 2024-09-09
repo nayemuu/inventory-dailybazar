@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { BsFullscreen } from 'react-icons/bs';
-import { FiMenu } from 'react-icons/fi';
-import './Navbar.css';
-import User from './mini-components/account/User/User';
-import { useDispatch } from 'react-redux';
-import { changeSidebarStatus } from '../../../redux/features/sidebar/sidebarSlice';
-import LoggedInUser from './mini-components/account/LoggedInUser/LoggedInUser';
+import { useState } from "react";
+import { BsFullscreen } from "react-icons/bs";
+import { FiMenu } from "react-icons/fi";
+import "./Navbar.css";
+import User from "./mini-components/account/User/User";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSidebarStatus } from "../../../redux/features/sidebar/sidebarSlice";
+import LoggedInUser from "./mini-components/account/LoggedInUser/LoggedInUser";
 
 const Navbar = () => {
   const [fullScreen, setFullScreen] = useState(false);
+  const { status: isSidebarOpen } = useSelector((state) => state.sidebar);
   const dispatch = useDispatch();
 
   const sidebarHandler = () => {
-    console.log('inside sidebarHandler');
     dispatch(changeSidebarStatus());
   };
 
@@ -49,6 +49,7 @@ const Navbar = () => {
           <div
             className="w-[44px] h-[44px] flex justify-center items-center text-2xl font-bold text-[#637381] cursor-pointer hover:text-primary bg-[#eeecec] rounded-md hover:bg-[#1B2850]/10"
             onClick={sidebarHandler}
+            title={isSidebarOpen ? "Close Side Panel" : "Open Side Panel"}
           >
             <FiMenu />
           </div>
@@ -58,6 +59,7 @@ const Navbar = () => {
               // className="text-xl font-bold cursor-pointer hover:text-primary bg-[#eeecec] p-2 rounded-md hover:bg-[#1B2850]/10"
               className="w-[44px] h-[44px] flex justify-center items-center text-2xl font-bold text-[#637381] cursor-pointer hover:text-primary bg-[#eeecec] rounded-md hover:bg-[#1B2850]/10"
               onClick={handleScreenSize}
+              title="Open Full Screen"
             >
               <BsFullscreen />
             </div>

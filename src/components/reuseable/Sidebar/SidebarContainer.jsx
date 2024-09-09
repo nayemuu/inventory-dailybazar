@@ -1,15 +1,15 @@
-import { useSelector } from 'react-redux';
-import Sidebar from './Sidebar';
+import { useSelector } from "react-redux";
+import Sidebar from "./Sidebar";
 
 const SidebarContainer = ({ children }) => {
-  const { status: sidebarStatus } = useSelector((state) => state.sidebar);
-  // console.log('sidebarStatus = ', sidebarStatus);
+  const { status: isSidebarOpen } = useSelector((state) => state.sidebar);
+  // console.log('isSidebarOpen = ', isSidebarOpen);
   return (
     <div>
       <Sidebar />
       <div
         className={`${
-          sidebarStatus ? 'md:ml-[250px]' : 'ml-0'
+          isSidebarOpen ? "md:ml-[250px]" : "ml-0"
         } transition-all duration-200 ease-linear`}
       >
         {children}

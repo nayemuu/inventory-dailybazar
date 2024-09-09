@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { IoCloseOutline } from 'react-icons/io5';
-import { RxDashboard } from 'react-icons/rx';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { RiShoppingCart2Fill } from 'react-icons/ri';
-import { BsBoxSeamFill, BsPersonFillAdd } from 'react-icons/bs';
-import { changeSidebarStatus } from '../../../redux/features/sidebar/sidebarSlice';
-import './Sidebar.css';
-import SidebarItem from './SidebarItem';
-import { FaQuestion } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { RiShoppingCart2Fill } from "react-icons/ri";
+import { BsBoxSeamFill, BsPersonFillAdd } from "react-icons/bs";
+import { changeSidebarStatus } from "../../../redux/features/sidebar/sidebarSlice";
+import "./Sidebar.css";
+import SidebarItem from "./SidebarItem";
+import { FaQuestion } from "react-icons/fa";
 
 const Sidebar = () => {
-  const { status: sidebarStatus } = useSelector((state) => state.sidebar);
+  const { status: isSidebarOpen } = useSelector((state) => state.sidebar);
   const [activeIndex, setActiveIndex] = useState(null);
   const [transition, setTransition] = useState(false);
 
@@ -32,59 +32,59 @@ const Sidebar = () => {
 
   const sidebarItems = [
     {
-      title: 'Dashboard',
+      title: "Dashboard",
       index: 1,
       activeIndex: activeIndex,
-      path: '/',
+      path: "/",
       icon: RxDashboard,
       isIconSVG: false,
       childs: [],
     },
     {
-      title: 'Orders',
+      title: "Orders",
       index: 2,
       activeIndex: activeIndex,
-      path: '/orders',
+      path: "/orders",
       icon: RiShoppingCart2Fill,
       isIconSVG: false,
       childs: [],
     },
     {
-      title: 'Products',
+      title: "Products",
       index: 3,
       activeIndex: activeIndex,
       icon: BsBoxSeamFill,
       isIconSVG: false,
       childs: [
         {
-          title: 'Product List',
-          path: '/product-list',
+          title: "Product List",
+          path: "/product-list",
           haveIcon: false,
         },
         {
-          title: 'Add Product',
-          path: '/add-product',
+          title: "Add Product",
+          path: "/add-product",
           haveIcon: false,
         },
         {
-          title: 'Category',
-          path: '/category',
+          title: "Category",
+          path: "/category",
           haveIcon: false,
         },
         {
-          title: 'Sub Category',
-          path: '/sub-category',
+          title: "Sub Category",
+          path: "/sub-category",
           haveIcon: false,
         },
         {
-          title: 'Location',
-          path: '/location',
+          title: "Location",
+          path: "/location",
           haveIcon: false,
         },
       ],
     },
     {
-      title: 'Supplier',
+      title: "Supplier",
       index: 4,
       activeIndex: activeIndex,
       icon: (
@@ -118,22 +118,22 @@ const Sidebar = () => {
       isIconSVG: true,
       childs: [
         {
-          title: 'Supplier List',
-          path: '/supplier-list',
+          title: "Supplier List",
+          path: "/supplier-list",
           haveIcon: false,
         },
         {
-          title: 'Add Supplier',
-          path: '/add-supplier',
+          title: "Add Supplier",
+          path: "/add-supplier",
           haveIcon: false,
         },
       ],
     },
     {
-      title: 'Test',
+      title: "Test",
       index: 10,
       activeIndex: activeIndex,
-      path: '/test',
+      path: "/test",
       icon: FaQuestion,
       isIconSVG: false,
       childs: [],
@@ -156,7 +156,7 @@ const Sidebar = () => {
   return (
     <div
       className={`${
-        sidebarStatus ? 'translate-x-0' : '-translate-x-full'
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } fixed m-0 p-[8px] w-[250px] h-full border-r border-[#dce0e4] border-solid z-[2] transition-all duration-200 ease-linear bg-primary-light overflow-y-auto sidebar-scrollbar`}
     >
       <div className="flex justify-end text-3xl hover:text-red-500 cursor-pointer md:hidden">

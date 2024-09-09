@@ -88,6 +88,7 @@ const LocationTableRow = (props) => {
             <div
               className="h-full flex justify-center items-center cursor-pointer  text-[#637381] hover:text-primary"
               onClick={() => handleView(item.id)}
+              title="View"
             >
               <svg
                 width="22"
@@ -116,6 +117,7 @@ const LocationTableRow = (props) => {
             <div
               className="h-full flex justify-center items-center cursor-pointer text-[#637381] hover:text-primary"
               onClick={() => handleEdit(item.id)}
+              title="Update"
             >
               <svg
                 width="22"
@@ -136,6 +138,7 @@ const LocationTableRow = (props) => {
             <div
               className="h-full flex justify-center items-center cursor-pointer text-[#637381] hover:text-[#E40000]"
               onClick={() => handleDelete(item.id)}
+              title="Delete"
             >
               <svg
                 width="22"
