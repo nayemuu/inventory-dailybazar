@@ -1,16 +1,16 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import './App.css';
-import Home from './pages/Home/Home';
-import Test from './pages/Test/Test';
-import Login from './pages/Login/Login';
-import Orders from './pages/Orders/Orders';
-import AddProduct from './pages/products-group/AddProduct/AddProduct';
-import 'react-toastify/dist/ReactToastify.css';
-import useLocalPropertiesCheck from './hooks/useLocalPropertiesCheck';
-import Loader from './components/reuseable/Loader/Loader';
-import AuthRoute from './AuthRoute';
-import PrivateRoute from './PrivateRoute';
-import Location from './pages/products-group/Location/Location';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import "./App.css";
+import Test from "./pages/Test/Test";
+import Login from "./pages/Login/Login";
+import Orders from "./pages/Orders/Orders";
+import AddProduct from "./pages/products-group/AddProduct/AddProduct";
+import "react-toastify/dist/ReactToastify.css";
+import useLocalPropertiesCheck from "./hooks/useLocalPropertiesCheck";
+import Loader from "./components/reuseable/Loader/Loader";
+import AuthRoute from "./AuthRoute";
+import PrivateRoute from "./PrivateRoute";
+import Location from "./pages/products-group/Location/Location";
+import DashBoard from "./pages/DashBoard/DashBoard";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -39,7 +39,7 @@ const App = () => {
           path="/"
           element={
             <PrivateRoute>
-              <Home />
+              <DashBoard />
             </PrivateRoute>
           }
         />
