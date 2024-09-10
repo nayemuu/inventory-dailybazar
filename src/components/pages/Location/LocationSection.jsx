@@ -29,7 +29,7 @@ const LocationSection = () => {
   const [jumpToPage, setJumpToPage] = useState(undefined);
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
-  const limit = 5;
+  const limit = 2;
 
   const dispatch = useDispatch();
 
@@ -46,89 +46,34 @@ const LocationSection = () => {
     );
 
   const exportDocument = async (type) => {
-    if (selectedIds.length) {
-      // console.log("selectedIds = ", selectedIds);
-      // console.log("data = ", data.results);
-      const dataForExportDocument = data.results.filter((item) =>
-        selectedIds.includes(item.id)
-      );
-
-      if (type === "pdf") {
-        let head = [["Id", "Location Name"]];
-        let fieldToShow = ["id", "name"]; // data column kyes
-
-        // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-        exportPdf(
-          "Location List",
-          head,
-          dataForExportDocument,
-          fieldToShow,
-          true
+    if (
+      !isLoading &&
+      !isFetching &&
+      data &&
+      data?.count &&
+      !apiCallWhileExporting
+    ) {
+      if (selectedIds.length) {
+        // console.log("selectedIds = ", selectedIds);
+        // console.log("data = ", data.results);
+        const dataForExportDocument = data.results.filter((item) =>
+          selectedIds.includes(item.id)
         );
-      } else {
-        const dataForExcell = [];
-        dataForExportDocument.map((item) => {
-          let obj = {};
-          obj["id"] = item.id;
-          obj["Location Name"] = item.name;
 
-          dataForExcell.push(obj);
-        });
-
-        // exportExcel(data, pdfTitle, isSelected) perametrs
-        exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
-      }
-    } else {
-      let dataForExportDocument = [];
-      if (data.results.length === data.count) {
-        dataForExportDocument = [...data.results];
-      } else {
-        // number of iteration for your loop
-        const limitForApiCall = 2;
-        const totalCall = Math.ceil(data.count / limitForApiCall);
-        // console.log("totalCall = ", totalCall);
-        // end number of iteration for your loop
-
-        setApiCallWhileExporting(true);
-
-        for (let i = 0; i < totalCall; i++) {
-          const {
-            status,
-            data: loadMoreData,
-            error: loadMoreError,
-            refetch,
-          } = await dispatch(
-            locationApi.endpoints.getLocations.initiate(
-              {
-                limit: 2,
-                offset: dataForExportDocument.length,
-                keyword: searchText,
-              },
-              { forceRefetch: true }
-            )
-          );
-          // console.log("loadMoreData = ", loadMoreData);
-          if (loadMoreData) {
-            dataForExportDocument = [
-              ...dataForExportDocument,
-              ...loadMoreData.results,
-            ];
-          }
-        }
-
-        setApiCallWhileExporting(false);
-      }
-
-      if (dataForExportDocument.length) {
-        const dataForExcell = [];
         if (type === "pdf") {
           let head = [["Id", "Location Name"]];
-
           let fieldToShow = ["id", "name"]; // data column kyes
 
           // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-          exportPdf("Location List", head, dataForExportDocument, fieldToShow);
+          exportPdf(
+            "Location List",
+            head,
+            dataForExportDocument,
+            fieldToShow,
+            true
+          );
         } else {
+          const dataForExcell = [];
           dataForExportDocument.map((item) => {
             let obj = {};
             obj["id"] = item.id;
@@ -138,7 +83,75 @@ const LocationSection = () => {
           });
 
           // exportExcel(data, pdfTitle, isSelected) perametrs
-          exportExcel(dataForExcell, "Location List.xlsx", true);
+          exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
+        }
+      } else {
+        let dataForExportDocument = [];
+        if (data.results.length === data.count) {
+          dataForExportDocument = [...data.results];
+        } else {
+          // number of iteration for your loop
+          const limitForApiCall = 2;
+          const totalCall = Math.ceil(data.count / limitForApiCall);
+          // console.log("totalCall = ", totalCall);
+          // end number of iteration for your loop
+
+          setApiCallWhileExporting(true);
+
+          for (let i = 0; i < totalCall; i++) {
+            const {
+              status,
+              data: loadMoreData,
+              error: loadMoreError,
+              refetch,
+            } = await dispatch(
+              locationApi.endpoints.getLocations.initiate(
+                {
+                  limit: 2,
+                  offset: dataForExportDocument.length,
+                  keyword: searchText,
+                },
+                { forceRefetch: true }
+              )
+            );
+            // console.log("loadMoreData = ", loadMoreData);
+            if (loadMoreData) {
+              dataForExportDocument = [
+                ...dataForExportDocument,
+                ...loadMoreData.results,
+              ];
+            }
+          }
+
+          setApiCallWhileExporting(false);
+        }
+
+        if (dataForExportDocument.length) {
+          const dataForExcell = [];
+          if (type === "pdf") {
+            let head = [["Id", "Location Name"]];
+
+            let fieldToShow = ["id", "name"]; // data column kyes
+
+            // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
+            exportPdf(
+              "Location List",
+              head,
+              dataForExportDocument,
+              fieldToShow
+            );
+          } else {
+            dataForExportDocument.map((item) => {
+              let obj = {};
+              obj["id"] = item.id;
+              obj["Location Name"] = item.name;
+
+              dataForExcell.push(obj);
+            });
+
+            // exportExcel(data, pdfTitle, isSelected) perametrs
+            exportExcel(dataForExcell, "Location List.xlsx", true);
+          }
         }
       }
     }
