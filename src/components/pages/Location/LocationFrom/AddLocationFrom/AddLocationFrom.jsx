@@ -22,8 +22,8 @@ const AddLocationFrom = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("location = ", location);
-    console.log("locationIcon = ", locationIcon);
+    // console.log("location = ", location);
+    // console.log("locationIcon = ", locationIcon);
     const formData = new FormData();
     formData.append("name", location);
     if (locationIcon) {

@@ -11,9 +11,16 @@ import AuthRoute from "./AuthRoute";
 import PrivateRoute from "./PrivateRoute";
 import Location from "./pages/products-group/Location/Location";
 import DashBoard from "./pages/DashBoard/DashBoard";
+import { useSelector } from "react-redux";
+import ServerError from "./components/pages/ServerError/ServerError";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
+  const { underMaintenanceStatus } = useSelector((state) => state.maintenance);
+
+  if (underMaintenanceStatus) {
+    return <ServerError />;
+  }
 
   if (!localPropertiesChecked) {
     return (

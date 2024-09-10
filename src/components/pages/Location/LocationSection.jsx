@@ -6,7 +6,6 @@ import {
   useGetLocationsQuery,
 } from "../../../redux/features/location/locationApi";
 import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
-import JumpToPageButton from "../../reuseable/buttons/JumpToPageButton/JumpToPageButton";
 import ReactPaginate from "react-paginate";
 import { errorToastMessage } from "../../../utils/toastifyUtils";
 import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSection";
