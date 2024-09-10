@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const ImageUpload = ({ image, setImage }) => {
   const [imageLoading, setImageLoading] = useState(true);
@@ -15,10 +15,10 @@ const ImageUpload = ({ image, setImage }) => {
     setImageLoading(true);
     const files = Array.from(e.dataTransfer.files).filter(
       (file) =>
-        file.type === 'image/jpg' ||
-        file.type === 'image/jpeg' ||
-        file.type === 'image/png' ||
-        file.type === 'image/webp'
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/webp"
     );
     if (files.length) {
       setImage(files[0]);
@@ -40,8 +40,8 @@ const ImageUpload = ({ image, setImage }) => {
         {image && URL.createObjectURL(image) ? (
           <>
             <div
-              className="h-[300px] w-full flex justify-center items-center overflow-hidden"
-              style={imageLoading ? { display: 'none' } : {}}
+              className="h-[300px] w-full flex justify-center items-center overflow-hidden bg-[#F5F5F5]"
+              style={imageLoading ? { display: "none" } : {}}
               onLoad={() => {
                 setImageLoading(false);
               }}
@@ -49,6 +49,7 @@ const ImageUpload = ({ image, setImage }) => {
               <img
                 src={URL.createObjectURL(image)}
                 className="object-contain h-full w-auto rounded-[5px]"
+                alt="icon"
               />
             </div>
 
