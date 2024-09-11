@@ -1,30 +1,28 @@
-import { ToastContainer } from "react-toastify";
-import LocationSection from "../../../components/pages/Location/LocationSection";
+import React from "react";
+import SidebarContainer from "../../../components/reuseable/Sidebar/SidebarContainer";
 import Navbar from "../../../components/reuseable/Navbar/Navbar";
 import SectionTitle from "../../../components/reuseable/Section/SectionTitle/SectionTitle";
-import SidebarContainer from "../../../components/reuseable/Sidebar/SidebarContainer";
 import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
+import CategorySection from "../../../components/pages/Category/CategorySection";
 
-const Location = () => {
+const Category = () => {
   return (
     <div>
       <SidebarContainer>
         <Navbar />
-
         <div className="main-content">
           <div className="container">
             <div className="mb-5">
-              <SectionTitle additionalClass="mb-1">Location</SectionTitle>
-              <Breadcrumb routes={["Products", "Location"]} />
+              <SectionTitle additionalClass="mb-1">Category</SectionTitle>
+              <Breadcrumb routes={["Products", "Category"]} />
             </div>
 
-            <LocationSection />
+            <CategorySection />
           </div>
-          <ToastContainer />
         </div>
       </SidebarContainer>
     </div>
   );
 };
 
-export default Location;
+export default Category;

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const ImageUpload = ({ image, setImage, matchedItem }) => {
+const ImageUpload = ({ image, setImage, matchedItem, title }) => {
   const [imageLoading, setImageLoading] = useState(true);
   // console.log('locationIcon = ', image);
 
@@ -15,10 +15,10 @@ const ImageUpload = ({ image, setImage, matchedItem }) => {
     setImageLoading(true);
     const files = Array.from(e.dataTransfer.files).filter(
       (file) =>
-        file.type === 'image/jpg' ||
-        file.type === 'image/jpeg' ||
-        file.type === 'image/png' ||
-        file.type === 'image/webp'
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/webp"
     );
     if (files.length) {
       setImage(files[0]);
@@ -34,14 +34,14 @@ const ImageUpload = ({ image, setImage, matchedItem }) => {
     <div>
       <label onDrop={onDrop} onDragOver={onDragOver}>
         <div className="text-[16px] leading-[18px] font-semibold mb-[8px]">
-          Location icon image :
+          {title} icon image :
         </div>
 
         {image && URL.createObjectURL(image) ? (
           <>
             <div
               className="h-[300px] w-full flex justify-center items-center overflow-hidden bg-[#F5F5F5]"
-              style={imageLoading ? { display: 'none' } : {}}
+              style={imageLoading ? { display: "none" } : {}}
               onLoad={() => {
                 setImageLoading(false);
               }}
@@ -49,7 +49,7 @@ const ImageUpload = ({ image, setImage, matchedItem }) => {
               <img
                 src={URL.createObjectURL(image)}
                 className="object-contain h-full w-auto rounded-[5px]"
-                alt="location icon"
+                alt={title}
               />
             </div>
 
@@ -62,7 +62,7 @@ const ImageUpload = ({ image, setImage, matchedItem }) => {
         ) : !image && matchedItem?.icon ? (
           <div
             className="h-[300px] w-full flex justify-center items-center overflow-hidden bg-[#F5F5F5]"
-            style={imageLoading ? { display: 'none' } : {}}
+            style={imageLoading ? { display: "none" } : {}}
             onLoad={() => {
               setImageLoading(false);
             }}
@@ -70,7 +70,7 @@ const ImageUpload = ({ image, setImage, matchedItem }) => {
             <img
               src={matchedItem.icon}
               className="object-contain h-full w-auto rounded-[5px]"
-              alt="location icon"
+              alt={title}
             />
           </div>
         ) : (

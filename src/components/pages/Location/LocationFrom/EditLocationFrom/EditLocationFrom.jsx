@@ -92,6 +92,7 @@ function EditLocationFrom({ data, editId, setEditId }) {
               image={locationIcon}
               setImage={setLocationIcon}
               matchedItem={matchedItem}
+              title="Location"
             />
           </div>
 

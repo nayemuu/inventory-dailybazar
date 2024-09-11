@@ -66,7 +66,11 @@ const AddLocationFrom = () => {
               // labelBackgroundColor="#f3f6fa"
             />
 
-            <ImageUpload image={locationIcon} setImage={setLocationIcon} />
+            <ImageUpload
+              image={locationIcon}
+              setImage={setLocationIcon}
+              title="Location"
+            />
           </div>
 
           <div className="mt-5">

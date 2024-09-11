@@ -13,6 +13,7 @@ import Location from "./pages/products-group/Location/Location";
 import DashBoard from "./pages/DashBoard/DashBoard";
 import { useSelector } from "react-redux";
 import ServerError from "./components/pages/ServerError/ServerError";
+import Category from "./pages/products-group/Category/Category";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -53,7 +54,7 @@ const App = () => {
         <Route path="/orders" element={<Orders />} />
         <Route path="/product-list" element={<AddProduct />} />
         <Route path="/add-product" element={<AddProduct />} />
-        <Route path="/category" element={<AddProduct />} />
+        <Route path="/category" element={<Category />} />
         <Route path="/sub-category" element={<AddProduct />} />
         <Route
           path="/location"

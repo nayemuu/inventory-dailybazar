@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
 import {
   locationApi,
@@ -12,11 +12,12 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../reuseable/Portal/Portal";
 import Modal from "../../reuseable/Modal/Modal";
-import LocationTable from "./LocationTable/LocationTable";
-import AddLocationFrom from "./LocationFrom/AddLocationFrom/AddLocationFrom";
-import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
+import EditLocationFrom from "../Location/LocationFrom/EditLocationFrom/EditLocationFrom";
+import AddCategoryForm from "./CategoryForm/AddCategoryForm/AddCategoryForm";
+import { useGetCategoryQuery } from "../../../redux/features/category/categoryApi";
+import CategoryTable from "./CategoryTable/CategoryTable";
 
-const LocationSection = () => {
+const CategorySection = () => {
   const [searchText, setSearchText] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -28,7 +29,7 @@ const LocationSection = () => {
   const [jumpToPage, setJumpToPage] = useState(undefined);
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
-  const limit = 2;
+  const limit = 3;
 
   const dispatch = useDispatch();
 
@@ -39,10 +40,18 @@ const LocationSection = () => {
   // console.log("offset = ", offset);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
-    useGetLocationsQuery(
+    useGetCategoryQuery(
       { limit, offset, keyword: searchText },
       { refetchOnMountOrArgChange: true }
     );
+
+  const { isLoading: locationsIsLoading, data: locationsData } =
+    useGetLocationsQuery(
+      { limit: 10, offset: 0, keyword: "" },
+      { refetchOnMountOrArgChange: true }
+    );
+
+  console.log("data = ", data);
 
   const exportDocument = async (type) => {
     if (
@@ -242,7 +251,7 @@ const LocationSection = () => {
 
         <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
           <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
-            <LocationTable
+            <CategoryTable
               isLoading={isLoading}
               isSuccess={isSuccess}
               isFetching={isFetching}
@@ -299,7 +308,10 @@ const LocationSection = () => {
                 setEditId={setEditId}
               />
             ) : (
-              <AddLocationFrom />
+              <AddCategoryForm
+                locationData={locationsData?.results ?? []}
+                locationsIsLoading={locationsIsLoading}
+              />
             )}
           </div>
         </div>
@@ -333,4 +345,4 @@ const LocationSection = () => {
   );
 };
 
-export default LocationSection;
+export default CategorySection;
