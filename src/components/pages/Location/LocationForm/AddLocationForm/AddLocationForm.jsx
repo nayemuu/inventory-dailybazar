@@ -8,7 +8,7 @@ import {
   successToastMessage,
 } from "../../../../../utils/toastifyUtils";
 
-const AddLocationFrom = () => {
+const AddLocationForm = () => {
   const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
@@ -88,4 +88,4 @@ const AddLocationFrom = () => {
   );
 };
 
-export default AddLocationFrom;
+export default AddLocationForm;

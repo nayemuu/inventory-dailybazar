@@ -9,7 +9,7 @@ import {
   successToastMessage,
 } from "../../../../../utils/toastifyUtils";
 
-function EditLocationFrom({ data, editId, setEditId }) {
+function EditLocationForm({ data, editId, setEditId }) {
   const [location, setLocation] = useState("");
   const [locationIcon, setLocationIcon] = useState(null);
 
@@ -121,4 +121,4 @@ function EditLocationFrom({ data, editId, setEditId }) {
   );
 }
 
-export default EditLocationFrom;
+export default EditLocationForm;

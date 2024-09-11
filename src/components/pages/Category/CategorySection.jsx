@@ -12,13 +12,13 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../reuseable/Portal/Portal";
 import Modal from "../../reuseable/Modal/Modal";
-import EditLocationFrom from "../Location/LocationFrom/EditLocationFrom/EditLocationFrom";
 import AddCategoryForm from "./CategoryForm/AddCategoryForm/AddCategoryForm";
 import {
   categoryApi,
   useGetCategoryQuery,
 } from "../../../redux/features/category/categoryApi";
 import CategoryTable from "./CategoryTable/CategoryTable";
+import EditLocationForm from "../Location/LocationForm/EditLocationForm/EditLocationForm";
 
 const CategorySection = () => {
   const [searchText, setSearchText] = useState("");
@@ -304,7 +304,7 @@ const CategorySection = () => {
             isSuccess &&
             data &&
             data?.results?.length ? (
-              <EditLocationFrom
+              <EditLocationForm
                 data={data}
                 editId={editId}
                 setEditId={setEditId}

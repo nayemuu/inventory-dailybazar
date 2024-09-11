@@ -13,8 +13,8 @@ import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../reuseable/Portal/Portal";
 import Modal from "../../reuseable/Modal/Modal";
 import LocationTable from "./LocationTable/LocationTable";
-import AddLocationFrom from "./LocationFrom/AddLocationFrom/AddLocationFrom";
-import EditLocationFrom from "./LocationFrom/EditLocationFrom/EditLocationFrom";
+import EditLocationForm from "./LocationForm/EditLocationForm/EditLocationForm";
+import AddLocationForm from "./LocationForm/AddLocationForm/AddLocationForm";
 
 const LocationSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -293,13 +293,13 @@ const LocationSection = () => {
             isSuccess &&
             data &&
             data?.results?.length ? (
-              <EditLocationFrom
+              <EditLocationForm
                 data={data}
                 editId={editId}
                 setEditId={setEditId}
               />
             ) : (
-              <AddLocationFrom />
+              <AddLocationForm />
             )}
           </div>
         </div>

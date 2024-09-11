@@ -6,8 +6,8 @@ import {
   successToastMessage,
 } from "../../../../../utils/toastifyUtils";
 import { useAddCategoryMutation } from "../../../../../redux/features/category/categoryApi";
-import ImageUpload from "../../../Location/LocationFrom/ImageUpload/ImageUpload";
 import Select from "../Select/Select";
+import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload";
 
 const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
   const [category, setCategory] = useState("");
