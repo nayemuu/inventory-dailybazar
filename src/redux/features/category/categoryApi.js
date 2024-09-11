@@ -81,4 +81,8 @@ export const categoryApi = apiWithTag.injectEndpoints({
   }),
 });
 
-export const { useAddCategoryMutation, useGetCategoryQuery } = categoryApi;
+export const {
+  useAddCategoryMutation,
+  useGetCategoryQuery,
+  useDeleteCategoryMutation,
+} = categoryApi;

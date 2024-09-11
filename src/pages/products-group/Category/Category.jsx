@@ -4,6 +4,7 @@ import Navbar from "../../../components/reuseable/Navbar/Navbar";
 import SectionTitle from "../../../components/reuseable/Section/SectionTitle/SectionTitle";
 import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
 import CategorySection from "../../../components/pages/Category/CategorySection";
+import { ToastContainer } from "react-toastify";
 
 const Category = () => {
   return (
@@ -19,6 +20,8 @@ const Category = () => {
 
             <CategorySection />
           </div>
+
+          <ToastContainer />
         </div>
       </SidebarContainer>
     </div>

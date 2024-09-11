@@ -1,6 +1,18 @@
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
+const getProperty = (obj, path) => {
+  // Check if path is a valid string
+  if (typeof path !== "string" || path.trim() === "") {
+    throw new Error("Path must be a non-empty string.");
+  }
+
+  // Split the path into parts
+  const parts = path.split(".");
+  // Use reduce to access the nested property
+  return parts.reduce((acc, part) => acc && acc[part], obj);
+};
+
 const addPageNumber = (doc, head) => {
   const pageCount = doc.internal.getNumberOfPages();
   doc.setFontSize(8);
@@ -43,13 +55,17 @@ const exportPdf = (pdfTitle, head, data, fieldToShow, isSelected = false) => {
     // console.log('item = ', item);
 
     fieldToShow.map((targetField) => {
-      // console.log('targetField = ', targetField);
-      // console.log('item = ', item);
+      console.log("targetField = ", targetField);
+      console.log("item = ", item);
       // console.log('item.targetField = ', item.targetField);
       // avobe style is not working
 
-      // console.log('item.targetField = ', item[targetField]);
-      singleRow.push(item[targetField]);
+      // console.log("item.targetField = ", item[targetField]);
+
+      // singleRow.push(item[targetField]);
+      //In JavaScript, when you use bracket notation to access object properties, it only works with a single level of property access.
+
+      singleRow.push(getProperty(item, targetField));
     });
 
     // console.log('singleRow = ', singleRow);

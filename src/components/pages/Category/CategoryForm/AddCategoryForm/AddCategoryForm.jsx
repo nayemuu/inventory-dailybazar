@@ -12,7 +12,7 @@ import Select from "../Select/Select";
 const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
   const [category, setCategory] = useState("");
   const [categoryIcon, setCategoryIcon] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("");
 
   const [addCategory, { isLoading, isError, isSuccess, data, error }] =
     useAddCategoryMutation();
@@ -26,8 +26,8 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
     e.preventDefault();
     // console.log("category = ", category);
     // console.log("categoryIcon = ", categoryIcon);
-    if (location && location?.id) {
-      successToastMessage("Please Select a Location");
+    if (!location && location?.id) {
+      return errorToastMessage("Please Select a Location");
     }
 
     console.log("location.id = ", location.id);
@@ -36,7 +36,6 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
     if (categoryIcon) {
       formData.append("icon", categoryIcon);
     }
-    successToastMessage("category Created Successfully");
     formData.append("locationId", location.id);
     addCategory(formData);
   };

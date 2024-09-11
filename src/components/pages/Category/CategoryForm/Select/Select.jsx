@@ -52,11 +52,12 @@ function Select({
       <input
         value={value?.name ?? value}
         // onChange={(e) => setValue(e.target.value)}
-        onChange={() => {}}
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         type="text"
         placeholder="label"
         required={required}
         className="px-[17px] bg-transparent h-full w-full border border-solid border-[#DCE0E4] focus:border-primary rounded-[5px] outline-none text-[16px] placeholder:text-transparent peer"
+        readOnly // Make the input field read-only
       />
 
       <label className="px-[17px] flex items-center h-full w-full text-[#637381] pointer-events-none absolute left-0 top-0 text-[14px] duration-200 ease-linear  peer-[:not(:placeholder-shown)]:-translate-y-[50%] peer-[:not(:placeholder-shown)]:text-primary peer-[:not(:placeholder-shown)]:text-[11px]">

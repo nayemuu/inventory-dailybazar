@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDeleteLocationMutation } from "../../../../redux/features/location/locationApi";
 import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
@@ -8,6 +7,7 @@ import {
   successToastMessage,
 } from "../../../../utils/toastifyUtils";
 import CategoryTableRow from "./CategoryTableRow";
+import { useDeleteCategoryMutation } from "../../../../redux/features/category/categoryApi";
 
 const CategoryTable = ({
   data,
@@ -27,33 +27,33 @@ const CategoryTable = ({
   const [
     deleteLocation,
     {
-      isLoading: deleteLocationIsLoading,
-      isSuccess: deleteLocationIsSuccess,
-      data: deleteLocationData,
-      isError: deleteLocationIsError,
-      error: deleteLocationError,
+      isLoading: deleteCategoryIsLoading,
+      isSuccess: deleteCategoryIsSuccess,
+      data: deleteCategoryData,
+      isError: deleteCategoryIsError,
+      error: deleteCategoryError,
     },
-  ] = useDeleteLocationMutation();
+  ] = useDeleteCategoryMutation();
 
   useEffect(() => {
-    if (deleteLocationIsSuccess) {
-      // console.log("deleteLocationData = ", deleteLocationData);
-      if (deleteLocationData.message) {
-        successToastMessage(deleteLocationData.message);
+    if (deleteCategoryIsSuccess) {
+      // console.log("deleteCategoryData = ", deleteCategoryData);
+      if (deleteCategoryData.message) {
+        successToastMessage(deleteCategoryData.message);
       }
     }
-  }, [deleteLocationIsSuccess]);
+  }, [deleteCategoryIsSuccess]);
 
   useEffect(() => {
-    if (deleteLocationIsError) {
-      // console.log("deleteLocationData = ", deleteLocationData);
-      if (deleteLocationError.message) {
-        errorToastMessage(deleteLocationError.message);
+    if (deleteCategoryIsError) {
+      console.log("deleteCategoryData = ", deleteCategoryData);
+      if (deleteCategoryError.message) {
+        errorToastMessage(deleteCategoryError.message);
       } else {
         errorToastMessage("Something went wrong");
       }
     }
-  }, [deleteLocationIsError]);
+  }, [deleteCategoryIsError]);
 
   const handleModal = (modalName) => {
     // console.log('modalName = ', modalName);

@@ -14,7 +14,10 @@ import Portal from "../../reuseable/Portal/Portal";
 import Modal from "../../reuseable/Modal/Modal";
 import EditLocationFrom from "../Location/LocationFrom/EditLocationFrom/EditLocationFrom";
 import AddCategoryForm from "./CategoryForm/AddCategoryForm/AddCategoryForm";
-import { useGetCategoryQuery } from "../../../redux/features/category/categoryApi";
+import {
+  categoryApi,
+  useGetCategoryQuery,
+} from "../../../redux/features/category/categoryApi";
 import CategoryTable from "./CategoryTable/CategoryTable";
 
 const CategorySection = () => {
@@ -51,8 +54,6 @@ const CategorySection = () => {
       { refetchOnMountOrArgChange: true }
     );
 
-  console.log("data = ", data);
-
   const exportDocument = async (type) => {
     if (
       !isLoading &&
@@ -69,12 +70,12 @@ const CategorySection = () => {
         );
 
         if (type === "pdf") {
-          let head = [["Id", "Location Name"]];
-          let fieldToShow = ["id", "name"]; // data column kyes
+          let head = [["Id", "Category Name", "Location Name"]];
+          let fieldToShow = ["id", "name", "location.name"]; // data column kyes
 
           // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
           exportPdf(
-            "Location List",
+            "Category List",
             head,
             dataForExportDocument,
             fieldToShow,
@@ -85,13 +86,14 @@ const CategorySection = () => {
           dataForExportDocument.map((item) => {
             let obj = {};
             obj["id"] = item.id;
-            obj["Location Name"] = item.name;
+            obj["Category Name"] = item.name;
+            obj["Location Name"] = item?.location?.name ?? "N/A";
 
             dataForExcell.push(obj);
           });
 
           // exportExcel(data, pdfTitle, isSelected) perametrs
-          exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
+          exportExcel(dataForExcell, "Category List (Selected).xlsx", true);
         }
       } else {
         let dataForExportDocument = [];
@@ -113,7 +115,7 @@ const CategorySection = () => {
               error: loadMoreError,
               refetch,
             } = await dispatch(
-              locationApi.endpoints.getLocations.initiate(
+              categoryApi.endpoints.getCategory.initiate(
                 {
                   limit: 2,
                   offset: dataForExportDocument.length,
@@ -137,13 +139,12 @@ const CategorySection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let head = [["Id", "Location Name"]];
-
-            let fieldToShow = ["id", "name"]; // data column kyes
+            let head = [["Id", "Category Name", "Location Name"]];
+            let fieldToShow = ["id", "name", "location.name"]; // data column kyes
 
             // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
             exportPdf(
-              "Location List",
+              "Category List",
               head,
               dataForExportDocument,
               fieldToShow
@@ -152,13 +153,14 @@ const CategorySection = () => {
             dataForExportDocument.map((item) => {
               let obj = {};
               obj["id"] = item.id;
-              obj["Location Name"] = item.name;
+              obj["Category Name"] = item.name;
+              obj["Location Name"] = item?.location?.name ?? "N/A";
 
               dataForExcell.push(obj);
             });
 
             // exportExcel(data, pdfTitle, isSelected) perametrs
-            exportExcel(dataForExcell, "Location List.xlsx", true);
+            exportExcel(dataForExcell, "Category List.xlsx", true);
           }
         }
       }
