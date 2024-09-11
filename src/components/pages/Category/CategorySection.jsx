@@ -19,6 +19,7 @@ import {
 } from "../../../redux/features/category/categoryApi";
 import CategoryTable from "./CategoryTable/CategoryTable";
 import EditLocationForm from "../Location/LocationForm/EditLocationForm/EditLocationForm";
+import EditCategoryForm from "./CategoryForm/EditCategoryForm/EditCategoryForm";
 
 const CategorySection = () => {
   const [searchText, setSearchText] = useState("");
@@ -304,10 +305,12 @@ const CategorySection = () => {
             isSuccess &&
             data &&
             data?.results?.length ? (
-              <EditLocationForm
+              <EditCategoryForm
                 data={data}
                 editId={editId}
                 setEditId={setEditId}
+                locationData={locationsData?.results ?? []}
+                locationsIsLoading={locationsIsLoading}
               />
             ) : (
               <AddCategoryForm

@@ -5,20 +5,49 @@ import {
   errorToastMessage,
   successToastMessage,
 } from "../../../../../utils/toastifyUtils";
-import { useAddCategoryMutation } from "../../../../../redux/features/category/categoryApi";
 import Select from "../Select/Select";
 import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload";
+import { useEditCategoryMutation } from "../../../../../redux/features/category/categoryApi";
+import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
 
-const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
+function EditCategoryForm({
+  data,
+  editId,
+  setEditId,
+  locationData,
+  locationsIsLoading,
+}) {
   const [name, setName] = useState("");
   const [categoryIcon, setCategoryIcon] = useState(null);
   const [location, setLocation] = useState("");
 
-  const [addCategory, { isLoading, isError, isSuccess, data, error }] =
-    useAddCategoryMutation();
+  const [editCategory, { isLoading, isError, isSuccess, error }] =
+    useEditCategoryMutation();
 
-  const resetForm = () => {
-    setName("");
+  useEffect(() => {
+    if (data && data?.results?.length) {
+      const matchedItem = data.results.find((item) => item.id === editId);
+      // console.log("matchedItem = ", matchedItem);
+      setName(matchedItem.name);
+
+      // console.log("matchedItem = ", matchedItem);
+      if (!matchedItem?.icon) {
+        setCategoryIcon(null);
+      }
+      setLocation(matchedItem.location);
+    }
+  }, [editId, data]);
+
+  let matchedItem;
+
+  if (data && data?.results?.length) {
+    matchedItem = data.results.find((item) => item.id === editId);
+    console.log("matchedItem = ", matchedItem);
+  }
+
+  const clearHandler = () => {
+    setEditId(null);
+    setLocation("");
     setCategoryIcon(null);
   };
 
@@ -32,20 +61,20 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
 
     console.log("location.id = ", location.id);
     const formData = new FormData();
+    formData.append("id", editId);
     formData.append("name", name);
     if (categoryIcon) {
       formData.append("icon", categoryIcon);
     }
     formData.append("locationId", location.id);
-    addCategory(formData);
+    editCategory(formData);
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
-      successToastMessage(data.message);
-      resetForm();
+    if (isSuccess) {
+      clearHandler();
     }
-  }, [isSuccess, data]);
+  }, [isSuccess]);
 
   useEffect(() => {
     if (isError && error) {
@@ -57,11 +86,9 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
     }
   }, [isError, error]);
 
-  // console.log("locationData = ", locationData);
-
   return (
     <div>
-      <div className="section-title">Add Category</div>
+      <div className="section-title">Edit Category</div>
 
       <div className="mt-5">
         <form onSubmit={submitHandler}>
@@ -89,6 +116,7 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
               image={categoryIcon}
               setImage={setCategoryIcon}
               title="Category"
+              matchedItem={matchedItem}
             />
           </div>
 
@@ -96,8 +124,18 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
             <div className="flex gap-5 flex-wrap">
               <div className="max-w-[200px] w-full">
                 <SubmitButton isLoading={isLoading}>
-                  Create Category
+                  Update Location
                 </SubmitButton>
+              </div>
+
+              <div className="max-w-[140px] w-full">
+                <ClearButton
+                  isLoading={false}
+                  disable={false}
+                  handleClick={clearHandler}
+                >
+                  Clear
+                </ClearButton>
               </div>
             </div>
           </div>
@@ -105,6 +143,6 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
       </div>
     </div>
   );
-};
+}
 
-export default AddCategoryForm;
+export default EditCategoryForm;

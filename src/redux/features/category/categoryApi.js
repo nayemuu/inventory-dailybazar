@@ -85,4 +85,5 @@ export const {
   useAddCategoryMutation,
   useGetCategoryQuery,
   useDeleteCategoryMutation,
+  useEditCategoryMutation,
 } = categoryApi;
