@@ -9,6 +9,7 @@ import { changeSidebarStatus } from "../../../redux/features/sidebar/sidebarSlic
 import "./Sidebar.css";
 import SidebarItem from "./SidebarItem";
 import { FaQuestion } from "react-icons/fa";
+import vendorIcon from "../../../assets/reusable/Sidebar/vendorIcon.svg";
 
 const Sidebar = () => {
   const { status: isSidebarOpen } = useSelector((state) => state.sidebar);

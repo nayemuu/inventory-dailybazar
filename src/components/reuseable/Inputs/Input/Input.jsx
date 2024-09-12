@@ -21,7 +21,7 @@ const Input = ({
           style={{
             backgroundColor: labelBackgroundColor
               ? labelBackgroundColor
-              : '#ffffff',
+              : "#ffffff",
           }}
         >
           {label}
@@ -29,8 +29,8 @@ const Input = ({
           {required && (
             <span
               style={{
-                color: '#D13F97',
-                marginLeft: '2px',
+                color: "#D13F97",
+                marginLeft: "2px",
               }}
             >
               *

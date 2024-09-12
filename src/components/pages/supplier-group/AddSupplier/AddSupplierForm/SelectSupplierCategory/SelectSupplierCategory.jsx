@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import Options from "./Options/Options";
+import SupplierCategorOptions from "./SupplierCategorOptions/SupplierCategorOptions";
 
-function Select({
+const SelectSupplierCategory = ({
   label,
   value,
   setValue,
   required,
   labelBackgroundColor,
   options,
-}) {
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownSectionRef = useRef(null);
 
@@ -45,7 +45,7 @@ function Select({
   return (
     <div
       ref={dropdownSectionRef}
-      className="h-[43px] relative"
+      className="h-[43px] relative z-[5]"
       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
     >
       <input
@@ -103,7 +103,7 @@ function Select({
       </div>
 
       {isDropdownOpen && (
-        <Options
+        <SupplierCategorOptions
           options={options}
           value={value}
           setValue={value}
@@ -112,6 +112,6 @@ function Select({
       )}
     </div>
   );
-}
+};
 
-export default Select;
+export default SelectSupplierCategory;

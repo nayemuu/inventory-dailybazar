@@ -14,6 +14,7 @@ import DashBoard from "./pages/DashBoard/DashBoard";
 import { useSelector } from "react-redux";
 import ServerError from "./components/pages/ServerError/ServerError";
 import Category from "./pages/products-group/Category/Category";
+import AddSupplier from "./pages/supplier-group/AddSupplier/AddSupplier";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -66,7 +67,7 @@ const App = () => {
         />
 
         <Route path="/supplier-list" element={<AddProduct />} />
-        <Route path="/add-supplier" element={<AddProduct />} />
+        <Route path="/add-supplier" element={<AddSupplier />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
