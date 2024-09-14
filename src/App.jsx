@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import ServerError from "./components/pages/ServerError/ServerError";
 import Category from "./pages/products-group/Category/Category";
 import AddSupplier from "./pages/supplier-group/AddSupplier/AddSupplier";
+import SubCategory from "./pages/products-group/SubCategory/SubCategory";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -56,7 +57,7 @@ const App = () => {
         <Route path="/product-list" element={<AddProduct />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/category" element={<Category />} />
-        <Route path="/sub-category" element={<AddProduct />} />
+        <Route path="/sub-category" element={<SubCategory />} />
         <Route
           path="/location"
           element={

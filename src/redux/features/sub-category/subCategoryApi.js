@@ -2,19 +2,19 @@ import { successToastMessage } from "../../../utils/toastifyUtils";
 import { apiSlice } from "../api/apiSlice";
 
 const apiWithTag = apiSlice.enhanceEndpoints({
-  addTagTypes: ["category-list"],
+  addTagTypes: ["sub-category-list"],
 });
 
-export const categoryApi = apiWithTag.injectEndpoints({
+export const subCategoryApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
-    addCategory: builder.mutation({
+    addSubCategory: builder.mutation({
       query: (data) => ({
-        url: "api/category/",
+        url: "api/sub-category/",
         method: "POST",
         body: data,
         formData: true,
       }),
-      invalidatesTags: ["category-list"],
+      invalidatesTags: ["sub-category-list"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // console.log('inside createArticleApi arg = ', arg);
@@ -26,11 +26,11 @@ export const categoryApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    getCategory: builder.query({
+    getSubCategory: builder.query({
       query: ({ keyword, limit, offset }) => ({
-        url: `api/category/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
+        url: `api/sub-category/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
       }),
-      providesTags: (result, error, arg) => [{ type: "category-list" }],
+      providesTags: (result, error, arg) => [{ type: "sub-category-list" }],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // console.log("inside getLocations arg = ", arg);
@@ -42,13 +42,13 @@ export const categoryApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    editCategory: builder.mutation({
+    editSubCategory: builder.mutation({
       query: (data) => {
         const object = Object.fromEntries(data.entries());
         console.log(object);
 
         return {
-          url: `api/category/${object.id}`,
+          url: `api/sub-category/${object.id}`,
           method: "PATCH",
           body: data,
           formData: true,
@@ -68,22 +68,22 @@ export const categoryApi = apiWithTag.injectEndpoints({
           //
         }
       },
-      invalidatesTags: ["category-list"],
+      invalidatesTags: ["sub-category-list"],
     }),
 
-    deleteCategory: builder.mutation({
+    deleteSubCategory: builder.mutation({
       query: (id) => ({
-        url: `api/category/${id}`,
+        url: `api/sub-category/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["category-list"],
+      invalidatesTags: ["sub-category-list"],
     }),
   }),
 });
 
 export const {
-  useAddCategoryMutation,
-  useGetCategoryQuery,
-  useDeleteCategoryMutation,
-  useEditCategoryMutation,
-} = categoryApi;
+  useAddSubCategoryMutation,
+  useGetSubCategoryQuery,
+  useEditSubCategoryMutation,
+  useDeleteSubCategoryMutation,
+} = subCategoryApi;

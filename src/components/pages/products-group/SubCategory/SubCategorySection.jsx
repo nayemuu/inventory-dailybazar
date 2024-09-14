@@ -1,6 +1,5 @@
 import { useState } from "react";
 import SectionHeaderActions from "../../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
-import { useGetLocationsQuery } from "../../../../redux/features/location/locationApi";
 import ReactPaginate from "react-paginate";
 import { errorToastMessage } from "../../../../utils/toastifyUtils";
 import JumpToPageSection from "../../../reuseable/JumpToPageSection/JumpToPageSection";
@@ -9,15 +8,17 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
-import AddCategoryForm from "./CategoryForm/AddCategoryForm/AddCategoryForm";
 import {
   categoryApi,
   useGetCategoryQuery,
 } from "../../../../redux/features/category/categoryApi";
-import CategoryTable from "./CategoryTable/CategoryTable";
-import EditCategoryForm from "./CategoryForm/EditCategoryForm/EditCategoryForm";
+import CategoryTable from "../Category/CategoryTable/CategoryTable";
+import EditCategoryForm from "../Category/CategoryForm/EditCategoryForm/EditCategoryForm";
+import AddSubCategoryForm from "./SubCategoryForm/AddSubCategoryForm/AddSubCategoryForm";
+import { useGetSubCategoryQuery } from "../../../../redux/features/sub-category/subCategoryApi";
+import SubCategoryTable from "./SubCategoryTable/SubCategoryTable";
 
-const CategorySection = () => {
+const SubCategorySection = () => {
   const [searchText, setSearchText] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -40,13 +41,13 @@ const CategorySection = () => {
   // console.log("offset = ", offset);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
-    useGetCategoryQuery(
+    useGetSubCategoryQuery(
       { limit, offset, keyword: searchText },
       { refetchOnMountOrArgChange: true }
     );
 
-  const { isLoading: locationsIsLoading, data: locationsData } =
-    useGetLocationsQuery(
+  const { isLoading: categoriesIsLoading, data: categoriesData } =
+    useGetCategoryQuery(
       { limit: 10, offset: 0, keyword: "" },
       { refetchOnMountOrArgChange: true }
     );
@@ -250,7 +251,7 @@ const CategorySection = () => {
 
         <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
           <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
-            <CategoryTable
+            <SubCategoryTable
               isLoading={isLoading}
               isSuccess={isSuccess}
               isFetching={isFetching}
@@ -305,13 +306,13 @@ const CategorySection = () => {
                 data={data}
                 editId={editId}
                 setEditId={setEditId}
-                locationData={locationsData?.results ?? []}
-                locationsIsLoading={locationsIsLoading}
+                categoriesData={categoriesData?.results ?? []}
+                categoriesIsLoading={categoriesIsLoading}
               />
             ) : (
-              <AddCategoryForm
-                locationData={locationsData?.results ?? []}
-                locationsIsLoading={locationsIsLoading}
+              <AddSubCategoryForm
+                categoriesData={categoriesData?.results ?? []}
+                categoriesIsLoading={categoriesIsLoading}
               />
             )}
           </div>
@@ -346,4 +347,4 @@ const CategorySection = () => {
   );
 };
 
-export default CategorySection;
+export default SubCategorySection;

@@ -28,7 +28,7 @@ export const locationApi = apiWithTag.injectEndpoints({
 
     getLocations: builder.query({
       query: ({ keyword, limit, offset }) => ({
-        url: `/api/location/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
+        url: `api/location/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
       }),
       providesTags: (result, error, arg) => [{ type: "location-list" }],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
