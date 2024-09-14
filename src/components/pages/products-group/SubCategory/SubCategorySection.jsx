@@ -12,11 +12,10 @@ import {
   categoryApi,
   useGetCategoryQuery,
 } from "../../../../redux/features/category/categoryApi";
-import CategoryTable from "../Category/CategoryTable/CategoryTable";
-import EditCategoryForm from "../Category/CategoryForm/EditCategoryForm/EditCategoryForm";
 import AddSubCategoryForm from "./SubCategoryForm/AddSubCategoryForm/AddSubCategoryForm";
 import { useGetSubCategoryQuery } from "../../../../redux/features/sub-category/subCategoryApi";
 import SubCategoryTable from "./SubCategoryTable/SubCategoryTable";
+import EditSubCategoryForm from "./SubCategoryForm/EditSubCategoryForm/EditSubCategoryForm";
 
 const SubCategorySection = () => {
   const [searchText, setSearchText] = useState("");
@@ -302,7 +301,7 @@ const SubCategorySection = () => {
             isSuccess &&
             data &&
             data?.results?.length ? (
-              <EditCategoryForm
+              <EditSubCategoryForm
                 data={data}
                 editId={editId}
                 setEditId={setEditId}

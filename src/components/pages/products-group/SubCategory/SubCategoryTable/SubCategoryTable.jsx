@@ -8,6 +8,7 @@ import {
 } from "../../../../../utils/toastifyUtils";
 import { useDeleteCategoryMutation } from "../../../../../redux/features/category/categoryApi";
 import SubCategoryTableRow from "./SubCategoryTableRow";
+import { useDeleteSubCategoryMutation } from "../../../../../redux/features/sub-category/subCategoryApi";
 
 const SubCategoryTable = ({
   data,
@@ -25,35 +26,35 @@ const SubCategoryTable = ({
   const [deleteId, setDeleteId] = useState(null); // State to hold the id of the item to be deleted
 
   const [
-    deleteLocation,
+    deleteSubCategory,
     {
-      isLoading: deleteCategoryIsLoading,
-      isSuccess: deleteCategoryIsSuccess,
-      data: deleteCategoryData,
-      isError: deleteCategoryIsError,
-      error: deleteCategoryError,
+      isLoading: deleteSubCategoryIsLoading,
+      isSuccess: deleteSubCategoryIsSuccess,
+      data: deleteSubCategoryData,
+      isError: deleteSubCategoryIsError,
+      error: deleteSubCategoryError,
     },
-  ] = useDeleteCategoryMutation();
+  ] = useDeleteSubCategoryMutation();
 
   useEffect(() => {
-    if (deleteCategoryIsSuccess) {
-      // console.log("deleteCategoryData = ", deleteCategoryData);
-      if (deleteCategoryData.message) {
-        successToastMessage(deleteCategoryData.message);
+    if (deleteSubCategoryIsSuccess) {
+      // console.log("deleteSubCategoryData = ", deleteSubCategoryData);
+      if (deleteSubCategoryData.message) {
+        successToastMessage(deleteSubCategoryData.message);
       }
     }
-  }, [deleteCategoryIsSuccess]);
+  }, [deleteSubCategoryIsSuccess]);
 
   useEffect(() => {
-    if (deleteCategoryIsError) {
-      console.log("deleteCategoryData = ", deleteCategoryData);
-      if (deleteCategoryError.message) {
-        errorToastMessage(deleteCategoryError.message);
+    if (deleteSubCategoryIsError) {
+      console.log("deleteSubCategoryData = ", deleteSubCategoryData);
+      if (deleteSubCategoryError.message) {
+        errorToastMessage(deleteSubCategoryError.message);
       } else {
         errorToastMessage("Something went wrong");
       }
     }
-  }, [deleteCategoryIsError]);
+  }, [deleteSubCategoryIsError]);
 
   const handleModal = (modalName) => {
     // console.log('modalName = ', modalName);
@@ -105,14 +106,14 @@ const SubCategoryTable = ({
 
   const handleDelete = (id) => {
     // console.log("id = ", id);
-    // deleteLocation(id);
-    handleModal("delete-location-alert");
+    // deleteSubCategory(id);
+    handleModal("delete-confirmation-alert");
     setDeleteId(id);
   };
 
   const confirmDelete = () => {
     if (deleteId) {
-      deleteLocation(deleteId); // Call deleteLocation with the stored ID
+      deleteSubCategory(deleteId); // Call deleteSubCategory with the stored ID
       setDeleteId(null); // Clear the ID after deletion
     }
 
@@ -234,10 +235,10 @@ const SubCategoryTable = ({
 
       <Portal>
         <Modal showModal={showModal}>
-          {selectedModal === "delete-location-alert" && (
+          {selectedModal === "delete-confirmation-alert" && (
             <AlertModal
-              title="Delete Location?"
-              message="Are you sure you want to delete this Location?"
+              title="Delete Sub Category?"
+              message="Are you sure you want to delete this Sub Category?"
               setShow={setShowModal}
               handler={confirmDelete}
             />

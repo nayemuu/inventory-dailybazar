@@ -45,7 +45,7 @@ const AddSupplierForm = () => {
 
   return (
     <form onSubmit={submitHandler}>
-      <div className="grid grid-cols-3 gap-[30px]">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
         <SelectSupplierCategory
           label="Category of Supplier"
           value={supplierCategory}
@@ -53,7 +53,6 @@ const AddSupplierForm = () => {
           required={true}
           options={supplierCategories}
         />
-
         <Input
           inputType="text"
           label="Supplier Name"
@@ -62,7 +61,6 @@ const AddSupplierForm = () => {
           required={true}
           // labelBackgroundColor="#f3f6fa"
         />
-
         <Input
           inputType="text"
           label="Supplier Address"
@@ -71,7 +69,6 @@ const AddSupplierForm = () => {
           // required={true}
           // labelBackgroundColor="#f3f6fa"
         />
-
         <Input
           inputType="text"
           label="Contact Number"
@@ -80,7 +77,6 @@ const AddSupplierForm = () => {
           // required={true}
           // labelBackgroundColor="#f3f6fa"
         />
-
         <Input
           inputType="text"
           label="Email Address"
@@ -89,7 +85,6 @@ const AddSupplierForm = () => {
           // required={true}
           // labelBackgroundColor="#f3f6fa"
         />
-
         <Input
           inputType="text"
           label="Contact Person"
@@ -98,7 +93,6 @@ const AddSupplierForm = () => {
           // required={true}
           // labelBackgroundColor="#f3f6fa"
         />
-
         <SelectSupplierCategory
           label="Status"
           value={supplierProductCategory}
@@ -106,7 +100,6 @@ const AddSupplierForm = () => {
           required={true}
           options={supplierProductCategories}
         />
-
         <SelectSupplierCategory
           label="Status"
           value={status}
@@ -114,21 +107,21 @@ const AddSupplierForm = () => {
           required={true}
           options={statusOptions}
         />
-        <div className="mt-5 col-span-3">
-          <div className="flex gap-5 flex-wrap">
-            <div className="max-w-[200px] w-full">
-              <SubmitButton isLoading={isLoading}>Update Location</SubmitButton>
-            </div>
+      </div>
+      <div className="mt-5 col-span-3">
+        <div className="flex gap-5 flex-wrap">
+          <div className="max-w-[200px] w-full">
+            <SubmitButton isLoading={isLoading}>Update Location</SubmitButton>
+          </div>
 
-            <div className="max-w-[140px] w-full">
-              <ClearButton
-                isLoading={false}
-                disable={false}
-                handleClick={clearHandler}
-              >
-                Clear
-              </ClearButton>
-            </div>
+          <div className="max-w-[140px] w-full">
+            <ClearButton
+              isLoading={false}
+              disable={false}
+              handleClick={clearHandler}
+            >
+              Clear
+            </ClearButton>
           </div>
         </div>
       </div>
