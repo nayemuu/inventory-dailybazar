@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import LocationTableRow from "./LocationTableRow";
-import { useDeleteLocationMutation } from "../../../../redux/features/location/locationApi";
-import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
-import Portal from "../../../reuseable/Portal/Portal";
-import Modal from "../../../reuseable/Modal/Modal";
+import { useDeleteLocationMutation } from "../../../../../redux/features/location/locationApi";
+import AlertModal from "../../../../reuseable/Modal/AlertModal/AlertModal";
+import Portal from "../../../../reuseable/Portal/Portal";
+import Modal from "../../../../reuseable/Modal/Modal";
 import {
   errorToastMessage,
   successToastMessage,
-} from "../../../../utils/toastifyUtils";
+} from "../../../../../utils/toastifyUtils";
 
 const LocationTable = ({
   data,

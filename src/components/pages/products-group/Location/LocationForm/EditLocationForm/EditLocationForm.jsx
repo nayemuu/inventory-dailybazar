@@ -1,40 +1,31 @@
-import { useEffect, useState } from "react";
-import Input from "../../../../reuseable/Inputs/Input/Input";
-import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
+import React, { useEffect, useState } from "react";
+import SubmitButton from "../../../../../reuseable/buttons/SubmitButton/SubmitButton";
+import Input from "../../../../../reuseable/Inputs/Input/Input";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import ClearButton from "../../../../../reuseable/buttons/ClearButton/ClearButton";
+import { useEditLocationMutation } from "../../../../../../redux/features/location/locationApi";
 import {
   errorToastMessage,
   successToastMessage,
-} from "../../../../../utils/toastifyUtils";
-import Select from "../Select/Select";
-import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload";
-import { useEditCategoryMutation } from "../../../../../redux/features/category/categoryApi";
-import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
+} from "../../../../../../utils/toastifyUtils";
 
-function EditCategoryForm({
-  data,
-  editId,
-  setEditId,
-  locationData,
-  locationsIsLoading,
-}) {
-  const [name, setName] = useState("");
-  const [categoryIcon, setCategoryIcon] = useState(null);
+function EditLocationForm({ data, editId, setEditId }) {
   const [location, setLocation] = useState("");
+  const [locationIcon, setLocationIcon] = useState(null);
 
-  const [editCategory, { isLoading, isError, isSuccess, error }] =
-    useEditCategoryMutation();
+  const [
+    editLocation,
+    { isLoading, isError, isSuccess, data: editLocationData, error },
+  ] = useEditLocationMutation();
 
   useEffect(() => {
     if (data && data?.results?.length) {
       const matchedItem = data.results.find((item) => item.id === editId);
       // console.log("matchedItem = ", matchedItem);
-      setName(matchedItem.name);
-
-      // console.log("matchedItem = ", matchedItem);
+      setLocation(matchedItem.name);
       if (!matchedItem?.icon) {
-        setCategoryIcon(null);
+        setLocationIcon(null);
       }
-      setLocation(matchedItem.location);
     }
   }, [editId, data]);
 
@@ -42,39 +33,34 @@ function EditCategoryForm({
 
   if (data && data?.results?.length) {
     matchedItem = data.results.find((item) => item.id === editId);
-    console.log("matchedItem = ", matchedItem);
   }
 
   const clearHandler = () => {
     setEditId(null);
     setLocation("");
-    setCategoryIcon(null);
+    setLocationIcon(null);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log("category = ", category);
-    // console.log("categoryIcon = ", categoryIcon);
-    if (!location && location?.id) {
-      return errorToastMessage("Please Select a Location");
-    }
+    console.log("location = ", location);
+    console.log("locationIcon = ", locationIcon);
 
-    console.log("location.id = ", location.id);
     const formData = new FormData();
     formData.append("id", editId);
-    formData.append("name", name);
-    if (categoryIcon) {
-      formData.append("icon", categoryIcon);
+    formData.append("name", location);
+    if (locationIcon) {
+      formData.append("icon", locationIcon);
     }
-    formData.append("locationId", location.id);
-    editCategory(formData);
+    // successToastMessage('Location Created Successfully');
+    editLocation(formData);
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       clearHandler();
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
   useEffect(() => {
     if (isError && error) {
@@ -88,35 +74,25 @@ function EditCategoryForm({
 
   return (
     <div>
-      <div className="section-title">Edit Category</div>
+      <div className="section-title">Edit Location</div>
 
       <div className="mt-5">
         <form onSubmit={submitHandler}>
           <div className="grid gap-5">
             <Input
               inputType="text"
-              label="Category Name"
-              value={name}
-              setValue={setName}
-              required={true}
-              // labelBackgroundColor="#f3f6fa"
-            />
-
-            <Select
-              label="Location"
+              label="Location Name"
               value={location}
               setValue={setLocation}
               required={true}
-              options={locationData}
               // labelBackgroundColor="#f3f6fa"
-              isLoading={locationsIsLoading}
             />
 
             <ImageUpload
-              image={categoryIcon}
-              setImage={setCategoryIcon}
-              title="Category"
+              image={locationIcon}
+              setImage={setLocationIcon}
               matchedItem={matchedItem}
+              title="Location"
             />
           </div>
 
@@ -145,4 +121,4 @@ function EditCategoryForm({
   );
 }
 
-export default EditCategoryForm;
+export default EditLocationForm;

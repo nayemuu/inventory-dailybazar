@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import AlertModal from "../../../reuseable/Modal/AlertModal/AlertModal";
-import Portal from "../../../reuseable/Portal/Portal";
-import Modal from "../../../reuseable/Modal/Modal";
+import AlertModal from "../../../../reuseable/Modal/AlertModal/AlertModal";
+import Portal from "../../../../reuseable/Portal/Portal";
+import Modal from "../../../../reuseable/Modal/Modal";
 import {
   errorToastMessage,
   successToastMessage,
-} from "../../../../utils/toastifyUtils";
+} from "../../../../../utils/toastifyUtils";
 import CategoryTableRow from "./CategoryTableRow";
-import { useDeleteCategoryMutation } from "../../../../redux/features/category/categoryApi";
+import { useDeleteCategoryMutation } from "../../../../../redux/features/category/categoryApi";
 
 const CategoryTable = ({
   data,

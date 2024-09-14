@@ -1,9 +1,9 @@
 import { ToastContainer } from "react-toastify";
-import LocationSection from "../../../components/pages/Location/LocationSection";
 import Navbar from "../../../components/reuseable/Navbar/Navbar";
 import SectionTitle from "../../../components/reuseable/Section/SectionTitle/SectionTitle";
 import SidebarContainer from "../../../components/reuseable/Sidebar/SidebarContainer";
 import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
+import LocationSection from "../../../components/pages/products-group/Location/LocationSection";
 
 const Location = () => {
   return (

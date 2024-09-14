@@ -158,7 +158,7 @@ const Sidebar = () => {
     <div
       className={`${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } fixed m-0 p-[8px] w-[250px] h-full border-r border-[#dce0e4] border-solid z-[2] transition-all duration-200 ease-linear bg-primary-light overflow-y-auto sidebar-scrollbar`}
+      } fixed m-0 p-[8px] w-[250px] h-full border-r border-[#dce0e4] border-solid z-[20] transition-all duration-200 ease-linear bg-primary-light overflow-y-auto sidebar-scrollbar`}
     >
       <div className="flex justify-end text-3xl hover:text-red-500 cursor-pointer md:hidden">
         <div onClick={() => dispatch(changeSidebarStatus())}>

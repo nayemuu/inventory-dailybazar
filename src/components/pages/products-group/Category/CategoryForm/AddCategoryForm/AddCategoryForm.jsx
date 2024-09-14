@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Input from "../../../../reuseable/Inputs/Input/Input";
-import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
+import Input from "../../../../../reuseable/Inputs/Input/Input";
+import SubmitButton from "../../../../../reuseable/buttons/SubmitButton/SubmitButton";
 import {
   errorToastMessage,
   successToastMessage,
-} from "../../../../../utils/toastifyUtils";
-import { useAddCategoryMutation } from "../../../../../redux/features/category/categoryApi";
+} from "../../../../../../utils/toastifyUtils";
+import { useAddCategoryMutation } from "../../../../../../redux/features/category/categoryApi";
 import Select from "../Select/Select";
 import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload";
 

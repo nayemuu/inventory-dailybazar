@@ -1,22 +1,22 @@
 import { useState } from "react";
-import SectionHeaderActions from "../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
+import SectionHeaderActions from "../../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
 import {
   locationApi,
   useGetLocationsQuery,
-} from "../../../redux/features/location/locationApi";
+} from "../../../../redux/features/location/locationApi";
 import ReactPaginate from "react-paginate";
-import { errorToastMessage } from "../../../utils/toastifyUtils";
-import JumpToPageSection from "../../reuseable/JumpToPageSection/JumpToPageSection";
-import exportPdf from "../../../utils/PdfGenerator/PdfGenerator";
+import { errorToastMessage } from "../../../../utils/toastifyUtils";
+import JumpToPageSection from "../../../reuseable/JumpToPageSection/JumpToPageSection";
+import exportPdf from "../../../../utils/PdfGenerator/PdfGenerator";
 import { useDispatch } from "react-redux";
-import exportExcel from "../../../utils/ExcelGenerator/ExcelGenerator";
-import Portal from "../../reuseable/Portal/Portal";
-import Modal from "../../reuseable/Modal/Modal";
+import exportExcel from "../../../../utils/ExcelGenerator/ExcelGenerator";
+import Portal from "../../../reuseable/Portal/Portal";
+import Modal from "../../../reuseable/Modal/Modal";
 import AddCategoryForm from "./CategoryForm/AddCategoryForm/AddCategoryForm";
 import {
   categoryApi,
   useGetCategoryQuery,
-} from "../../../redux/features/category/categoryApi";
+} from "../../../../redux/features/category/categoryApi";
 import CategoryTable from "./CategoryTable/CategoryTable";
 import EditLocationForm from "../Location/LocationForm/EditLocationForm/EditLocationForm";
 import EditCategoryForm from "./CategoryForm/EditCategoryForm/EditCategoryForm";
