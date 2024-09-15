@@ -5,7 +5,7 @@ const SubmitButton = ({ children, isLoading, disable }) => {
     <button
       type="submit"
       disabled={isLoading || disable}
-      className={`w-full h-[40px] flex justify-center items-center gap-2 border border-transparent text-[18px] leading-[20px] font-medium rounded-[5px] text-white hover:bg-primary-deep transition duration-150 ease-in-out ${
+      className={`px-6 py-2 min-h-[40px] flex justify-center items-center gap-2 border border-transparent text-[18px] leading-[20px] font-medium rounded-[5px] text-white hover:bg-primary-deep transition duration-150 ease-in-out ${
         isLoading || disable
           ? "bg-primary-deep cursor-not-allowed"
           : `bg-primary cursor-pointer`

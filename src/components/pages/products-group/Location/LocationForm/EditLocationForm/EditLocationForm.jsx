@@ -98,13 +98,13 @@ function EditLocationForm({ data, editId, setEditId }) {
 
           <div className="mt-5">
             <div className="flex gap-5 flex-wrap">
-              <div className="max-w-[200px] w-full">
+              <div>
                 <SubmitButton isLoading={isLoading}>
                   Update Location
                 </SubmitButton>
               </div>
 
-              <div className="max-w-[140px] w-full">
+              <div>
                 <ClearButton
                   isLoading={false}
                   disable={false}
