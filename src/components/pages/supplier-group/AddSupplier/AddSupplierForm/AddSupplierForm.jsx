@@ -53,6 +53,17 @@ const AddSupplierForm = () => {
           required={true}
           options={supplierCategories}
         />
+
+        {/* <Input
+          inputType="text"
+          label="Supplier Id"
+          value={supplierName}
+          setValue={setSupplierName}
+          // required={true}
+          // labelBackgroundColor="#f3f6fa"
+          readOnly={true}
+        /> */}
+
         <Input
           inputType="text"
           label="Supplier Name"

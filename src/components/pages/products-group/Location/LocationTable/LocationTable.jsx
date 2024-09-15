@@ -237,7 +237,7 @@ const LocationTable = ({
           {selectedModal === "delete-location-alert" && (
             <AlertModal
               title="Delete Location?"
-              message="Are you sure you want to delete this Location?"
+              message="Are you sure you want to delete this Location Permanently?"
               setShow={setShowModal}
               handler={confirmDelete}
             />

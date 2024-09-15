@@ -43,13 +43,13 @@ function AlertModal({ setShow, handler, title, message }) {
             className="text-[#3E3E3E] bg-[#F3F6FA] border-[1px] border-[#43bfc7] hover:bg-black/10 py-[10px] px-[22px] sm:px-[26px] font-semibold rounded-[50px] text-xs sm:text-base"
             onClick={() => setShow(false)}
           >
-            No
+            Cancel
           </button>
           <button
-            className="bg-primary hover:bg-primary-deep text-white py-[10px] px-[22px] sm:px-[26px] font-semibold rounded-[50px] text-xs sm:text-base"
+            className="bg-[#dc3545] hover:bg-[#b02a37] text-white py-[10px] px-[22px] sm:px-[26px] font-semibold rounded-[50px] text-xs sm:text-base"
             onClick={handleClick}
           >
-            Yes
+            Delete
           </button>
         </div>
       </div>
