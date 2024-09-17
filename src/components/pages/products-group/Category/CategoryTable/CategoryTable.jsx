@@ -119,6 +119,12 @@ const CategoryTable = ({
     setShowModal(false);
   };
 
+  let selectedDataForDelete = null;
+  if (deleteId && data?.results) {
+    selectedDataForDelete = data.results.find((item) => item.id == deleteId);
+    // console.log("selectedDataForDelete  = ", selectedDataForDelete);
+  }
+
   let content = <></>;
 
   if (!isLoading && !isFetching && isSuccess && data?.results?.length) {
@@ -236,8 +242,13 @@ const CategoryTable = ({
         <Modal showModal={showModal}>
           {selectedModal === "delete-location-alert" && (
             <AlertModal
-              title="Delete Location?"
-              message="Are you sure you want to delete this Location?"
+              // title="Delete Location?"
+              // message="Are you sure you want to delete this Location?"
+
+              title="Are you sure?"
+              message={`Deleting "${
+                selectedDataForDelete ? selectedDataForDelete?.name : ""
+              }" category will also delete all its associated subcategories. If you proceed with deleting this category, all subcategories under it will be deleted Permanently!!`}
               setShow={setShowModal}
               handler={confirmDelete}
             />

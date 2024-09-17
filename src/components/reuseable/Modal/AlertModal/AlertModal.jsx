@@ -31,7 +31,7 @@ function AlertModal({ setShow, handler, title, message }) {
             <div className="text-xl md:text-[22px] xxl:text-2xl font-semibold">
               {title}
             </div>
-            <div className="text-base md:text-xl xxl:text-xl font-normal text-[#757575]">
+            <div className="text-base xxl:text-base font-normal text-[#757575]">
               {message}
             </div>
           </div>
@@ -40,7 +40,7 @@ function AlertModal({ setShow, handler, title, message }) {
 
         <div className="flex flex-wrap gap-3 p-[16px] sm:p-[20px] justify-end">
           <button
-            className="text-[#3E3E3E] bg-[#F3F6FA] border-[1px] border-[#43bfc7] hover:bg-black/10 py-[10px] px-[22px] sm:px-[26px] font-semibold rounded-[50px] text-xs sm:text-base"
+            className="text-white bg-[#6c757d] border-[1px] border-[#6c757d] hover:border-[#565e64] hover:bg-[#5c636a] py-[10px] px-[22px] sm:px-[26px] font-semibold rounded-[50px] text-xs sm:text-base"
             onClick={() => setShow(false)}
           >
             Cancel
