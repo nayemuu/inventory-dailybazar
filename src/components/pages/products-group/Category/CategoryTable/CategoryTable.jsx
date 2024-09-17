@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AlertModal from "../../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../../reuseable/Portal/Portal";
 import Modal from "../../../../reuseable/Modal/Modal";
 import {
@@ -8,6 +7,7 @@ import {
 } from "../../../../../utils/toastifyUtils";
 import CategoryTableRow from "./CategoryTableRow";
 import { useDeleteCategoryMutation } from "../../../../../redux/features/category/categoryApi";
+import DeleteConfirmationModal from "../../../../reuseable/Modal/DeleteConfirmationModal/DeleteConfirmationModal";
 
 const CategoryTable = ({
   data,
@@ -106,7 +106,7 @@ const CategoryTable = ({
   const handleDelete = (id) => {
     // console.log("id = ", id);
     // deleteLocation(id);
-    handleModal("delete-location-alert");
+    handleModal("delete-confirmation-alert");
     setDeleteId(id);
   };
 
@@ -240,11 +240,10 @@ const CategoryTable = ({
 
       <Portal>
         <Modal showModal={showModal}>
-          {selectedModal === "delete-location-alert" && (
-            <AlertModal
-              // title="Delete Location?"
-              // message="Are you sure you want to delete this Location?"
-
+          {selectedModal === "delete-confirmation-alert" && (
+            <DeleteConfirmationModal
+              // title="Delete Sub Category?"
+              // message="Are you sure you want to delete this Sub Category?"
               title="Are you sure?"
               message={`Deleting "${
                 selectedDataForDelete ? selectedDataForDelete?.name : ""

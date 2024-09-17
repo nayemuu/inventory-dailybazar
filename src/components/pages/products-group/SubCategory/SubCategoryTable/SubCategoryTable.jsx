@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AlertModal from "../../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../../reuseable/Portal/Portal";
 import Modal from "../../../../reuseable/Modal/Modal";
 import {
@@ -9,6 +8,7 @@ import {
 import { useDeleteCategoryMutation } from "../../../../../redux/features/category/categoryApi";
 import SubCategoryTableRow from "./SubCategoryTableRow";
 import { useDeleteSubCategoryMutation } from "../../../../../redux/features/sub-category/subCategoryApi";
+import DeleteConfirmationModal from "../../../../reuseable/Modal/DeleteConfirmationModal/DeleteConfirmationModal";
 
 const SubCategoryTable = ({
   data,
@@ -236,7 +236,7 @@ const SubCategoryTable = ({
       <Portal>
         <Modal showModal={showModal}>
           {selectedModal === "delete-confirmation-alert" && (
-            <AlertModal
+            <DeleteConfirmationModal
               title="Delete Sub Category?"
               message="Are you sure you want to delete this Sub Category?"
               setShow={setShowModal}

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import LocationTableRow from "./LocationTableRow";
 import { useDeleteLocationMutation } from "../../../../../redux/features/location/locationApi";
-import AlertModal from "../../../../reuseable/Modal/AlertModal/AlertModal";
 import Portal from "../../../../reuseable/Portal/Portal";
 import Modal from "../../../../reuseable/Modal/Modal";
 import {
   errorToastMessage,
   successToastMessage,
 } from "../../../../../utils/toastifyUtils";
+import DeleteConfirmationModal from "../../../../reuseable/Modal/DeleteConfirmationModal/DeleteConfirmationModal";
 
 const LocationTable = ({
   data,
@@ -106,7 +106,7 @@ const LocationTable = ({
   const handleDelete = (id) => {
     // console.log("id = ", id);
     // deleteLocation(id);
-    handleModal("delete-location-alert");
+    handleModal("delete-confirmation-alert");
     setDeleteId(id);
   };
 
@@ -234,8 +234,8 @@ const LocationTable = ({
 
       <Portal>
         <Modal showModal={showModal}>
-          {selectedModal === "delete-location-alert" && (
-            <AlertModal
+          {selectedModal === "delete-confirmation-alert" && (
+            <DeleteConfirmationModal
               title="Delete Location?"
               message="Are you sure you want to delete this Location Permanently?"
               setShow={setShowModal}
