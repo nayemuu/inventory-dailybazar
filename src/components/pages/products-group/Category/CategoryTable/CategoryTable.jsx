@@ -245,9 +245,21 @@ const CategoryTable = ({
               // title="Delete Sub Category?"
               // message="Are you sure you want to delete this Sub Category?"
               title="Are you sure?"
-              message={`Deleting "${
-                selectedDataForDelete ? selectedDataForDelete?.name : ""
-              }" category will also delete all its associated subcategories. If you proceed with deleting this category, all subcategories under it will be deleted Permanently!!`}
+              // message={`Deleting "${
+              //   selectedDataForDelete ? selectedDataForDelete?.name : ""
+              // }" category will also delete all its associated subcategories. If you proceed with deleting this category, all subcategories under it will be deleted Permanently!!`}
+
+              message={
+                <span>
+                  Deleting "
+                  <span className="font-bold text-[#000]">
+                    {selectedDataForDelete ? selectedDataForDelete?.name : ""}
+                  </span>
+                  " category will also delete all its associated subcategories.
+                  If you proceed with deleting this category, all subcategories
+                  under it will be deleted Permanently!!.
+                </span>
+              }
               setShow={setShowModal}
               handler={confirmDelete}
             />

@@ -120,6 +120,12 @@ const SubCategoryTable = ({
     setShowModal(false);
   };
 
+  let selectedDataForDelete = null;
+  if (deleteId && data?.results) {
+    selectedDataForDelete = data.results.find((item) => item.id == deleteId);
+    // console.log("selectedDataForDelete  = ", selectedDataForDelete);
+  }
+
   let content = <></>;
 
   if (!isLoading && !isFetching && isSuccess && data?.results?.length) {
@@ -237,8 +243,18 @@ const SubCategoryTable = ({
         <Modal showModal={showModal}>
           {selectedModal === "delete-confirmation-alert" && (
             <DeleteConfirmationModal
-              title="Delete Sub Category?"
-              message="Are you sure you want to delete this Sub Category?"
+              // title="Delete Sub Category?"
+              // message="Are you sure you want to delete this Sub Category?"
+              title="Are you sure?"
+              message={
+                <span>
+                  you want to delete "
+                  <span className="font-bold text-[#000]">
+                    {selectedDataForDelete ? selectedDataForDelete?.name : ""}
+                  </span>
+                  " Sub Category?
+                </span>
+              }
               setShow={setShowModal}
               handler={confirmDelete}
             />

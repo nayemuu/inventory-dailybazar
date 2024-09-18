@@ -245,9 +245,19 @@ const LocationTable = ({
               // title="Delete Location?"
               // message="Are you sure you want to delete this Location Permanently?"
               title="Are you sure?"
-              message={`Deleting "${
-                selectedDataForDelete ? selectedDataForDelete?.name : ""
-              }" location will also delete all its associated categories and subcategories Permanently.`}
+              // message={`Deleting "${
+              //   selectedDataForDelete ? selectedDataForDelete?.name : ""
+              // }" location will also delete all its associated categories and subcategories Permanently.`}
+              message={
+                <span>
+                  Deleting "
+                  <span className="font-bold text-[#000]">
+                    {selectedDataForDelete ? selectedDataForDelete?.name : ""}
+                  </span>
+                  " location will also delete all its associated categories and
+                  subcategories Permanently.
+                </span>
+              }
               setShow={setShowModal}
               handler={confirmDelete}
             />
