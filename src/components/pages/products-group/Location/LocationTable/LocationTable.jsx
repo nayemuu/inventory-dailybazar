@@ -119,6 +119,12 @@ const LocationTable = ({
     setShowModal(false);
   };
 
+  let selectedDataForDelete = null;
+  if (deleteId && data?.results) {
+    selectedDataForDelete = data.results.find((item) => item.id == deleteId);
+    // console.log("selectedDataForDelete  = ", selectedDataForDelete);
+  }
+
   let content = <></>;
 
   if (!isLoading && !isFetching && isSuccess && data?.results?.length) {
@@ -236,8 +242,12 @@ const LocationTable = ({
         <Modal showModal={showModal}>
           {selectedModal === "delete-confirmation-alert" && (
             <DeleteConfirmationModal
-              title="Delete Location?"
-              message="Are you sure you want to delete this Location Permanently?"
+              // title="Delete Location?"
+              // message="Are you sure you want to delete this Location Permanently?"
+              title="Are you sure?"
+              message={`Deleting "${
+                selectedDataForDelete ? selectedDataForDelete?.name : ""
+              }" location will also delete all its associated categories and subcategories Permanently.`}
               setShow={setShowModal}
               handler={confirmDelete}
             />

@@ -55,7 +55,7 @@ function EditCategoryForm({
     e.preventDefault();
     // console.log("category = ", category);
     // console.log("categoryIcon = ", categoryIcon);
-    if (!location && location?.id) {
+    if (!location && !location?.id) {
       return errorToastMessage("Please Select a Location");
     }
 

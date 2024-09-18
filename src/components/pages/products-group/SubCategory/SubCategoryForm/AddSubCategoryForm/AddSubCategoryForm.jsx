@@ -25,7 +25,7 @@ const AddSubCategoryForm = ({ categoriesData, categoriesIsLoading }) => {
     e.preventDefault();
     // console.log("category = ", category);
     // console.log("subCategoryIcon = ", subCategoryIcon);
-    if (!category && category?.id) {
+    if (!category && !category?.id) {
       return errorToastMessage("Please Select a category");
     }
 

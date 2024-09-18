@@ -187,7 +187,7 @@ const SubCategoryTable = ({
   return (
     <>
       <div>
-        <div className="section-title">Category Table</div>
+        <div className="section-title">Sub Category Table</div>
 
         <div className="flex flex-col mt-5">
           <div className="-m-1.5 overflow-x-auto">
