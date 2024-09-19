@@ -16,6 +16,7 @@ import ServerError from "./components/pages/ServerError/ServerError";
 import Category from "./pages/products-group/Category/Category";
 import AddSupplier from "./pages/supplier-group/AddSupplier/AddSupplier";
 import SubCategory from "./pages/products-group/SubCategory/SubCategory";
+import SupplierList from "./pages/supplier-group/SupplierList/SupplierList";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -67,7 +68,7 @@ const App = () => {
           }
         />
 
-        <Route path="/supplier-list" element={<AddProduct />} />
+        <Route path="/supplier-list" element={<SupplierList />} />
         <Route path="/add-supplier" element={<AddSupplier />} />
         <Route path="/test" element={<Test />} />
       </Routes>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../../../reuseable/Inputs/Input/Input";
 import SelectSupplierCategory from "./SelectSupplierCategory/SelectSupplierCategory";
 import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
 import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
+import { errorToastMessage } from "../../../../../utils/toastifyUtils";
+import { useAddSupplierMutation } from "../../../../../redux/features/supplier/supplierApi";
 
 let supplierCategories = ["Local", "Foreign"];
 let statusOptions = ["Active", "In Active"];
@@ -18,7 +20,8 @@ const AddSupplierForm = () => {
   const [supplierProductCategory, setSupplierProductCategory] = useState("");
   const [status, setStatus] = useState("");
 
-  let isLoading = false;
+  const [addSupplier, { isLoading, isError, isSuccess, data, error }] =
+    useAddSupplierMutation();
 
   const clearHandler = () => {
     setSupplierCategory("");
@@ -33,16 +36,48 @@ const AddSupplierForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("supplierCategory = ", supplierCategory);
-    console.log("supplierName = ", supplierName);
-    console.log("supplierAddress = ", supplierAddress);
-    console.log("contactNumber = ", contactNumber);
-    console.log("emailAddress = ", emailAddress);
-    console.log("contactPerson = ", contactPerson);
-    console.log("supplierProductCategory = ", supplierProductCategory);
-    console.log("status = ", status);
+    // console.log("supplierName = ", supplierName);
+    // console.log("supplierAddress = ", supplierAddress);
+    // console.log("supplierCategory = ", supplierCategory);
+    // console.log("contactNumber = ", contactNumber);
+    // console.log("emailAddress = ", emailAddress);
+    // console.log("contactPerson = ", contactPerson);
+    // console.log("supplierProductCategory = ", supplierProductCategory);
+    // console.log("status = ", status);
+
+    if (!supplierName || !supplierName.trim()) {
+      return errorToastMessage("Supplier name is required");
+    }
+
+    if (!supplierCategory || !supplierCategory.trim()) {
+      return errorToastMessage("Category of supplier is required");
+    }
+
+    if (!supplierName || !supplierName.trim()) {
+      return errorToastMessage("Supplier name is required");
+    }
+
+    if (!status || !status.trim()) {
+      return errorToastMessage("Status is required");
+    }
+
+    addSupplier({
+      supplier_name: supplierName,
+      supplier_address: supplierAddress,
+      category_of_supplier: supplierCategory,
+      contact_number: contactNumber,
+      email_address: emailAddress,
+      contact_person: contactPerson,
+      supplier_product_category: supplierProductCategory,
+      status: status,
+    });
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      clearHandler();
+    }
+  }, [isSuccess]);
   return (
     <form onSubmit={submitHandler}>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
@@ -126,11 +161,7 @@ const AddSupplierForm = () => {
           </div>
 
           <div>
-            <ClearButton
-              isLoading={false}
-              disable={false}
-              handleClick={clearHandler}
-            >
+            <ClearButton isLoading={isLoading} handleClick={clearHandler}>
               Cancel
             </ClearButton>
           </div>

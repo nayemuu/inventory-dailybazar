@@ -1,12 +1,12 @@
 import React from "react";
 import SidebarContainer from "../../../components/reuseable/Sidebar/SidebarContainer";
 import Navbar from "../../../components/reuseable/Navbar/Navbar";
-import SectionTitle from "../../../components/reuseable/Section/SectionTitle/SectionTitle";
-import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
-import AddSupplierForm from "../../../components/pages/supplier-group/AddSupplier/AddSupplierForm/AddSupplierForm";
 import { ToastContainer } from "react-toastify";
+import SupplierListSection from "../../../components/pages/supplier-group/SupplierList/SupplierListSection";
+import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
+import SectionTitle from "../../../components/reuseable/Section/SectionTitle/SectionTitle";
 
-const AddSupplier = () => {
+const SupplierList = () => {
   return (
     <div>
       <SidebarContainer>
@@ -15,19 +15,15 @@ const AddSupplier = () => {
           <div className="container">
             <div className="mb-5">
               <SectionTitle additionalClass="mb-1">Add Supplier</SectionTitle>
-              <Breadcrumb routes={["Supplier", "Add Supplier"]} />
+              <Breadcrumb routes={["Supplier", "Supplier List"]} />
             </div>
-
-            <div className="section-card">
-              <AddSupplierForm />
-            </div>
+            <SupplierListSection />
           </div>
         </div>
-
         <ToastContainer />
       </SidebarContainer>
     </div>
   );
 };
 
-export default AddSupplier;
+export default SupplierList;
