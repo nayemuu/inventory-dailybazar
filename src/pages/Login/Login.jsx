@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import emailLogo from '../../assets/pages/Login/emailLogo.svg';
-import loginLogo from '../../assets/pages/Login/loginLogo.svg';
-import passwordLogo from '../../assets/pages/Login/passwordLogo.svg';
-import InputForPassword from '../../components/reuseable/auth/Inputs/InputForPassword/InputForPassword';
-import InputForText from '../../components/reuseable/auth/Inputs/InputForText/InputForText';
-import SubmitButton from '../../components/reuseable/buttons/SubmitButton/SubmitButton';
-import { useLoginMutation } from '../../redux/features/auth/authApi';
-import { errorToastMessage } from '../../utils/toastifyUtils';
-import { ToastContainer } from 'react-toastify';
+import { useEffect, useState } from "react";
+import emailLogo from "../../assets/pages/Login/emailLogo.svg";
+import loginLogo from "../../assets/pages/Login/loginLogo.svg";
+import passwordLogo from "../../assets/pages/Login/passwordLogo.svg";
+import InputForPassword from "../../components/reuseable/auth/Inputs/InputForPassword/InputForPassword";
+import InputForText from "../../components/reuseable/auth/Inputs/InputForText/InputForText";
+import SubmitButton from "../../components/reuseable/buttons/SubmitButton/SubmitButton";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { errorToastMessage } from "../../utils/toastifyUtils";
+import { ToastContainer } from "react-toastify";
 
 function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [login, { isLoading, isError, isSuccess, data, error }] =
     useLoginMutation();
 
@@ -21,29 +21,29 @@ function Login(props) {
     // console.log('password = ', password);
 
     if (!email?.trim()) {
-      return alert('email is required');
+      return alert("email is required");
     }
 
     if (!password.trim()) {
-      return alert('password is required');
+      return alert("password is required");
     }
 
     login({ email, password });
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log('data ', data);
-    }
-  }, [isSuccess, data]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     console.log("data ", data);
+  //   }
+  // }, [isSuccess, data]);
 
   useEffect(() => {
     if (isError) {
-      console.log('error ', error);
+      // console.log("error ", error);
       if (error?.data?.message) {
         errorToastMessage(error.data.message);
       } else {
-        errorToastMessage('SomeThing Went Wrong');
+        errorToastMessage("SomeThing Went Wrong");
       }
     }
   }, [isError, error]);
@@ -83,10 +83,7 @@ function Login(props) {
                 required={true}
               />
 
-              <SubmitButton
-                height="55px"
-                //   isLoading={true}
-              >
+              <SubmitButton height="55px" isLoading={isLoading}>
                 Submit
               </SubmitButton>
             </form>

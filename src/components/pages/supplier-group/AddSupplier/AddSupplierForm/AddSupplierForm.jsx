@@ -105,7 +105,7 @@ const AddSupplierForm = () => {
           // labelBackgroundColor="#f3f6fa"
         />
         <SelectSupplierCategory
-          label="Status"
+          label="Supplier Product Category"
           value={supplierProductCategory}
           setValue={setSupplierProductCategory}
           required={true}
@@ -122,7 +122,7 @@ const AddSupplierForm = () => {
       <div className="mt-5 col-span-3">
         <div className="flex gap-5 flex-wrap">
           <div>
-            <SubmitButton isLoading={isLoading}>Update Location</SubmitButton>
+            <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
           </div>
 
           <div>
@@ -131,7 +131,7 @@ const AddSupplierForm = () => {
               disable={false}
               handleClick={clearHandler}
             >
-              Clear
+              Cancel
             </ClearButton>
           </div>
         </div>
