@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SectionHeaderActions from "../../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
-import {
-  locationApi,
-  useGetLocationsQuery,
-} from "../../../../redux/features/location/locationApi";
+
 import ReactPaginate from "react-paginate";
 import { errorToastMessage } from "../../../../utils/toastifyUtils";
 import JumpToPageSection from "../../../reuseable/JumpToPageSection/JumpToPageSection";
@@ -12,10 +9,11 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
-import EditLocationForm from "../../products-group/Location/LocationForm/EditLocationForm/EditLocationForm";
-import AddLocationForm from "../../products-group/Location/LocationForm/AddLocationForm/AddLocationForm";
 import SupplierListTable from "./SupplierListTable/SupplierListTable";
-import { useGetSuppliersQuery } from "../../../../redux/features/supplier/supplierApi";
+import {
+  supplierApi,
+  useGetSuppliersQuery,
+} from "../../../../redux/features/supplier/supplierApi";
 
 const SupplierListSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -66,12 +64,33 @@ const SupplierListSection = () => {
         );
 
         if (type === "pdf") {
-          let head = [["Id", "Location Name"]];
-          let fieldToShow = ["id", "name"]; // data column kyes
+          let head = [
+            [
+              "Id",
+              "Category of Supplier",
+              "Supplier Name",
+              "Address",
+              "Contact No.",
+              "Contact Person",
+              "Product Category",
+              "Status",
+            ],
+          ];
+          let fieldToShow = [
+            "id",
+            "category_of_supplier",
+            "supplier_name",
+            "supplier_address",
+            "contact_number",
+            "email_address",
+            "contact_person",
+            "supplier_product_category",
+            "status",
+          ]; // data column kyes
 
           // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
           exportPdf(
-            "Location List",
+            "Supplier List",
             head,
             dataForExportDocument,
             fieldToShow,
@@ -82,13 +101,19 @@ const SupplierListSection = () => {
           dataForExportDocument.map((item) => {
             let obj = {};
             obj["id"] = item.id;
-            obj["Location Name"] = item.name;
+            obj["Category of Supplier"] = item.category_of_supplier;
+            obj["Supplier Name"] = item.supplier_name;
+            obj["Address"] = item.supplier_address;
+            obj["Contact No."] = item.contact_number;
+            obj["Contact Person"] = item.contact_person;
+            obj["Product Category"] = item.supplier_product_category;
+            obj["Status"] = item.status;
 
             dataForExcell.push(obj);
           });
 
           // exportExcel(data, pdfTitle, isSelected) perametrs
-          exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
+          exportExcel(dataForExcell, "Supplier List (Selected).xlsx", true);
         }
       } else {
         let dataForExportDocument = [];
@@ -110,7 +135,7 @@ const SupplierListSection = () => {
               error: loadMoreError,
               refetch,
             } = await dispatch(
-              locationApi.endpoints.getLocations.initiate(
+              supplierApi.endpoints.getSuppliers.initiate(
                 {
                   limit: 2,
                   offset: dataForExportDocument.length,
@@ -134,13 +159,33 @@ const SupplierListSection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let head = [["Id", "Location Name"]];
-
-            let fieldToShow = ["id", "name"]; // data column kyes
+            let head = [
+              [
+                "Id",
+                "Category of Supplier",
+                "Supplier Name",
+                "Address",
+                "Contact No.",
+                "Contact Person",
+                "Product Category",
+                "Status",
+              ],
+            ];
+            let fieldToShow = [
+              "id",
+              "category_of_supplier",
+              "supplier_name",
+              "supplier_address",
+              "contact_number",
+              "email_address",
+              "contact_person",
+              "supplier_product_category",
+              "status",
+            ]; // data column kyes
 
             // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
             exportPdf(
-              "Location List",
+              "Supplier List",
               head,
               dataForExportDocument,
               fieldToShow
@@ -149,13 +194,19 @@ const SupplierListSection = () => {
             dataForExportDocument.map((item) => {
               let obj = {};
               obj["id"] = item.id;
-              obj["Location Name"] = item.name;
+              obj["Category of Supplier"] = item.category_of_supplier;
+              obj["Supplier Name"] = item.supplier_name;
+              obj["Address"] = item.supplier_address;
+              obj["Contact No."] = item.contact_number;
+              obj["Contact Person"] = item.contact_person;
+              obj["Product Category"] = item.supplier_product_category;
+              obj["Status"] = item.status;
 
               dataForExcell.push(obj);
             });
 
             // exportExcel(data, pdfTitle, isSelected) perametrs
-            exportExcel(dataForExcell, "Location List.xlsx", true);
+            exportExcel(dataForExcell, "Supplier List.xlsx", true);
           }
         }
       }

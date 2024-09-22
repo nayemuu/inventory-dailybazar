@@ -3,9 +3,12 @@ import Input from "../../../../reuseable/Inputs/Input/Input";
 import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButton";
 import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
 import { errorToastMessage } from "../../../../../utils/toastifyUtils";
-import { useAddSupplierMutation } from "../../../../../redux/features/supplier/supplierApi";
 import SelectSupplierCategory from "../../AddSupplier/AddSupplierForm/SelectSupplierCategory/SelectSupplierCategory";
 import { useParams } from "react-router-dom";
+import {
+  useGetSingleSupplierQuery,
+  useUpdateSupplierMutation,
+} from "../../../../../redux/features/supplier/supplierApi";
 
 let supplierCategories = ["Local", "Foreign"];
 let statusOptions = ["Active", "In Active"];
@@ -22,10 +25,24 @@ const UpdateSupplierForm = () => {
   const [status, setStatus] = useState("");
 
   const { id } = useParams();
-  console.log("id = ", id);
+  // console.log("id = ", id);
 
-  const [addSupplier, { isLoading, isError, isSuccess, data, error }] =
-    useAddSupplierMutation();
+  const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
+    useGetSingleSupplierQuery(id, {
+      skip: !id,
+      refetchOnMountOrArgChange: 0,
+    });
+
+  const [
+    updateSupplier,
+    {
+      isLoading: updateSupplierIsLoading,
+      isError: updateSupplierIsError,
+      isSuccess: updateSupplierIsSuccess,
+      data: updateSupplierIsData,
+      error: updateSupplierError,
+    },
+  ] = useUpdateSupplierMutation();
 
   const clearHandler = () => {
     setSupplierCategory("");
@@ -40,6 +57,9 @@ const UpdateSupplierForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (isError && !isSuccess) {
+      return errorToastMessage("Invalid supplier ID");
+    }
     // console.log("supplierName = ", supplierName);
     // console.log("supplierAddress = ", supplierAddress);
     // console.log("supplierCategory = ", supplierCategory);
@@ -65,7 +85,8 @@ const UpdateSupplierForm = () => {
       return errorToastMessage("Status is required");
     }
 
-    addSupplier({
+    updateSupplier({
+      id: id,
       supplier_name: supplierName,
       supplier_address: supplierAddress,
       category_of_supplier: supplierCategory,
@@ -78,10 +99,67 @@ const UpdateSupplierForm = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      clearHandler();
+    if (isError && error) {
+      if (error?.data?.message) {
+        errorToastMessage(error.data.message);
+      } else {
+        errorToastMessage("Something went wrong");
+      }
     }
-  }, [isSuccess]);
+  }, [isError]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      if (data.category_of_supplier) {
+        setSupplierCategory(data.category_of_supplier);
+      }
+
+      if (data.supplier_name) {
+        setSupplierName(data.supplier_name);
+      }
+
+      if (data.supplier_address) {
+        setSupplierAddress(data.supplier_address);
+      }
+
+      if (data.contact_number) {
+        setContactNumber(data.contact_number);
+      }
+
+      if (data.email_address) {
+        setEmailAddress(data.email_address);
+      }
+
+      if (data.contact_person) {
+        setContactPerson(data.contact_person);
+      }
+
+      if (data.supplier_product_category) {
+        setSupplierProductCategory(data.supplier_product_category);
+      }
+
+      if (data.status) {
+        setStatus(data.status);
+      }
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (updateSupplierIsError && error) {
+      if (error?.data?.updateSupplierError) {
+        errorToastMessage(error.data.updateSupplierError);
+      } else {
+        errorToastMessage("Something went wrong");
+      }
+    }
+  }, [updateSupplierIsError]);
+
+  // useEffect(() => {
+  //   if (updateSupplierIsSuccess) {
+  //     clearHandler();
+  //   }
+  // }, [updateSupplierIsSuccess]);
+
   return (
     <form onSubmit={submitHandler}>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
@@ -161,11 +239,16 @@ const UpdateSupplierForm = () => {
       <div className="mt-5 col-span-3">
         <div className="flex gap-5 flex-wrap">
           <div>
-            <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
+            <SubmitButton isLoading={isLoading || isFetching}>
+              Submit
+            </SubmitButton>
           </div>
 
           <div>
-            <ClearButton isLoading={isLoading} handleClick={clearHandler}>
+            <ClearButton
+              isLoading={isLoading || isFetching}
+              handleClick={() => window.location.reload()}
+            >
               Cancel
             </ClearButton>
           </div>

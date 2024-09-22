@@ -2,7 +2,7 @@ import { successToastMessage } from "../../../utils/toastifyUtils";
 import { apiSlice } from "../api/apiSlice";
 
 const apiWithTag = apiSlice.enhanceEndpoints({
-  addTagTypes: ["supplier-list"],
+  addTagTypes: ["supplier-list", "supplier"],
 });
 
 export const supplierApi = apiWithTag.injectEndpoints({
@@ -43,13 +43,30 @@ export const supplierApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    editSupplier: builder.mutation({
-      query: (data) => {
-        const object = Object.fromEntries(data.entries());
-        console.log(object);
+    getSingleSupplier: builder.query({
+      query: (id) => ({
+        url: `api/supplier/${id}`,
+      }),
 
+      providesTags: (result, error, arg) => {
+        // console.log("arg = ", arg);
+        return [{ type: "supplier", id: arg }];
+      },
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          // console.log("inside getsuppliers arg = ", arg);
+          // const result = await queryFulfilled;
+          // console.log("inside getsuppliers result = ", result);
+        } catch (error) {
+          // console.log('inside createArticleApi  result = ', error);
+        }
+      },
+    }),
+
+    updateSupplier: builder.mutation({
+      query: (data) => {
         return {
-          url: `api/supplier/${object.id}`,
+          url: `api/supplier/${data.id}`,
           method: "PATCH",
           body: data,
           formData: true,
@@ -59,17 +76,24 @@ export const supplierApi = apiWithTag.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+
+          successToastMessage("Supplier updated successfully");
           // console.log("inside editsupplier result = ", result);
           // console.log("result.data.message = ", result.data.message);
           if (result?.data?.message) {
             // console.log("result.data.message = ", result.data.message);
-            successToastMessage(result.data.message);
           }
         } catch (error) {
           //
         }
       },
-      invalidatesTags: ["supplier-list"],
+
+      invalidatesTags: (result, error, arg) => {
+        // console.log("arg = ");
+        // console.log("arg = ", arg);
+        // console.log("result = ", result);
+        return [{ type: "supplier", id: arg.id }, "supplier-list"];
+      },
     }),
 
     deleteSupplier: builder.mutation({
@@ -85,6 +109,7 @@ export const supplierApi = apiWithTag.injectEndpoints({
 export const {
   useAddSupplierMutation,
   useGetSuppliersQuery,
-  useEditSupplierMutation,
+  useGetSingleSupplierQuery,
+  useUpdateSupplierMutation,
   useDeleteSupplierMutation,
 } = supplierApi;

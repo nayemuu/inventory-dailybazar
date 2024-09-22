@@ -9,8 +9,12 @@ const getProperty = (obj, path) => {
 
   // Split the path into parts
   const parts = path.split(".");
+
   // Use reduce to access the nested property
-  return parts.reduce((acc, part) => acc && acc[part], obj);
+  const value = parts.reduce((acc, part) => acc && acc[part], obj);
+
+  // Return "N/A" if the value is falsy, otherwise return the value
+  return value || "N/A";
 };
 
 const addPageNumber = (doc, head) => {
