@@ -150,7 +150,11 @@ const Sidebar = () => {
     if (matchedItem) {
       setActiveIndex(matchedItem.index);
     } else {
-      setActiveIndex(null);
+      if (pathname.includes("/update-supplier/")) {
+        setActiveIndex(3);
+      } else {
+        setActiveIndex(null);
+      }
     }
   }, []);
 

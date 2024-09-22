@@ -17,6 +17,7 @@ import Category from "./pages/products-group/Category/Category";
 import AddSupplier from "./pages/supplier-group/AddSupplier/AddSupplier";
 import SubCategory from "./pages/products-group/SubCategory/SubCategory";
 import SupplierList from "./pages/supplier-group/SupplierList/SupplierList";
+import UpdateSupplier from "./pages/supplier-group/UpdateSupplier/UpdateSupplier";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -55,10 +56,38 @@ const App = () => {
           }
         />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/product-list" element={<AddProduct />} />
-        <Route path="/add-product" element={<AddProduct />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/sub-category" element={<SubCategory />} />
+        <Route
+          path="/product-list"
+          element={
+            <PrivateRoute>
+              <AddProduct />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/add-product"
+          element={
+            <PrivateRoute>
+              <AddProduct />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/category"
+          element={
+            <PrivateRoute>
+              <Category />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/sub-category"
+          element={
+            <PrivateRoute>
+              <SubCategory />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/location"
           element={
@@ -70,6 +99,7 @@ const App = () => {
 
         <Route path="/supplier-list" element={<SupplierList />} />
         <Route path="/add-supplier" element={<AddSupplier />} />
+        <Route path="/update-supplier/:id" element={<UpdateSupplier />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </Router>

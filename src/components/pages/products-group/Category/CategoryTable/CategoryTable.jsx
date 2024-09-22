@@ -64,7 +64,7 @@ const CategoryTable = ({
   let headers = ["Category Id", "Category Name", "Location Name", "Icon"];
 
   let actionButtons = {
-    view: true,
+    view: false,
     edit: true,
     delete: true,
   };

@@ -9,6 +9,7 @@ import {
 } from "../../../../../utils/toastifyUtils";
 import DeleteConfirmationModal from "../../../../reuseable/Modal/DeleteConfirmationModal/DeleteConfirmationModal";
 import { useDeleteSupplierMutation } from "../../../../../redux/features/supplier/supplierApi";
+import { useNavigate } from "react-router-dom";
 
 const SupplierListTable = ({
   data,
@@ -35,6 +36,8 @@ const SupplierListTable = ({
       error: deleteSupplierError,
     },
   ] = useDeleteSupplierMutation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (deleteSupplierIsSuccess) {
@@ -110,7 +113,8 @@ const SupplierListTable = ({
 
   const handleEdit = (id) => {
     console.log("id = ", id);
-    setEditId(id);
+    navigate(`/update-supplier/${id}`);
+    // setEditId(id);
   };
 
   const handleDelete = (obj) => {

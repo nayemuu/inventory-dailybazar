@@ -65,7 +65,7 @@ const SubCategoryTable = ({
   let headers = ["Category Id", "Sub Category Name", "Category Name", "Icon"];
 
   let actionButtons = {
-    view: true,
+    view: false,
     edit: true,
     delete: true,
   };

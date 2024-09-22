@@ -64,7 +64,7 @@ const LocationTable = ({
   let headers = ["Location Id", "Location Name", "Icon"];
 
   let actionButtons = {
-    view: true,
+    view: false,
     edit: true,
     delete: true,
   };
