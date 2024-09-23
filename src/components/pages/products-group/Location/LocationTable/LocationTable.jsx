@@ -99,7 +99,7 @@ const LocationTable = ({
   };
 
   const handleEdit = (id) => {
-    console.log("id = ", id);
+    // console.log("id = ", id);
     setEditId(id);
   };
 
