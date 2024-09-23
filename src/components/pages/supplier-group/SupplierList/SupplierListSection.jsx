@@ -183,8 +183,6 @@ const SupplierListSection = () => {
               "status",
             ]; // data column kyes
 
-            // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-
             exportPdf({
               title: "Supplier List",
               headers: headers,

@@ -42,7 +42,7 @@ export const locationApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    editLocation: builder.mutation({
+    updateLocation: builder.mutation({
       query: (data) => {
         const object = Object.fromEntries(data.entries());
         console.log(object);
@@ -62,7 +62,7 @@ export const locationApi = apiWithTag.injectEndpoints({
           // console.log("result.data.message = ", result.data.message);
           if (result?.data?.message) {
             // console.log("result.data.message = ", result.data.message);
-            successToastMessage(result.data.message);
+            successToastMessage("Location updated successfully");
           }
         } catch (error) {
           //
@@ -84,6 +84,6 @@ export const locationApi = apiWithTag.injectEndpoints({
 export const {
   useAddLocationMutation,
   useGetLocationsQuery,
-  useEditLocationMutation,
+  useUpdateLocationMutation,
   useDeleteLocationMutation,
 } = locationApi;

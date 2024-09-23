@@ -3,7 +3,7 @@ import SubmitButton from "../../../../../reuseable/buttons/SubmitButton/SubmitBu
 import Input from "../../../../../reuseable/Inputs/Input/Input";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import ClearButton from "../../../../../reuseable/buttons/ClearButton/ClearButton";
-import { useEditLocationMutation } from "../../../../../../redux/features/location/locationApi";
+import { useUpdateLocationMutation } from "../../../../../../redux/features/location/locationApi";
 import {
   errorToastMessage,
   successToastMessage,
@@ -14,9 +14,9 @@ function EditLocationForm({ data, editId, setEditId }) {
   const [locationIcon, setLocationIcon] = useState(null);
 
   const [
-    editLocation,
-    { isLoading, isError, isSuccess, data: editLocationData, error },
-  ] = useEditLocationMutation();
+    updateLocation,
+    { isLoading, isError, isSuccess, data: updateLocationData, error },
+  ] = useUpdateLocationMutation();
 
   useEffect(() => {
     if (data && data?.results?.length) {
@@ -43,8 +43,8 @@ function EditLocationForm({ data, editId, setEditId }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("location = ", location);
-    console.log("locationIcon = ", locationIcon);
+    // console.log("location = ", location);
+    // console.log("locationIcon = ", locationIcon);
 
     const formData = new FormData();
     formData.append("id", editId);
@@ -53,7 +53,7 @@ function EditLocationForm({ data, editId, setEditId }) {
       formData.append("icon", locationIcon);
     }
     // successToastMessage('Location Created Successfully');
-    editLocation(formData);
+    updateLocation(formData);
   };
 
   useEffect(() => {

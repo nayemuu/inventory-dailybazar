@@ -66,8 +66,8 @@ const exportPdf = ({
     // console.log('item = ', item);
 
     fieldToShow.map((targetField) => {
-      console.log("targetField = ", targetField);
-      console.log("item = ", item);
+      // console.log("targetField = ", targetField);
+      // console.log("item = ", item);
       // console.log('item.targetField = ', item.targetField);
       // avobe style is not working
 
