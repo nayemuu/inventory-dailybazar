@@ -67,17 +67,17 @@ const CategorySection = () => {
         );
 
         if (type === "pdf") {
-          let head = [["Id", "Category Name", "Location Name"]];
+          let headers = [["Id", "Category Name", "Location Name"]];
           let fieldToShow = ["id", "name", "location.name"]; // data column kyes
 
-          // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-          exportPdf(
-            "Category List",
-            head,
-            dataForExportDocument,
+          exportPdf({
+            title: "Category List",
+            headers: headers,
+            data: dataForExportDocument,
             fieldToShow,
-            true
-          );
+            isSelected: true,
+            orientation: "portrait",
+          });
         } else {
           const dataForExcell = [];
           dataForExportDocument.map((item) => {
@@ -136,16 +136,17 @@ const CategorySection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let head = [["Id", "Category Name", "Location Name"]];
+            let headers = [["Id", "Category Name", "Location Name"]];
             let fieldToShow = ["id", "name", "location.name"]; // data column kyes
 
-            // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-            exportPdf(
-              "Category List",
-              head,
-              dataForExportDocument,
-              fieldToShow
-            );
+            exportPdf({
+              title: "Category List",
+              headers: headers,
+              data: dataForExportDocument,
+              fieldToShow,
+              isSelected: false,
+              orientation: "portrait",
+            });
           } else {
             dataForExportDocument.map((item) => {
               let obj = {};

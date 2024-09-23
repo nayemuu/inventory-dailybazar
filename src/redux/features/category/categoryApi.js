@@ -42,7 +42,7 @@ export const categoryApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    editCategory: builder.mutation({
+    updateCategory: builder.mutation({
       query: (data) => {
         const object = Object.fromEntries(data.entries());
         console.log(object);
@@ -85,5 +85,5 @@ export const {
   useAddCategoryMutation,
   useGetCategoryQuery,
   useDeleteCategoryMutation,
-  useEditCategoryMutation,
+  useUpdateCategoryMutation,
 } = categoryApi;

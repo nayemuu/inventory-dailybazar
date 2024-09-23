@@ -24,7 +24,7 @@ function Options({ options, handleClick, value, isLoading }) {
             </span>
           </div>
         </div>
-      ) : (
+      ) : options?.length ? (
         options.map((item, index) => (
           <OptionsItem
             key={index}
@@ -33,6 +33,8 @@ function Options({ options, handleClick, value, isLoading }) {
             value={value}
           />
         ))
+      ) : (
+        <div className="p-2 text-center text-red-600">No options found!</div>
       )}
     </div>
   );

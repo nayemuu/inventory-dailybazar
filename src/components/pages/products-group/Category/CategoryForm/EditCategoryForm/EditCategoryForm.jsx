@@ -7,10 +7,10 @@ import {
 } from "../../../../../../utils/toastifyUtils";
 import Select from "../Select/Select";
 import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload";
-import { useEditCategoryMutation } from "../../../../../../redux/features/category/categoryApi";
+import { useUpdateCategoryMutation } from "../../../../../../redux/features/category/categoryApi";
 import ClearButton from "../../../../../reuseable/buttons/ClearButton/ClearButton";
 
-function EditCategoryForm({
+function updateCategoryForm({
   data,
   editId,
   setEditId,
@@ -21,8 +21,8 @@ function EditCategoryForm({
   const [categoryIcon, setCategoryIcon] = useState(null);
   const [location, setLocation] = useState("");
 
-  const [editCategory, { isLoading, isError, isSuccess, error }] =
-    useEditCategoryMutation();
+  const [updateCategory, { isLoading, isError, isSuccess, error }] =
+    useUpdateCategoryMutation();
 
   useEffect(() => {
     if (data && data?.results?.length) {
@@ -67,7 +67,7 @@ function EditCategoryForm({
       formData.append("icon", categoryIcon);
     }
     formData.append("locationId", location.id);
-    editCategory(formData);
+    updateCategory(formData);
   };
 
   useEffect(() => {
@@ -145,4 +145,4 @@ function EditCategoryForm({
   );
 }
 
-export default EditCategoryForm;
+export default updateCategoryForm;
