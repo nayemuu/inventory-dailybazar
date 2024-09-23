@@ -64,7 +64,7 @@ const SupplierListSection = () => {
         );
 
         if (type === "pdf") {
-          let head = [
+          let headers = [
             [
               "Id",
               "Category of Supplier",
@@ -88,14 +88,14 @@ const SupplierListSection = () => {
             "status",
           ]; // data column kyes
 
-          // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-          exportPdf(
-            "Supplier List",
-            head,
-            dataForExportDocument,
+          exportPdf({
+            title: "Supplier List",
+            headers: headers,
+            data: dataForExportDocument,
             fieldToShow,
-            true
-          );
+            isSelected: true,
+            orientation: "landscape",
+          });
         } else {
           const dataForExcell = [];
           dataForExportDocument.map((item) => {
@@ -159,7 +159,7 @@ const SupplierListSection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let head = [
+            let headers = [
               [
                 "Id",
                 "Category of Supplier",
@@ -184,12 +184,15 @@ const SupplierListSection = () => {
             ]; // data column kyes
 
             // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-            exportPdf(
-              "Supplier List",
-              head,
-              dataForExportDocument,
-              fieldToShow
-            );
+
+            exportPdf({
+              title: "Supplier List",
+              headers: headers,
+              data: dataForExportDocument,
+              fieldToShow,
+              isSelected: false,
+              orientation: "landscape",
+            });
           } else {
             dataForExportDocument.map((item) => {
               let obj = {};

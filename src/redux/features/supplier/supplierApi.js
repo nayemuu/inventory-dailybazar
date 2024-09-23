@@ -92,7 +92,8 @@ export const supplierApi = apiWithTag.injectEndpoints({
         // console.log("arg = ");
         // console.log("arg = ", arg);
         // console.log("result = ", result);
-        return [{ type: "supplier", id: arg.id }, "supplier-list"];
+        // return [{ type: "supplier", id: arg.id }, "supplier-list"];// we used refetchOnMountOrArgChange on UpdateSupplierForm, so every time we go to this route, getSingleSupplier api will be called
+        return ["supplier-list"];
       },
     }),
 

@@ -17,7 +17,7 @@ const getProperty = (obj, path) => {
   return value || "N/A";
 };
 
-const addPageNumber = (doc, head) => {
+const addPageNumber = (doc) => {
   const pageCount = doc.internal.getNumberOfPages();
   doc.setFontSize(8);
   for (var i = 1; i <= pageCount; i++) {
@@ -33,21 +33,28 @@ const addPageNumber = (doc, head) => {
   }
 };
 
-const exportPdf = (pdfTitle, head, data, fieldToShow, isSelected = false) => {
+const exportPdf = ({
+  title,
+  headers,
+  data,
+  fieldToShow,
+  isSelected = false,
+  orientation = "portrait",
+}) => {
   if (isSelected) {
-    pdfTitle = `${pdfTitle} (Selected)`;
+    title = `${title} (Selected)`;
   }
   const document = new jsPDF({
-    orientation: "p",
+    orientation: orientation,
     unit: "mm",
     format: "a4",
   });
 
   //   Header Title
   const pageWidth = document.internal.pageSize.width;
-  const titleWidth = document.getTextDimensions(pdfTitle).w;
+  const titleWidth = document.getTextDimensions(title).w;
   const x = (pageWidth - titleWidth) / 2;
-  document.text(pdfTitle, x, 14);
+  document.text(title, x, 14);
 
   // console.log('data = ', data);
   // console.log('fieldToShow = ', fieldToShow);
@@ -80,7 +87,7 @@ const exportPdf = (pdfTitle, head, data, fieldToShow, isSelected = false) => {
 
   autoTable(document, {
     startY: 20,
-    head: head,
+    head: headers,
     body: tableRows,
     theme: "plain", //default value was striped
     styles: { halign: "center", lineColor: "DCE0E4", lineWidth: 0.2 },
@@ -93,9 +100,7 @@ const exportPdf = (pdfTitle, head, data, fieldToShow, isSelected = false) => {
   addPageNumber(document);
 
   const date = new Date();
-  document.save(
-    `${pdfTitle.split(" ").join("_")}_${date.toLocaleTimeString()}`
-  );
+  document.save(`${title.split(" ").join("_")}_${date.toLocaleTimeString()}`);
 };
 
 export default exportPdf;
