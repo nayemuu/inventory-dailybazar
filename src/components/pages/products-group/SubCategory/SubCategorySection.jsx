@@ -66,25 +66,25 @@ const SubCategorySection = () => {
           selectedIds.includes(item.id)
         );
 
-        if (type === "pdf") {
-          let head = [["Id", "Category Name", "Location Name"]];
-          let fieldToShow = ["id", "name", "location.name"]; // data column kyes
+        let headers = [["Id", "Sub Category Name", "Category Name"]];
+        let fieldToShow = ["id", "name", "category.name"]; // data column kye
 
-          // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-          exportPdf(
-            "Category List",
-            head,
-            dataForExportDocument,
+        if (type === "pdf") {
+          exportPdf({
+            title: "Sub Category List",
+            headers: headers,
+            data: dataForExportDocument,
             fieldToShow,
-            true
-          );
+            isSelected: true,
+            orientation: "portrait",
+          });
         } else {
           const dataForExcell = [];
           dataForExportDocument.map((item) => {
             let obj = {};
             obj["id"] = item.id;
-            obj["Category Name"] = item.name;
-            obj["Location Name"] = item?.location?.name ?? "N/A";
+            obj["Sub Category Name"] = item.name;
+            obj["Category Name"] = item?.category?.name ?? "N/A";
 
             dataForExcell.push(obj);
           });
@@ -136,22 +136,23 @@ const SubCategorySection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let head = [["Id", "Category Name", "Location Name"]];
-            let fieldToShow = ["id", "name", "location.name"]; // data column kyes
+            let headers = [["Id", "Sub Category Name", "Category Name"]];
+            let fieldToShow = ["id", "name", "category.name"]; // data column kye
 
-            // exportPdf(pdfTitle, head, data, fieldToShow, isSelected) perametrs
-            exportPdf(
-              "Category List",
-              head,
-              dataForExportDocument,
-              fieldToShow
-            );
+            exportPdf({
+              title: "Sub Category List",
+              headers: headers,
+              data: dataForExportDocument,
+              fieldToShow,
+              isSelected: false,
+              orientation: "portrait",
+            });
           } else {
             dataForExportDocument.map((item) => {
               let obj = {};
               obj["id"] = item.id;
-              obj["Category Name"] = item.name;
-              obj["Location Name"] = item?.location?.name ?? "N/A";
+              obj["Sub Category Name"] = item.name;
+              obj["Category Name"] = item?.category?.name ?? "N/A";
 
               dataForExcell.push(obj);
             });

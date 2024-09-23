@@ -5,9 +5,9 @@ import { errorToastMessage } from "../../../../../../utils/toastifyUtils";
 import ClearButton from "../../../../../reuseable/buttons/ClearButton/ClearButton";
 import Select from "../../../reuseable/Select/Select";
 import ImageUpload from "../../../reuseable/ImageUpload/ImageUpload";
-import { useEditSubCategoryMutation } from "../../../../../../redux/features/sub-category/subCategoryApi";
+import { useUpdateSubCategoryMutation } from "../../../../../../redux/features/sub-category/subCategoryApi";
 
-function EditSubCategoryForm({
+function updateSubCategoryForm({
   data,
   editId,
   setEditId,
@@ -18,8 +18,8 @@ function EditSubCategoryForm({
   const [subCategoryIcon, setSubCategoryIcon] = useState(null);
   const [category, setCategory] = useState("");
 
-  const [editSubCategory, { isLoading, isError, isSuccess, error }] =
-    useEditSubCategoryMutation();
+  const [updateSubCategory, { isLoading, isError, isSuccess, error }] =
+    useUpdateSubCategoryMutation();
 
   useEffect(() => {
     if (data && data?.results?.length) {
@@ -64,7 +64,7 @@ function EditSubCategoryForm({
       formData.append("icon", subCategoryIcon);
     }
     formData.append("categoryId", category.id);
-    editSubCategory(formData);
+    updateSubCategory(formData);
   };
 
   useEffect(() => {
@@ -142,4 +142,4 @@ function EditSubCategoryForm({
   );
 }
 
-export default EditSubCategoryForm;
+export default updateSubCategoryForm;

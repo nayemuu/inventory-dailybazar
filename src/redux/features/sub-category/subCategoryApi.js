@@ -42,7 +42,7 @@ export const subCategoryApi = apiWithTag.injectEndpoints({
       },
     }),
 
-    editSubCategory: builder.mutation({
+    updateSubCategory: builder.mutation({
       query: (data) => {
         const object = Object.fromEntries(data.entries());
         console.log(object);
@@ -84,6 +84,6 @@ export const subCategoryApi = apiWithTag.injectEndpoints({
 export const {
   useAddSubCategoryMutation,
   useGetSubCategoryQuery,
-  useEditSubCategoryMutation,
+  useUpdateSubCategoryMutation,
   useDeleteSubCategoryMutation,
 } = subCategoryApi;
