@@ -2,13 +2,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const SidebarAccordianHeader = (props) => {
-  const { activeIndex, index, children, handleClick, childs, path, item } =
-    props;
+  const { index, activeIndex, children, handleClick, item } = props;
 
   let numberOfPermission = 0; //for item which has child
-  if (childs?.length) {
+  if (item?.childs?.length) {
     // console.log("item.childs.length = ", item.childs.length);
-    childs.map((child) => {
+    item.childs.map((child) => {
       if (child?.permission) {
         numberOfPermission++;
       }
@@ -17,7 +16,7 @@ const SidebarAccordianHeader = (props) => {
 
   let content;
 
-  if (childs?.length) {
+  if (item?.childs?.length) {
     content = numberOfPermission ? (
       <div
         className={`flex items-center justify-between gap-4 rounded-sm py-[11px] px-[15px] font-medium text-lg text-[#1B2850] duration-300 ease-in-out cursor-pointer hover:bg-primary-deep hover:text-white ${
@@ -40,7 +39,7 @@ const SidebarAccordianHeader = (props) => {
     );
   } else {
     content = item?.permission ? (
-      <Link to={path}>
+      <Link to={item.path}>
         <div
           className={`flex items-center gap-4 rounded-sm py-[11px] px-[15px] font-medium text-lg text-[#1B2850] duration-300 ease-in-out cursor-pointer hover:bg-primary-deep hover:text-white ${
             activeIndex === index && "bg-primary text-white"

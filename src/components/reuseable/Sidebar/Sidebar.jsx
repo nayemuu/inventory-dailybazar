@@ -22,7 +22,7 @@ const Sidebar = () => {
   const { pathname } = location;
 
   const handleActiveIndex = (index) => {
-    if (!activeIndex || activeIndex !== index) {
+    if (activeIndex !== index) {
       setTransition(true);
       setActiveIndex(index);
     } else {
@@ -35,7 +35,6 @@ const Sidebar = () => {
     {
       title: "Dashboard",
       index: 1,
-      activeIndex: activeIndex,
       path: "/",
       icon: RxDashboard,
       isIconSVG: false,
@@ -45,7 +44,6 @@ const Sidebar = () => {
     {
       title: "Orders",
       index: 2,
-      activeIndex: activeIndex,
       path: "/orders",
       icon: RiShoppingCart2Fill,
       isIconSVG: false,
@@ -55,7 +53,6 @@ const Sidebar = () => {
     {
       title: "Products",
       index: 3,
-      activeIndex: activeIndex,
       icon: BsBoxSeamFill,
       isIconSVG: false,
       permission: true,
@@ -95,7 +92,6 @@ const Sidebar = () => {
     {
       title: "Supplier",
       index: 4,
-      activeIndex: activeIndex,
       icon: (
         <svg
           width="24"
@@ -143,7 +139,6 @@ const Sidebar = () => {
     {
       title: "Test",
       index: 10,
-      activeIndex: activeIndex,
       path: "/test",
       icon: FaQuestion,
       isIconSVG: false,
@@ -190,8 +185,8 @@ const Sidebar = () => {
             key={item.index}
             item={item}
             transition={transition}
-            icon={item.icon}
             handleActiveIndex={handleActiveIndex}
+            activeIndex={activeIndex}
           />
         ))}
       </div>
