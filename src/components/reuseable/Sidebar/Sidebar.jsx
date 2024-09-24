@@ -87,6 +87,12 @@ const Sidebar = () => {
           haveIcon: false,
           permission: true,
         },
+        {
+          title: "Generic List",
+          path: "/generic-list",
+          haveIcon: false,
+          permission: true,
+        },
       ],
     },
     {

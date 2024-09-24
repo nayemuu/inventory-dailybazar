@@ -18,6 +18,7 @@ import AddSupplier from "./pages/supplier-group/AddSupplier/AddSupplier";
 import SubCategory from "./pages/products-group/SubCategory/SubCategory";
 import SupplierList from "./pages/supplier-group/SupplierList/SupplierList";
 import UpdateSupplier from "./pages/supplier-group/UpdateSupplier/UpdateSupplier";
+import GenericList from "./pages/products-group/GenericList/GenericList";
 
 const App = () => {
   const localPropertiesChecked = useLocalPropertiesCheck();
@@ -93,6 +94,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Location />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/generic-list"
+          element={
+            <PrivateRoute>
+              <GenericList />
             </PrivateRoute>
           }
         />
