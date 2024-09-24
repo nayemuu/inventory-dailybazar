@@ -39,6 +39,7 @@ const Sidebar = () => {
       path: "/",
       icon: RxDashboard,
       isIconSVG: false,
+      permission: true,
       childs: [],
     },
     {
@@ -48,6 +49,7 @@ const Sidebar = () => {
       path: "/orders",
       icon: RiShoppingCart2Fill,
       isIconSVG: false,
+      permission: true,
       childs: [],
     },
     {
@@ -56,31 +58,37 @@ const Sidebar = () => {
       activeIndex: activeIndex,
       icon: BsBoxSeamFill,
       isIconSVG: false,
+      permission: true,
       childs: [
         {
           title: "Product List",
           path: "/product-list",
           haveIcon: false,
+          permission: true,
         },
         {
           title: "Add Product",
           path: "/add-product",
           haveIcon: false,
+          permission: true,
         },
         {
           title: "Category",
           path: "/category",
           haveIcon: false,
+          permission: true,
         },
         {
           title: "Sub Category",
           path: "/sub-category",
           haveIcon: false,
+          permission: true,
         },
         {
           title: "Location",
           path: "/location",
           haveIcon: false,
+          permission: true,
         },
       ],
     },
@@ -122,11 +130,13 @@ const Sidebar = () => {
           title: "Supplier List",
           path: "/supplier-list",
           haveIcon: false,
+          permission: true,
         },
         {
           title: "Add Supplier",
           path: "/add-supplier",
           haveIcon: false,
+          permission: true,
         },
       ],
     },
@@ -138,6 +148,7 @@ const Sidebar = () => {
       icon: FaQuestion,
       isIconSVG: false,
       childs: [],
+      permission: false,
     },
   ];
 
