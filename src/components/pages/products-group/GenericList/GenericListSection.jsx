@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 import SectionHeaderActions from "../../../reuseable/Section/SectionHeaderActions/SectionHeaderActions";
-import {
-  locationApi,
-  useGetLocationsQuery,
-} from "../../../../redux/features/location/locationApi";
 import ReactPaginate from "react-paginate";
 import { errorToastMessage } from "../../../../utils/toastifyUtils";
 import JumpToPageSection from "../../../reuseable/JumpToPageSection/JumpToPageSection";
@@ -12,9 +8,13 @@ import { useDispatch } from "react-redux";
 import exportExcel from "../../../../utils/ExcelGenerator/ExcelGenerator";
 import Portal from "../../../reuseable/Portal/Portal";
 import Modal from "../../../reuseable/Modal/Modal";
-import LocationTable from "../Location/LocationTable/LocationTable";
-import EditLocationForm from "../Location/LocationForm/EditLocationForm/EditLocationForm";
 import AddGenericForm from "./GenericForm/AddGenericForm/AddGenericForm";
+import GenericListTable from "./GenericListTable/GenericListTable";
+import {
+  genericApi,
+  useGetGenericsQuery,
+} from "../../../../redux/features/generic/genericApi";
+import EditGenericForm from "./GenericForm/EditGenericForm/EditGenericForm";
 
 const GenericListSection = () => {
   const [searchText, setSearchText] = useState("");
@@ -39,7 +39,7 @@ const GenericListSection = () => {
   // console.log("offset = ", offset);
 
   const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
-    useGetLocationsQuery(
+    useGetGenericsQuery(
       { limit, offset, keyword: searchText },
       { refetchOnMountOrArgChange: true }
     );
@@ -60,11 +60,11 @@ const GenericListSection = () => {
         );
 
         if (type === "pdf") {
-          let headers = [["Id", "Location Name"]];
+          let headers = [["Generic Id", "Generic Name"]];
           let fieldToShow = ["id", "name"]; // data column kyes
 
           exportPdf({
-            title: "Location List",
+            title: "Generic List",
             headers: headers,
             data: dataForExportDocument,
             fieldToShow,
@@ -75,14 +75,14 @@ const GenericListSection = () => {
           const dataForExcell = [];
           dataForExportDocument.map((item) => {
             let obj = {};
-            obj["id"] = item.id;
-            obj["Location Name"] = item.name;
+            obj["Generic Id"] = item.id;
+            obj["Generic Name"] = item.name;
 
             dataForExcell.push(obj);
           });
 
           // exportExcel(data, pdfTitle, isSelected) perametrs
-          exportExcel(dataForExcell, "Location List (Selected).xlsx", true);
+          exportExcel(dataForExcell, "Generic List (Selected).xlsx", true);
         }
       } else {
         let dataForExportDocument = [];
@@ -104,7 +104,7 @@ const GenericListSection = () => {
               error: loadMoreError,
               refetch,
             } = await dispatch(
-              locationApi.endpoints.getLocations.initiate(
+              genericApi.endpoints.getGenerics.initiate(
                 {
                   limit: 2,
                   offset: dataForExportDocument.length,
@@ -128,12 +128,12 @@ const GenericListSection = () => {
         if (dataForExportDocument.length) {
           const dataForExcell = [];
           if (type === "pdf") {
-            let headers = [["Id", "Location Name"]];
+            let headers = [["Generic Id", "Generic Name"]];
 
             let fieldToShow = ["id", "name"]; // data column kyes
 
             exportPdf({
-              title: "Location List",
+              title: "Generic List",
               headers: headers,
               data: dataForExportDocument,
               fieldToShow,
@@ -143,14 +143,14 @@ const GenericListSection = () => {
           } else {
             dataForExportDocument.map((item) => {
               let obj = {};
-              obj["id"] = item.id;
-              obj["Location Name"] = item.name;
+              obj["Generic Id"] = item.id;
+              obj["Generic Name"] = item.name;
 
               dataForExcell.push(obj);
             });
 
             // exportExcel(data, pdfTitle, isSelected) perametrs
-            exportExcel(dataForExcell, "Location List.xlsx", true);
+            exportExcel(dataForExcell, "Generic List.xlsx", true);
           }
         }
       }
@@ -243,7 +243,7 @@ const GenericListSection = () => {
 
         <div className="grid grid-cols-12 mt-6  gap-y-[40px] xl:gap-x-[40px]">
           <div className="col-span-12 xl:col-span-8 order-2 xl:order-1">
-            <LocationTable
+            <GenericListTable
               isLoading={isLoading}
               isSuccess={isSuccess}
               isFetching={isFetching}
@@ -294,7 +294,7 @@ const GenericListSection = () => {
             isSuccess &&
             data &&
             data?.results?.length ? (
-              <EditLocationForm
+              <EditGenericForm
                 data={data}
                 editId={editId}
                 setEditId={setEditId}

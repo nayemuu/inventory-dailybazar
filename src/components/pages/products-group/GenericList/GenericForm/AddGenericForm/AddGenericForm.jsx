@@ -5,13 +5,13 @@ import {
   errorToastMessage,
   successToastMessage,
 } from "../../../../../../utils/toastifyUtils";
-import { useAddLocationMutation } from "../../../../../../redux/features/location/locationApi";
+import { useAddGenericMutation } from "../../../../../../redux/features/generic/genericApi";
 
 const AddGenericForm = () => {
   const [name, setName] = useState("");
 
-  const [addLocation, { isLoading, isError, isSuccess, data, error }] =
-    useAddLocationMutation();
+  const [addGeneric, { isLoading, isError, isSuccess, data, error }] =
+    useAddGenericMutation();
 
   const resetForm = () => {
     setName("");
@@ -19,7 +19,11 @@ const AddGenericForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("name = ", name);
+    // console.log("name = ", name);
+    if (!name.trim()) {
+      errorToastMessage("Name is required.");
+    }
+    addGeneric({ name });
   };
 
   useEffect(() => {

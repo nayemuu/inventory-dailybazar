@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import GenericListSection from "../../../components/pages/products-group/GenericList/GenericListSection";
 import Breadcrumb from "../../../components/reuseable/Breadcrumb/Breadcrumb";
 import Navbar from "../../../components/reuseable/Navbar/Navbar";
@@ -18,6 +19,8 @@ function GenericList() {
 
             <GenericListSection />
           </div>
+
+          <ToastContainer />
         </div>
       </SidebarContainer>
     </div>
