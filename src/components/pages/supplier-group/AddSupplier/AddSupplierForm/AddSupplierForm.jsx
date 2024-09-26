@@ -5,8 +5,13 @@ import SubmitButton from "../../../../reuseable/buttons/SubmitButton/SubmitButto
 import ClearButton from "../../../../reuseable/buttons/ClearButton/ClearButton";
 import { errorToastMessage } from "../../../../../utils/toastifyUtils";
 import { useAddSupplierMutation } from "../../../../../redux/features/supplier/supplierApi";
+import SelectOptionsForBoolean from "../../../../reuseable/Inputs/DropdownInputs/SelectOptionsForBoolean/SelectOptionsForBoolean";
 
 let supplierCategories = ["Local", "Foreign"];
+// let statusOptions = [
+//   { title: "Active", value: true },
+//   { title: "In Active", value: false },
+// ];
 let statusOptions = ["Active", "In Active"];
 let supplierProductCategories = ["Pharmacy", "Other"];
 
@@ -57,7 +62,7 @@ const AddSupplierForm = () => {
       return errorToastMessage("Supplier name is required");
     }
 
-    if (!status || !status.trim()) {
+    if (!status) {
       return errorToastMessage("Status is required");
     }
 
@@ -146,6 +151,7 @@ const AddSupplierForm = () => {
           required={true}
           options={supplierProductCategories}
         />
+
         <SelectSupplierCategory
           label="Status"
           value={status}
@@ -153,6 +159,14 @@ const AddSupplierForm = () => {
           required={true}
           options={statusOptions}
         />
+
+        {/* <SelectOptionsForBoolean
+          label="Status"
+          value={status}
+          setValue={setStatus}
+          required={true}
+          options={statusOptions}
+        /> */}
       </div>
       <div className="mt-5 col-span-3">
         <div className="flex gap-5 flex-wrap">

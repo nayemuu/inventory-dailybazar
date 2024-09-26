@@ -27,7 +27,7 @@ const SupplierListSection = () => {
   const [jumpToPage, setJumpToPage] = useState(undefined);
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
-  const limit = 2;
+  const limit = 5;
 
   const dispatch = useDispatch();
 
@@ -137,7 +137,7 @@ const SupplierListSection = () => {
             } = await dispatch(
               supplierApi.endpoints.getSuppliers.initiate(
                 {
-                  limit: 2,
+                  limit: 5,
                   offset: dataForExportDocument.length,
                   keyword: searchText,
                 },

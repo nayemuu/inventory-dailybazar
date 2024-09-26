@@ -9,8 +9,14 @@ import {
   useGetSingleSupplierQuery,
   useUpdateSupplierMutation,
 } from "../../../../../redux/features/supplier/supplierApi";
+import SelectOptionsForBoolean from "../../../../reuseable/Inputs/DropdownInputs/SelectOptionsForBoolean/SelectOptionsForBoolean";
 
 let supplierCategories = ["Local", "Foreign"];
+// let statusOptions = [
+//   { title: "Active", value: true },
+//   { title: "In Active", value: false },
+// ];
+
 let statusOptions = ["Active", "In Active"];
 let supplierProductCategories = ["Pharmacy", "Other"];
 
@@ -81,7 +87,7 @@ const UpdateSupplierForm = () => {
       return errorToastMessage("Supplier name is required");
     }
 
-    if (!status || !status.trim()) {
+    if (!status) {
       return errorToastMessage("Status is required");
     }
 
@@ -138,9 +144,15 @@ const UpdateSupplierForm = () => {
         setSupplierProductCategory(data.supplier_product_category);
       }
 
-      if (data.status) {
-        setStatus(data.status);
-      }
+      // if (data) {
+      //   let res = statusOptions.find((item) => item.value === data.status);
+
+      //   console.log("res = ", res);
+      //   if (res) {
+      //     setStatus(res);
+      //   }
+      // }
+      setStatus(data.status);
     }
   }, [isSuccess, data]);
 
@@ -228,6 +240,7 @@ const UpdateSupplierForm = () => {
           required={true}
           options={supplierProductCategories}
         />
+
         <SelectSupplierCategory
           label="Status"
           value={status}
@@ -235,6 +248,13 @@ const UpdateSupplierForm = () => {
           required={true}
           options={statusOptions}
         />
+        {/* <SelectOptionsForBoolean
+          label="Status"
+          value={status}
+          setValue={setStatus}
+          required={true}
+          options={statusOptions}
+        /> */}
       </div>
       <div className="mt-5 col-span-3">
         <div className="flex gap-5 flex-wrap">
