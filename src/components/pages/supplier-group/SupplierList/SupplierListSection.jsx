@@ -121,7 +121,7 @@ const SupplierListSection = () => {
           dataForExportDocument = [...data.results];
         } else {
           // number of iteration for your loop
-          const limitForApiCall = 2;
+          const limitForApiCall = 5;
           const totalCall = Math.ceil(data.count / limitForApiCall);
           // console.log("totalCall = ", totalCall);
           // end number of iteration for your loop
@@ -137,7 +137,7 @@ const SupplierListSection = () => {
             } = await dispatch(
               supplierApi.endpoints.getSuppliers.initiate(
                 {
-                  limit: 5,
+                  limit: limitForApiCall,
                   offset: dataForExportDocument.length,
                   keyword: searchText,
                 },

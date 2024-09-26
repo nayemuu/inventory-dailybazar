@@ -20,18 +20,19 @@ const AddCategoryForm = ({ locationData, locationsIsLoading }) => {
   const resetForm = () => {
     setName("");
     setCategoryIcon(null);
+    setLocation("");
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     // console.log("category = ", category);
     // console.log("categoryIcon = ", categoryIcon);
-    console.log("location = ", location);
+    // console.log("location = ", location);
     if (!location && !location?.id) {
       return errorToastMessage("Please Select a Location");
     }
 
-    console.log("location.id = ", location.id);
+    // console.log("location.id = ", location.id);
     const formData = new FormData();
     formData.append("name", name);
     if (categoryIcon) {

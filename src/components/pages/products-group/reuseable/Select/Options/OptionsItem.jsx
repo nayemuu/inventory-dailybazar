@@ -1,5 +1,5 @@
 function OptionsItem({ item, handleClick, value }) {
-  let isSelected = !!(value === item);
+  let isSelected = !!(value.id === item.id);
   //   console.log('isSelected = ', isSelected);
   console.log("item = ", item);
   return (

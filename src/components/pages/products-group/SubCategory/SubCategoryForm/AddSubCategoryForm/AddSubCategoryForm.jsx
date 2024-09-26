@@ -19,6 +19,7 @@ const AddSubCategoryForm = ({ categoriesData, categoriesIsLoading }) => {
   const resetForm = () => {
     setName("");
     setSubCategoryIcon(null);
+    setCategory("");
   };
 
   const submitHandler = (e) => {
@@ -95,7 +96,7 @@ const AddSubCategoryForm = ({ categoriesData, categoriesIsLoading }) => {
             <div className="flex gap-5 flex-wrap">
               <div>
                 <SubmitButton isLoading={isLoading}>
-                  Create Category
+                  Create Sub Category
                 </SubmitButton>
               </div>
             </div>

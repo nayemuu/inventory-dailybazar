@@ -10,16 +10,17 @@ import ImageUpload from "../../../Location/LocationForm/ImageUpload/ImageUpload"
 import { useUpdateCategoryMutation } from "../../../../../../redux/features/category/categoryApi";
 import ClearButton from "../../../../../reuseable/buttons/ClearButton/ClearButton";
 
-function updateCategoryForm({
+const EditCategoryForm = ({
   data,
   editId,
   setEditId,
   locationData,
   locationsIsLoading,
-}) {
+}) => {
   const [name, setName] = useState("");
   const [categoryIcon, setCategoryIcon] = useState(null);
   const [location, setLocation] = useState("");
+  // console.log("locationData = ", locationData);
 
   const [updateCategory, { isLoading, isError, isSuccess, error }] =
     useUpdateCategoryMutation();
@@ -36,13 +37,13 @@ function updateCategoryForm({
       }
       setLocation(matchedItem.location);
     }
-  }, [editId, data]);
+  }, [editId, data, locationData, locationsIsLoading]);
 
   let matchedItem;
 
   if (data && data?.results?.length) {
     matchedItem = data.results.find((item) => item.id === editId);
-    console.log("matchedItem = ", matchedItem);
+    // console.log("matchedItem = ", matchedItem);
   }
 
   const clearHandler = () => {
@@ -143,6 +144,6 @@ function updateCategoryForm({
       </div>
     </div>
   );
-}
+};
 
-export default updateCategoryForm;
+export default EditCategoryForm;

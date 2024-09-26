@@ -29,7 +29,7 @@ const SubCategorySection = () => {
   const [jumpToPage, setJumpToPage] = useState(undefined);
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
-  const limit = 3;
+  const limit = 5;
 
   const dispatch = useDispatch();
 
@@ -98,7 +98,7 @@ const SubCategorySection = () => {
           dataForExportDocument = [...data.results];
         } else {
           // number of iteration for your loop
-          const limitForApiCall = 2;
+          const limitForApiCall = 5;
           const totalCall = Math.ceil(data.count / limitForApiCall);
           // console.log("totalCall = ", totalCall);
           // end number of iteration for your loop
@@ -114,7 +114,7 @@ const SubCategorySection = () => {
             } = await dispatch(
               categoryApi.endpoints.getCategory.initiate(
                 {
-                  limit: 2,
+                  limit: limitForApiCall,
                   offset: dataForExportDocument.length,
                   keyword: searchText,
                 },
@@ -166,12 +166,12 @@ const SubCategorySection = () => {
   };
 
   const handlePdf = () => {
-    console.log("inside handlePdf");
+    // console.log("inside handlePdf");
     exportDocument("pdf");
   };
 
   const handleExcel = () => {
-    console.log("inside handleExcel");
+    // console.log("inside handleExcel");
     exportDocument("excel");
   };
 

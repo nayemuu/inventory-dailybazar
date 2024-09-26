@@ -26,10 +26,10 @@ const CategorySection = () => {
   const [offset, setOffset] = useState(0);
   const [initialPage, setInitialPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [jumpToPage, setJumpToPage] = useState(undefined);
+  const [jumpToPage, setJumpToPage] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
-  const limit = 3;
+  const limit = 5;
 
   const dispatch = useDispatch();
 
@@ -98,7 +98,7 @@ const CategorySection = () => {
           dataForExportDocument = [...data.results];
         } else {
           // number of iteration for your loop
-          const limitForApiCall = 2;
+          const limitForApiCall = 5;
           const totalCall = Math.ceil(data.count / limitForApiCall);
           // console.log("totalCall = ", totalCall);
           // end number of iteration for your loop
@@ -114,7 +114,7 @@ const CategorySection = () => {
             } = await dispatch(
               categoryApi.endpoints.getCategory.initiate(
                 {
-                  limit: 2,
+                  limit: limitForApiCall,
                   offset: dataForExportDocument.length,
                   keyword: searchText,
                 },
