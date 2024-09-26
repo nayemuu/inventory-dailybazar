@@ -24,7 +24,7 @@ const SupplierListSection = () => {
   const [offset, setOffset] = useState(0);
   const [initialPage, setInitialPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [jumpToPage, setJumpToPage] = useState(undefined);
+  const [jumpToPage, setJumpToPage] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
   const [apiCallWhileExporting, setApiCallWhileExporting] = useState(false);
   const limit = 5;

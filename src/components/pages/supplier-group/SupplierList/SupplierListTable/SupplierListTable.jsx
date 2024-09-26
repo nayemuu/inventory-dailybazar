@@ -112,7 +112,7 @@ const SupplierListTable = ({
   };
 
   const handleEdit = (id) => {
-    console.log("id = ", id);
+    // console.log("id = ", id);
     navigate(`/update-supplier/${id}`);
     // setEditId(id);
   };
