@@ -149,7 +149,7 @@ const Sidebar = () => {
       icon: FaQuestion,
       isIconSVG: false,
       childs: [],
-      permission: false,
+      permission: true,
     },
   ];
 
