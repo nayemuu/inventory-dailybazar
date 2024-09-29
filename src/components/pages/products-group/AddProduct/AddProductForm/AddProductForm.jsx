@@ -53,6 +53,8 @@ const AddProductForm = () => {
   const [supplierProductCategory, setSupplierProductCategory] = useState("");
   const [status, setStatus] = useState("");
 
+  console.log("subcategoryName1 = ", subcategoryName1);
+
   const clearHandler = () => {
     setSupplierCategory("");
     setSupplierName("");
@@ -97,8 +99,8 @@ const AddProductForm = () => {
         <Select
           label="Sub Category 1"
           data={categories}
-          valueField="id"
-          titleField="name"
+          valueKey="id"
+          titleKey="name"
           required={true}
           setValue={setSubcategoryName1}
           defaultValue="Select Sub Category 1"
@@ -107,8 +109,8 @@ const AddProductForm = () => {
         <Select
           label="Sub Category 2"
           data={categories}
-          valueField="id"
-          titleField="name"
+          valueKey="id"
+          titleKey="name"
           setValue={setSubcategoryName2}
           defaultValue="Select Sub Category 2"
         />
