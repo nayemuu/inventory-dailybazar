@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Select.css";
 
-const Select = ({ label, required = false }) => {
+const Select = ({ label, defaultValue, required = false }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleChange = (e) => {
@@ -38,7 +38,7 @@ const Select = ({ label, required = false }) => {
         required={required}
       >
         <option value="" disabled>
-          Choose a country
+          {defaultValue}
         </option>
         <option value="US">United States</option>
         <option value="CA">Canada</option>
