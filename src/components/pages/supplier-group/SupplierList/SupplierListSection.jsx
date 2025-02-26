@@ -267,6 +267,8 @@ const SupplierListSection = () => {
       );
       setOffset(newOffset);
       setInitialPage(event.nextSelectedPage); // Update the initialPage state
+      //এখানে, handlePageClick এর মধ্যে API কল করি নাই, কারণ হচ্ছে user যদি একই পেজে বারবার click করে তাহলে প্রতিবার ক্লিকের জন্য যাতে API কল হয়ে না যায়
+      // তাই এখানে state changed করেছি, state এর value একই হলে, তার জন্য আর re-render হবে না, যার কারণে API call আরো optimize হবে
     }
   };
 
@@ -315,6 +317,10 @@ const SupplierListSection = () => {
               <div className="shrink-0">
                 <ReactPaginate
                   key={initialPage} // Force re-render on initialPage change
+                  // ReactPaginate DOM এ render হওয়ার পর, আমরা যদি initialPage property তে state ব্যবহার করে ReactPaginate এর page number change করতে চাই
+                  //তাহলে key তে initialPage এর state value অবশ্যই দিতে হবে, অন্যথায় page number change চেঞ্জ হবে না
+                  //key change হওয়া মানে ReactPaginate DOM এ নতুন করে render হবে, সেই সময় initialPage এর value যা দিব page number তা থেকে এক বেশি হবে
+                  // initialPage এর value 0 হলে পেজ নাম্বার হবে 1
                   breakLabel="..."
                   nextLabel=""
                   onClick={handlePageClick}
