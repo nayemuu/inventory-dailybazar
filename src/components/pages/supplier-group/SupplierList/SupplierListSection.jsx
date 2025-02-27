@@ -267,8 +267,12 @@ const SupplierListSection = () => {
       );
       setOffset(newOffset);
       setInitialPage(event.nextSelectedPage); // Update the initialPage state
-      //এখানে, handlePageClick এর মধ্যে API কল করি নাই, কারণ হচ্ছে user যদি একই পেজে বারবার click করে তাহলে প্রতিবার ক্লিকের জন্য যাতে API কল হয়ে না যায়
+      // একই page numberএ পর পর বারবার ক্লিক এর জন্য onClick/ handlePageClick বারবার call হবে না
+
+      //  Doubt I have
+      //এখানে, handlePageClick এর মধ্যে API কল করি নাই, কারণ হচ্ছে user যদি একই পেজে বারবার click করে তাহলে প্রতিবার ক্লিকের জন্য যাতে API কল হয়ে না যায় - This is wrong concept
       // তাই এখানে state changed করেছি, state এর value একই হলে, তার জন্য আর re-render হবে না, যার কারণে API call আরো optimize হবে
+      //above 2 line is wrong information, উপরের দুইটি লাইন ডিলিট করি নাই কারণ এই চিন্তা যদি আমার মাথায় আসে, এটার জন্য পরবর্তীতে যেন আর সময় নষ্ট না করি
     }
   };
 
