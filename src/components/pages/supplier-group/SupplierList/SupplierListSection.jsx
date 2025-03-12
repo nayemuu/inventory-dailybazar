@@ -268,6 +268,7 @@ const SupplierListSection = () => {
       setOffset(newOffset);
       setInitialPage(event.nextSelectedPage); // Update the initialPage state
       // একই page numberএ পর পর বারবার ক্লিক এর জন্য onClick/ handlePageClick বারবার call হবে না
+      //কেননা যেই page number সিলেক্ট করা আছে ওই page numberএ আবার ক্লিক করলে আমরা undefined পাবো, আর undefined পেলে এই blockএ যাতে না ঢুকে সে ব্যবস্থা করে রেখেছি
 
       //  Doubt I have
       //এখানে, handlePageClick এর মধ্যে API কল করি নাই, কারণ হচ্ছে user যদি একই পেজে বারবার click করে তাহলে প্রতিবার ক্লিকের জন্য যাতে API কল হয়ে না যায় - This is wrong concept
